@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ernährungsplan</title>
+<meta name="description" content="Wochenplan 2.1 – 1.975 kcal, 146 g Protein, 4,79 € pro Tag">
+<script>
+(function(){var t=null;try{t=localStorage.getItem("ep-theme");}catch(e){}
+if(!t)t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+document.documentElement.setAttribute("data-theme",t);})();
+</script>
+<style>
+:root{
+  --bg:#eef1f8; --card:#ffffff; --card2:#f6f8fc; --ink:#12172a; --ink2:#3a4361; --muted:#6b7590;
+  --faint:#a1aac0; --line:#e4e8f4; --lineSoft:#eef1f9; --hair:#f4f6fb;
+  --accent:#4a5cf5; --accent2:#8b5cf6; --accentSoft:#eaedff;
+  --green:#17a35b; --greenSoft:#e5f7ec; --amber:#c9820f; --amberSoft:#fbf0da; --red:#e0294a; --redSoft:#fde8ec;
+  --sky:#0f7fc4; --skySoft:#e2f2fc; --violet:#7c4ddb; --violetSoft:#efe8fd;
+  --hero1:#1a2454; --hero2:#33459f; --hero3:#7b5cf0; --hero4:#c026d3; --heroAcc:#8fd3ff;
+  --num:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  --ui:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --sh:0 10px 32px -18px rgba(24,32,64,.28),0 2px 8px -4px rgba(24,32,64,.10);
+  --shHover:0 18px 44px -18px rgba(24,32,64,.32),0 4px 14px -6px rgba(24,32,64,.16);
+  --shUp:0 30px 64px -26px rgba(20,28,60,.5);
+  --mesh1:rgba(74,92,245,.11); --mesh2:rgba(139,92,246,.10); --mesh3:rgba(59,87,214,.07);
+  --ring:0 0 0 3px var(--accentSoft);
+  color-scheme:light;
+}
+html[data-theme="dark"]{
+  --bg:#0b0d14; --card:#161a24; --card2:#1c2130; --ink:#eef1f8; --ink2:#c6cde0; --muted:#8b95ac;
+  --faint:#565f74; --line:#262c3c; --lineSoft:#1e2432; --hair:#1a1f2b;
+  --accent:#8b98ff; --accent2:#b39bff; --accentSoft:#242b4a;
+  --green:#4fd189; --greenSoft:#16271d; --amber:#eab24e; --amberSoft:#2c2413; --red:#ff7b8f; --redSoft:#2e1a20;
+  --sky:#5cbcf5; --skySoft:#142534; --violet:#b39bff; --violetSoft:#241d3c;
+  --hero1:#0d1230; --hero2:#1c2a72; --hero3:#4b2fa0; --hero4:#7e2a8c;
+  --sh:0 10px 32px -16px rgba(0,0,0,.7),0 2px 10px -6px rgba(0,0,0,.55);
+  --shHover:0 20px 50px -18px rgba(0,0,0,.75),0 6px 16px -8px rgba(0,0,0,.6);
+  --shUp:0 30px 64px -22px rgba(0,0,0,.85);
+  --mesh1:rgba(139,152,255,.14); --mesh2:rgba(167,139,250,.11); --mesh3:rgba(76,58,168,.16);
+  color-scheme:dark;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+html{scroll-behavior:smooth;scroll-padding-top:70px;-webkit-text-size-adjust:100%;}
+body{font-family:var(--ui);background:var(--bg);color:var(--ink);padding:24px 16px 90px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;transition:background .35s,color .35s;position:relative;min-height:100vh;}
+body::before{content:"";position:fixed;inset:-80px;z-index:-2;pointer-events:none;
+  background:
+    radial-gradient(620px circle at 12% 6%,var(--mesh1),transparent 60%),
+    radial-gradient(520px circle at 94% 12%,var(--mesh2),transparent 60%),
+    radial-gradient(760px circle at 50% 105%,var(--mesh3),transparent 60%);
+  animation:bgDrift 28s ease-in-out infinite;}
+.bgfx{position:fixed;inset:0;overflow:hidden;z-index:-1;pointer-events:none;}
+.orb{position:absolute;border-radius:50%;filter:blur(64px);}
+.orb.o1{width:360px;height:360px;left:-90px;top:-70px;background:radial-gradient(circle,rgba(79,70,229,.38),transparent 70%);animation:orbFloat1 30s ease-in-out infinite;}
+.orb.o2{width:300px;height:300px;right:-70px;top:8%;background:radial-gradient(circle,rgba(236,72,153,.32),transparent 70%);animation:orbFloat2 24s ease-in-out infinite;}
+.orb.o3{width:340px;height:340px;left:6%;bottom:-110px;background:radial-gradient(circle,rgba(16,185,129,.26),transparent 70%);animation:orbFloat3 34s ease-in-out infinite;}
+.orb.o4{width:260px;height:260px;right:10%;bottom:4%;background:radial-gradient(circle,rgba(251,146,60,.28),transparent 70%);animation:orbFloat1 26s ease-in-out infinite reverse;}
+.fly{position:absolute;width:34px;height:34px;opacity:.4;}
+.fly.f1{color:#ec4899;left:16%;top:13%;animation:fly1 22s ease-in-out infinite;}
+.fly.f2{color:#22c1c3;right:18%;top:20%;width:26px;height:26px;animation:fly2 28s ease-in-out infinite;}
+.fly.f3{color:#f59e0b;left:36%;bottom:15%;width:22px;height:22px;animation:fly3 19s ease-in-out infinite;}
+.fly.f4{color:#8b5cf6;right:9%;bottom:26%;width:30px;height:30px;animation:fly1 25s ease-in-out infinite reverse;}
+.fly.f5{color:#38bdf8;left:5%;top:44%;width:12px;height:12px;animation:fly2 16s ease-in-out infinite;}
+.fly.f6{color:#fb7185;right:32%;top:6%;width:20px;height:20px;animation:fly3 21s ease-in-out infinite reverse;}
+@keyframes orbFloat1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(44px,32px) scale(1.08);}}
+@keyframes orbFloat2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-38px,28px) scale(.94);}}
+@keyframes orbFloat3{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(26px,-32px) scale(1.1);}}
+@keyframes fly1{0%,100%{transform:translate(0,0) rotate(0deg);}50%{transform:translate(28px,-20px) rotate(180deg);}}
+@keyframes fly2{0%,100%{transform:translate(0,0) rotate(0deg);}50%{transform:translate(-24px,22px) rotate(-160deg);}}
+@keyframes fly3{0%,100%{transform:translate(0,0) rotate(0deg);}50%{transform:translate(18px,26px) rotate(200deg);}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+@keyframes shimmer{0%{transform:translateX(-120%);}100%{transform:translateX(320%);}}
+@keyframes floatBlob{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-14px,10px) scale(1.05);}}
+@keyframes bgDrift{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-16px,12px) scale(1.04);}}
+@keyframes flash{0%{box-shadow:0 0 0 0 var(--accent);}100%{box-shadow:0 0 0 14px transparent;}}
+
+.app{max-width:1000px;margin:0 auto;}
+.num{font-family:var(--num);font-variant-numeric:tabular-nums;}
+button{font-family:inherit;}
+a{color:inherit;}
+
+/* Topbar */
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:20px;}
+.brand{display:flex;flex-direction:column;}
+.eyebrow{font-size:11px;letter-spacing:2.6px;font-weight:800;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;}
+h1{font-size:27px;font-weight:800;margin:3px 0 0;letter-spacing:-.6px;}
+.mnav{display:flex;align-items:center;gap:7px;}
+.mbtn{width:36px;height:36px;border-radius:11px;border:1px solid var(--line);background:var(--card);color:var(--ink2);
+  font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.16s cubic-bezier(.4,0,.2,1);box-shadow:var(--sh);}
+.mbtn:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px);box-shadow:var(--shHover);}
+.ghost{border:1px solid var(--line);background:var(--card);color:var(--ink2);border-radius:11px;height:36px;
+  padding:0 13px;font-size:12.5px;font-weight:600;cursor:pointer;transition:.16s cubic-bezier(.4,0,.2,1);box-shadow:var(--sh);}
+.ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px);box-shadow:var(--shHover);}
+
+/* Hero */
+.hero{position:relative;border-radius:24px;overflow:hidden;padding:28px 30px;margin-bottom:16px;
+  color:#fff;background:
+    radial-gradient(680px circle at 88% -12%,rgba(255,255,255,.12),transparent 60%),
+    linear-gradient(135deg,var(--hero1),var(--hero2) 38%,var(--hero3) 70%,var(--hero4));
+  box-shadow:var(--shUp);border:1px solid rgba(255,255,255,.08);}
+.hero::after{content:"";position:absolute;right:-90px;top:-90px;width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle,rgba(143,211,255,.34),transparent 70%);animation:floatBlob 12s ease-in-out infinite;}
+.hero::before{content:"";position:absolute;left:-60px;bottom:-100px;width:260px;height:260px;border-radius:50%;
+  background:radial-gradient(circle,rgba(236,72,153,.3),transparent 70%);animation:floatBlob 15s ease-in-out infinite reverse;}
+.hero .rel{position:relative;z-index:1;}
+.hlead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;}
+.hlbl{font-size:11px;letter-spacing:2.4px;font-weight:700;color:var(--heroAcc);}
+.hbig{font-size:48px;font-weight:800;line-height:1.02;margin-top:7px;letter-spacing:-1.6px;
+  text-shadow:0 4px 30px rgba(143,211,255,.35),0 2px 12px rgba(0,0,0,.22);}
+.hbig .unit{font-size:20px;letter-spacing:0;opacity:.75;font-weight:700;}
+.hsmall{font-size:13px;color:rgba(255,255,255,.74);margin-top:8px;max-width:52ch;}
+.hpills{display:flex;flex-direction:column;gap:8px;align-items:flex-end;}
+.hpill{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);
+  border-radius:999px;padding:8px 14px;font-size:12.5px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  box-shadow:0 8px 20px -10px rgba(0,0,0,.3);white-space:nowrap;}
+.hbar{height:10px;background:rgba(255,255,255,.15);border-radius:999px;overflow:hidden;margin-top:22px;display:flex;gap:3px;}
+.hbar i{display:block;height:100%;position:relative;overflow:hidden;}
+.hbar i:first-child{border-radius:999px 0 0 999px;} .hbar i:last-child{border-radius:0 999px 999px 0;}
+.hbar i::after{content:"";position:absolute;inset:0;width:40%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);animation:shimmer 2.6s ease-in-out infinite;}
+.b1{background:#fcd34d;} .b2{background:#8fd3ff;} .b3{background:#c4b5fd;} .b4{background:#f9a8d4;}
+.hstats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.12);border-radius:14px;
+  overflow:hidden;margin-top:14px;}
+.hst{background:rgba(10,14,30,.12);padding:13px 16px;transition:background .18s;text-decoration:none;color:#fff;display:block;position:relative;}
+.hst::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;}
+.hst:nth-child(1)::before{background:#fcd34d;} .hst:nth-child(2)::before{background:#8fd3ff;}
+.hst:nth-child(3)::before{background:#c4b5fd;} .hst:nth-child(4)::before{background:#f9a8d4;}
+.hst:hover{background:rgba(255,255,255,.1);}
+.hst .k{font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.66);font-weight:600;}
+.hst .v{font-size:19px;font-weight:700;margin-top:4px;}
+.hst .s{font-size:11.5px;color:rgba(255,255,255,.66);margin-top:1px;}
+
+/* Sprungnavigation */
+.jump{position:sticky;top:8px;z-index:30;display:flex;gap:6px;overflow-x:auto;padding:6px;margin:0 0 18px;
+  background:color-mix(in srgb,var(--card) 78%,transparent);border:1px solid var(--line);border-radius:16px;
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:var(--sh);scrollbar-width:none;}
+.jump::-webkit-scrollbar{display:none;}
+.jump a{flex:none;text-decoration:none;font-size:12.5px;font-weight:600;color:var(--ink2);padding:7px 12px;border-radius:11px;
+  transition:.15s;white-space:nowrap;}
+.jump a:hover{background:var(--accentSoft);color:var(--accent);}
+.jump a.on-today{background:linear-gradient(135deg,var(--accent),var(--accent2) 65%,#ec4899);color:#fff;}
+
+.grp{font-size:11px;letter-spacing:2.2px;text-transform:uppercase;font-weight:800;color:var(--muted);margin:26px 4px 10px;
+  display:flex;align-items:center;gap:10px;}
+.grp::after{content:"";flex:1;height:1px;background:var(--line);}
+
+/* Karten */
+.card{background:var(--card);border:1px solid var(--line);border-radius:19px;box-shadow:var(--sh);
+  overflow:hidden;margin-bottom:12px;position:relative;transition:box-shadow .22s,border-color .22s;
+  animation:fadeInUp .45s cubic-bezier(.4,0,.2,1) both;}
+.card::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;z-index:1;
+  background:linear-gradient(90deg,var(--accent),var(--accent2) 55%,#ec4899);opacity:.22;transition:opacity .25s ease;}
+.card:hover{box-shadow:var(--shHover);}
+.card:hover::before,.card[open]::before{opacity:1;}
+.card.flash{animation:flash .9s ease-out;}
+.chead{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:17px 21px;border-bottom:1px solid var(--lineSoft);flex-wrap:wrap;}
+.ctitle{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:800;color:var(--ink2);display:block;}
+.csub{font-size:12.5px;color:var(--muted);margin-top:3px;display:block;line-height:1.4;}
+.ctot{font-size:16.5px;font-weight:800;}
+
+details>summary{list-style:none;cursor:pointer;}
+details>summary::-webkit-details-marker{display:none;}
+.chev{color:var(--faint);font-size:12px;transition:transform .22s cubic-bezier(.4,0,.2,1);flex:none;}
+details[open]>summary .chev{transform:rotate(180deg);color:var(--accent);}
+
+.sec>summary{display:flex;align-items:center;gap:14px;padding:16px 20px;transition:background .15s;}
+.sec>summary:hover{background:var(--card2);}
+.sec[open]>summary{border-bottom:1px solid var(--line);}
+.sico{width:46px;height:46px;border-radius:14px;flex:none;display:flex;align-items:center;justify-content:center;font-size:23px;
+  border:1px solid var(--line);background:var(--card2);transition:transform .18s;}
+.sec>summary:hover .sico{transform:scale(1.06) rotate(-3deg);}
+.s-fr{background:linear-gradient(135deg,rgba(252,211,77,.35),rgba(252,211,77,.08));border-color:rgba(234,179,8,.3);}
+.s-mi{background:linear-gradient(135deg,rgba(56,189,248,.3),rgba(56,189,248,.07));border-color:rgba(14,165,233,.3);}
+.s-sn{background:linear-gradient(135deg,rgba(167,139,250,.32),rgba(167,139,250,.07));border-color:rgba(139,92,246,.3);}
+.s-ab{background:linear-gradient(135deg,rgba(244,114,182,.3),rgba(244,114,182,.07));border-color:rgba(236,72,153,.3);}
+.s-wo,.s-ek,.s-gw{background:linear-gradient(135deg,rgba(74,92,245,.22),rgba(74,92,245,.05));border-color:rgba(74,92,245,.25);}
+.shd{flex:1;min-width:0;}
+.sec .ctitle{font-size:12px;}
+.snums{font-size:12.5px;color:var(--muted);white-space:nowrap;text-align:right;}
+.snums b{color:var(--ink);font-weight:800;font-size:14px;}
+.cbody{padding:18px 20px 20px;animation:fadeInUp .3s ease both;}
+.intro{margin:0 0 14px;font-size:13.5px;color:var(--muted);max-width:72ch;}
+
+/* Heute */
+.tgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:14px;}
+.tslot{display:flex;gap:11px;align-items:center;padding:12px;border-radius:14px;border:1px solid var(--line);background:var(--card2);
+  text-decoration:none;transition:.18s cubic-bezier(.4,0,.2,1);min-width:0;}
+.tslot:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--sh);}
+.tslot .emo{font-size:24px;flex:none;filter:drop-shadow(0 2px 4px rgba(0,0,0,.14));}
+.tslot .tt{min-width:0;}
+.tslot .tk{font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--faint);font-weight:700;display:block;}
+.tslot .tn{font-size:13px;font-weight:600;color:var(--ink);display:block;line-height:1.3;margin-top:2px;}
+
+/* Filter */
+.filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px;}
+.mini{border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:999px;padding:7px 13px;
+  font-size:12px;font-weight:600;cursor:pointer;transition:.16s cubic-bezier(.4,0,.2,1);display:inline-flex;align-items:center;gap:6px;}
+.mini:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px);}
+.mini.on{background:linear-gradient(135deg,var(--accent),var(--accent2) 65%,#ec4899);border-color:transparent;color:#fff;font-weight:700;
+  box-shadow:0 8px 18px -10px var(--accent);}
+.d{width:8px;height:8px;border-radius:3px;display:inline-block;flex:none;}
+.k-meat .d,.d.k-meat{background:var(--red);} .k-fish .d,.d.k-fish{background:var(--sky);}
+.k-veg .d,.d.k-veg{background:var(--green);} .k-snack .d,.d.k-snack{background:var(--violet);}
+.k-light .d,.d.k-light{background:var(--amber);}
+
+/* Rezepte */
+.rlist{display:flex;flex-direction:column;gap:8px;}
+.recipe{border:1px solid var(--hair);border-radius:16px;background:var(--card);transition:.18s cubic-bezier(.4,0,.2,1);}
+.recipe:hover{border-color:var(--line);box-shadow:var(--sh);}
+.recipe[open]{border-color:var(--line);box-shadow:var(--sh);}
+.recipe.hide{display:none;}
+.recipe.flash{animation:flash .9s ease-out;}
+.recipe>summary{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:16px;transition:background .15s;}
+.recipe>summary:hover{background:var(--card2);}
+.recipe[open]>summary{border-bottom:1px solid var(--lineSoft);border-radius:16px 16px 0 0;}
+.thumb{width:52px;height:52px;border-radius:13px;border:1px solid var(--line);flex:none;display:flex;align-items:center;justify-content:center;transition:.18s;}
+.recipe>summary:hover .thumb{transform:scale(1.06) rotate(-3deg);}
+.thumb .emo{font-size:26px;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.14));}
+.t-meat{background:linear-gradient(135deg,rgba(224,41,74,.18),rgba(224,41,74,.04));border-color:rgba(224,41,74,.25);}
+.t-fish{background:linear-gradient(135deg,rgba(15,127,196,.2),rgba(15,127,196,.04));border-color:rgba(15,127,196,.25);}
+.t-veg{background:linear-gradient(135deg,rgba(23,163,91,.2),rgba(23,163,91,.04));border-color:rgba(23,163,91,.25);}
+.t-snack{background:linear-gradient(135deg,rgba(124,77,219,.2),rgba(124,77,219,.04));border-color:rgba(124,77,219,.25);}
+.t-light{background:linear-gradient(135deg,rgba(201,130,15,.2),rgba(201,130,15,.04));border-color:rgba(201,130,15,.25);}
+.rmid{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px;}
+.rname{font-size:14.5px;font-weight:650;font-weight:600;line-height:1.3;}
+.rmeta{display:flex;gap:5px;flex-wrap:wrap;}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);background:var(--card2);
+  border:1px solid var(--line);border-radius:999px;padding:2px 9px;white-space:nowrap;}
+.rnums{display:grid;grid-template-columns:auto auto;column-gap:5px;align-items:baseline;text-align:right;flex:none;}
+.rnums b{font-size:15px;font-weight:800;}
+.rnums b.prot{font-size:13px;color:var(--accent);}
+.rnums small{font-size:10.5px;color:var(--faint);text-align:left;}
+.rbody{padding:14px 16px 16px;animation:fadeInUp .28s ease both;}
+.rlead{margin:0 0 12px;font-size:12.5px;color:var(--muted);}
+
+/* Zutaten */
+.ing{border:1px solid var(--line);border-radius:13px;overflow:hidden;margin-bottom:14px;}
+.ing-h,.ing-r{display:grid;gap:10px;padding:8px 13px;align-items:baseline;}
+.ing.c2 .ing-h,.ing.c2 .ing-r{grid-template-columns:1fr auto;}
+.ing.c4 .ing-h,.ing.c4 .ing-r{grid-template-columns:1fr 80px 60px 72px;}
+.ing-h{background:var(--card2);font-size:10.5px;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);font-weight:700;border-bottom:1px solid var(--line);}
+.ing-h span:not(:first-child){text-align:right;}
+.ing-r{font-size:13.5px;border-bottom:1px solid var(--hair);transition:background .14s;}
+.ing-r:last-child{border-bottom:none;}
+.ing-r:hover{background:var(--card2);}
+.ing-r .n{text-align:right;font-family:var(--num);font-variant-numeric:tabular-nums;font-size:12.5px;font-weight:600;white-space:nowrap;}
+.ing-total{display:grid;grid-template-columns:1fr 80px 72px;gap:10px;padding:10px 13px;margin:-8px 0 16px;border-radius:12px;
+  background:var(--accentSoft);color:var(--accent);font-weight:800;font-size:13.5px;}
+.ing-total span:not(:first-child){text-align:right;}
+.ing-total.two{grid-template-columns:1fr auto;margin:10px 0 0;}
+
+/* Anleitung */
+.howto{font-size:13.5px;}
+.mise{margin:0 0 14px;padding:12px 14px;background:var(--card2);border:1px dashed var(--line);border-radius:12px;
+  font-size:13px;line-height:1.55;color:var(--ink2);}
+.mise b{color:var(--ink);font-weight:700;display:block;margin-bottom:3px;}
+.steps{margin:0;padding:0;list-style:none;counter-reset:st;}
+.steps li{position:relative;padding:0 0 16px 40px;counter-increment:st;font-size:13.5px;line-height:1.6;color:var(--ink2);}
+.steps li::before{content:counter(st);position:absolute;left:0;top:0;width:26px;height:26px;border-radius:9px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:12px;font-weight:800;font-family:var(--num);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 6px 14px -8px var(--accent);}
+.steps li:not(:last-child)::after{content:"";position:absolute;left:12.5px;top:30px;bottom:4px;width:1px;background:var(--line);}
+.steps li b{color:var(--ink);font-weight:700;}
+.steps li .cue{display:block;margin-top:7px;padding:8px 11px;border-radius:10px;background:var(--card2);
+  border-left:3px solid var(--accent2);color:var(--muted);font-size:12.5px;line-height:1.55;}
+.steps li .cue b{color:var(--ink2);}
+.tip{margin:6px 0 0;padding:11px 13px;background:var(--amberSoft);border-radius:12px;border-left:3px solid var(--amber);
+  font-size:13px;line-height:1.55;color:var(--ink2);}
+.tip+.tip{margin-top:8px;}
+.tip b{color:var(--ink);}
+.subhead{font-size:11px;letter-spacing:1.7px;text-transform:uppercase;font-weight:800;color:var(--ink2);margin:22px 0 10px;}
+.subhead:first-child{margin-top:0;}
+.note{margin:14px 0 0;font-size:13px;color:var(--muted);line-height:1.6;max-width:72ch;}
+.note strong{color:var(--ink2);}
+
+/* Würzrichtungen */
+.wzgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
+.wz{background:var(--card2);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:13px;padding:12px 14px;
+  transition:.18s cubic-bezier(.4,0,.2,1);}
+.wz:nth-child(2){border-left-color:#ec4899;} .wz:nth-child(3){border-left-color:var(--green);}
+.wz:hover{transform:translateY(-2px);box-shadow:var(--sh);}
+.wzh{display:flex;flex-direction:column;gap:1px;margin-bottom:6px;}
+.wzt{font-weight:800;font-size:14.5px;}
+.wzs{font-size:11.5px;color:var(--muted);}
+.wz p{margin:0;font-size:12.5px;line-height:1.5;color:var(--ink2);}
+
+/* Woche */
+.wkh,.wk{display:grid;grid-template-columns:44px 1.4fr 1fr 64px 74px;gap:10px;align-items:center;padding:9px 10px;}
+.wkh{font-size:10.5px;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);font-weight:700;background:var(--card2);border-radius:11px;}
+.wkh span:nth-child(n+4){text-align:right;}
+.wk{border-bottom:1px solid var(--hair);border-radius:11px;transition:background .14s;font-size:13.5px;}
+.wk:hover{background:var(--card2);}
+.wkd{font-weight:800;font-family:var(--num);width:34px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;
+  background:var(--card2);border:1px solid var(--line);font-size:12.5px;}
+.wk.today{background:var(--accentSoft);}
+.wk.today .wkd{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-color:transparent;}
+.wkm,.wks{text-decoration:none;font-weight:600;border-radius:7px;transition:color .14s;}
+.wks{color:var(--ink2);font-weight:500;}
+.wkm:hover,.wks:hover{color:var(--accent);text-decoration:underline;text-underline-offset:3px;}
+.wkn{text-align:right;font-size:12.5px;font-weight:700;}
+
+/* Checklisten */
+.prog{height:6px;background:var(--lineSoft);border-radius:999px;overflow:hidden;margin-bottom:12px;}
+.prog i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--green),#2fcf7a);transition:width .4s cubic-bezier(.4,0,.2,1);}
+.cklist{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.ck{display:flex;align-items:center;gap:11px;padding:9px 11px;border:1px solid var(--hair);border-radius:12px;cursor:pointer;
+  transition:.15s;background:var(--card);}
+.ck:hover{border-color:var(--line);background:var(--card2);}
+.ck input{position:absolute;opacity:0;pointer-events:none;}
+.ck .box{width:20px;height:20px;border-radius:7px;border:1.5px solid var(--faint);flex:none;display:flex;align-items:center;justify-content:center;transition:.16s;}
+.ck input:checked+.box{background:linear-gradient(135deg,var(--green),#2fcf7a);border-color:transparent;}
+.ck input:checked+.box::after{content:"";width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px);}
+.ck input:focus-visible+.box{box-shadow:var(--ring);}
+.cknm{flex:1;min-width:0;font-size:13px;line-height:1.3;}
+.cknm small{display:block;font-size:11.5px;color:var(--faint);margin-top:1px;}
+.ckp{font-size:12.5px;font-weight:700;white-space:nowrap;}
+.ck:has(input:checked) .cknm{text-decoration:line-through;color:var(--faint);}
+.ck:has(input:checked){background:var(--greenSoft);border-color:transparent;}
+.cfoot{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px;}
+
+/* Wissen: Tabellen & Texte */
+.prose{font-size:13.5px;}
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:13px;}
+.tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:480px;}
+.tbl th{text-align:left;font-size:10.5px;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);font-weight:700;
+  padding:9px 12px;background:var(--card2);border-bottom:1px solid var(--line);}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--hair);vertical-align:top;color:var(--ink2);line-height:1.5;}
+.tbl td strong{color:var(--ink);}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tbody tr:hover td{background:var(--card2);}
+.tbl th.n,.tbl td.n{text-align:right;white-space:nowrap;font-family:var(--num);font-variant-numeric:tabular-nums;}
+.tbl tr.total td{font-weight:800;color:var(--accent);background:var(--accentSoft);}
+.pill{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap;}
+.pill.ok{background:var(--greenSoft);color:var(--green);}
+.pill.warn{background:var(--redSoft);color:var(--red);}
+.callout p{margin:0 0 12px;padding:13px 15px;background:var(--card2);border-radius:13px;border-left:3px solid var(--accent2);
+  font-size:13.5px;line-height:1.6;color:var(--ink2);}
+.callout p:last-child{margin:0;}
+.callout strong{color:var(--ink);display:block;margin-bottom:2px;}
+
+footer{margin:26px 4px 0;font-size:12px;color:var(--faint);line-height:1.6;}
+
+.toTop{position:fixed;right:18px;bottom:18px;width:42px;height:42px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-weight:800;cursor:pointer;box-shadow:var(--shUp);
+  opacity:0;transform:translateY(10px);transition:.25s;pointer-events:none;z-index:40;}
+.toTop.on{opacity:1;transform:none;pointer-events:auto;}
+
+@media (max-width:800px){
+  .hstats{grid-template-columns:repeat(2,1fr);}
+  .tgrid{grid-template-columns:repeat(2,1fr);}
+  .wzgrid{grid-template-columns:1fr;}
+  .cklist{grid-template-columns:1fr;}
+}
+@media (max-width:560px){
+  body{padding:16px 12px 80px;}
+  .hero{padding:22px 18px;border-radius:20px;}
+  .hbig{font-size:40px;}
+  .hpills{flex-direction:row;align-items:flex-start;flex-wrap:wrap;}
+  .tgrid{grid-template-columns:1fr;}
+  .sec>summary{padding:14px 14px;gap:11px;}
+  .sico{width:40px;height:40px;font-size:20px;border-radius:12px;}
+  .snums{display:none;}
+  .cbody{padding:14px 12px 16px;}
+  .recipe>summary{padding:9px 10px;gap:10px;}
+  .thumb{width:44px;height:44px;}
+  .thumb .emo{font-size:22px;}
+  .rname{font-size:13.5px;}
+  .rnums{grid-template-columns:auto;}
+  .rnums small{display:none;}
+  .rbody{padding:12px 11px 14px;}
+  .ing.c4 .ing-h,.ing.c4 .ing-r{grid-template-columns:1fr 64px 44px 58px;gap:6px;padding:8px 10px;}
+  .ing-total{grid-template-columns:1fr auto auto;}
+  .steps li{padding-left:36px;}
+  .wkh{display:none;}
+  .wk{grid-template-columns:40px 1fr auto;grid-template-areas:"d m k" "d s p";row-gap:2px;}
+  .wkd{grid-area:d;} .wkm{grid-area:m;} .wks{grid-area:s;font-size:12.5px;}
+  .wk .wkn:nth-child(4){grid-area:k;} .wk .wkn:nth-child(5){grid-area:p;color:var(--accent);}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important;}html{scroll-behavior:auto;}}
+@media print{
+  body{background:#fff;padding:0;} .bgfx,.jump,.mnav,.toTop,.filters,.cfoot,.today{display:none !important;}
+  .card,.recipe{box-shadow:none;break-inside:avoid-page;animation:none;}
+  .hero{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
+
+</style>
+</head>
+<body>
+<div class="bgfx" aria-hidden="true">
+  <i class="orb o1"></i><i class="orb o2"></i><i class="orb o3"></i><i class="orb o4"></i>
+  <svg class="fly f1" viewBox="0 0 40 40"><circle cx="20" cy="20" r="15" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>
+  <svg class="fly f2" viewBox="0 0 40 40"><rect x="9" y="9" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" transform="rotate(45 20 20)"/></svg>
+  <svg class="fly f3" viewBox="0 0 40 40"><path d="M20 5 L20 35 M5 20 L35 20" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>
+  <svg class="fly f4" viewBox="0 0 40 40"><polygon points="20,6 34,32 6,32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>
+  <svg class="fly f5" viewBox="0 0 40 40"><circle cx="20" cy="20" r="5" fill="currentColor"/></svg>
+  <svg class="fly f6" viewBox="0 0 40 40"><circle cx="20" cy="20" r="11" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+</div>
+<div class="app">
+
+  <div class="topbar">
+    <div class="brand"><span class="eyebrow">ERNÄHRUNGSPLAN</span><h1>Wochenplan 2.1</h1></div>
+    <div class="mnav">
+      <button class="ghost" id="collapseB">Alles zuklappen</button>
+      <button class="mbtn" id="themeB" title="Hell / Dunkel" aria-label="Hell / Dunkel umschalten">◐</button>
+    </div>
+  </div>
+
+  <div class="hero"><div class="rel">
+    <div class="hlead">
+      <div>
+        <div class="hlbl">PRO TAG</div>
+        <div class="hbig num">1.975 <span class="unit">kcal</span></div>
+        <div class="hsmall">Airfryer, Snacks, echtes Essen. Frühstück und Abendessen fest, mittags neun Varianten, dazwischen ein Snack.</div>
+      </div>
+      <div class="hpills">
+        <div class="hpill">💪 <b class="num">146 g</b> Protein</div>
+        <div class="hpill">💶 <b class="num">4,79 €</b> / Tag</div>
+      </div>
+    </div>
+    <div class="hbar" role="img" aria-label="Kalorienverteilung: Frühstück 27,6 %, Mittag 32,9 %, Snack 9,1 %, Abend 30,4 %">
+      <i class="b1" style="width:27.6%"></i><i class="b2" style="width:32.9%"></i><i class="b3" style="width:9.1%"></i><i class="b4" style="width:30.4%"></i>
+    </div>
+    <div class="hstats">
+      <a class="hst" href="#fruehstueck" data-open="fruehstueck"><div class="k">🥣 Frühstück</div><div class="v num">546</div><div class="s">35 g Protein</div></a>
+      <a class="hst" href="#mittagessen" data-open="mittagessen"><div class="k">🍗 Mittag</div><div class="v num">~650</div><div class="s">~50 g Protein</div></a>
+      <a class="hst" href="#snacks" data-open="snacks"><div class="k">🍎 Snack</div><div class="v num">~175</div><div class="s">~16 g Protein</div></a>
+      <a class="hst" href="#abendessen" data-open="abendessen"><div class="k">🍲 Abend</div><div class="v num">604</div><div class="s">45 g Protein</div></a>
+    </div>
+  </div></div>
+
+  <nav class="jump" aria-label="Bereiche">
+    <a href="#heute" data-open="heute" class="on-today">Heute</a>
+    <a href="#fruehstueck" data-open="fruehstueck">Frühstück</a>
+    <a href="#mittagessen" data-open="mittagessen">Mittagessen</a>
+    <a href="#snacks" data-open="snacks">Snacks</a>
+    <a href="#abendessen" data-open="abendessen">Abendessen</a>
+    <a href="#woche" data-open="woche">Woche</a>
+    <a href="#einkauf" data-open="einkauf">Einkauf</a>
+    <a href="#wissen">Wissen</a>
+  </nav>
+
+  <div class="today card" id="heute">
+    <div class="chead"><div><div class="ctitle" id="todayTitle">Heute</div><div class="csub">Laut Wochenvorschlag · tippe zum Öffnen</div></div><div class="ctot num" id="todayK"></div></div>
+    <div class="tgrid" id="todayGrid"></div>
+  </div>
+
+  <div class="grp">Mahlzeiten</div>
+
+  <details class="card sec" id="fruehstueck">
+    <summary><span class="sico s-fr">🥣</span><span class="shd"><span class="ctitle">Frühstück</span><span class="csub">Jeden Tag identisch, drei Minuten Arbeit.</span></span>
+      <span class="snums"><b class="num">546</b> kcal · <b class="num">35,1 g</b></span><span class="chev">▾</span></summary>
+    <div class="cbody">
+      <div class="ing c4"><div class="ing-h"><span>Zutat</span><span>Menge</span><span>kcal</span><span>Protein</span></div><div class="ing-r"><span class="nm">Haferflocken</span><span class="n">75 g</span><span class="n">278</span><span class="n">10,1 g</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">180 g</span><span class="n">126</span><span class="n">23,4 g</span></div><div class="ing-r"><span class="nm">Banane</span><span class="n">1 Stück</span><span class="n">106</span><span class="n">1,3 g</span></div><div class="ing-r"><span class="nm">Apfel</span><span class="n">½ Stück</span><span class="n">36</span><span class="n">0,3 g</span></div></div>
+      <div class="ing-total"><span>Summe</span><span class="num">546 kcal</span><span class="num">35,1 g</span></div>
+      <div class="howto"><p class="mise"><b>Was du brauchst</b>Eine Schüssel, eine Gabel, ein Messer. 75 g Haferflocken sind etwa 8 gehäufte Esslöffel. 180 g Magerquark sind gut ein Drittel vom 500-g-Becher.</p>
+<ol class="steps">
+<li><b>Quark cremig rühren.</b> 180 g Magerquark in eine Schüssel. 4 Esslöffel kaltes Wasser (60 ml) dazu. Mit der Gabel 30 Sekunden kräftig rühren.
+          <span class="cue"><b>Fertig, wenn:</b> der Quark glänzt und vom Löffel fließt wie dicker Joghurt. Solange er noch in Brocken hängt, weiter rühren oder einen Esslöffel Wasser mehr. Ohne diesen Schritt wird das Frühstück ein trockener Klumpen.</span>
+</li>
+<li><b>Haferflocken unterrühren.</b> 75 g einfach reinschütten, mit der Gabel durchmischen, bis keine trockenen Stellen mehr zu sehen sind. Dann 5 Minuten stehen lassen.
+          <span class="cue"><b>Warum warten:</b> Die Flocken ziehen Flüssigkeit und werden weich. Sofort gegessen sind sie hart und kratzig.</span>
+</li>
+<li><b>Obst schneiden.</b> Banane längs halbieren, dann quer in Scheiben von etwa 5 mm. Den halben Apfel vierteln, das Kerngehäuse rausschneiden, in Würfel von etwa 1 cm. Schale dranlassen, da sitzen die Ballaststoffe.</li>
+<li><b>Würzen.</b> ½ gestrichener Teelöffel Zimt und 1 Prise Salz unterrühren, dann das Obst dazu.
+          <span class="cue"><b>Das Salz ist kein Tippfehler.</b> Eine Prise Salz im süßen Frühstück lässt die Banane deutlich süßer schmecken. Probier es einmal mit und einmal ohne, der Unterschied ist überraschend groß.</span>
+</li>
+</ol>
+<p class="tip"><b>Overnight-Variante:</b> Schritt 1 bis 2 abends machen, Deckel drauf, Kühlschrank. Morgens ist es cremig wie ein Dessert. Apfel erst morgens dazu, sonst wird er braun.</p>
+<p class="tip"><b>Für Omega-3:</b> 10 g geschrotete Leinsamen (1 gehäufter Esslöffel) mit einrühren. Kostet 4 Cent und 55 kcal, dafür deckst du den Tagesbedarf an pflanzlichem Omega-3. Dafür 15 g Haferflocken weniger.</p></div>
+    </div>
+  </details>
+
+  <details class="card sec" id="mittagessen">
+    <summary><span class="sico s-mi">🍗</span><span class="shd"><span class="ctitle">Mittagessen</span><span class="csub">9 Varianten, alle 638 bis 655 kcal</span></span>
+      <span class="snums"><b class="num">~650</b> kcal · <b class="num">~50 g</b></span><span class="chev">▾</span></summary>
+    <div class="cbody">
+      <p class="intro">Kartoffelmengen immer geschält gewogen. Tippe auf ein Gericht für Zutaten und die komplette Anleitung mit Zeiten, Temperaturen und Prüfpunkten.</p>
+      <div class="filters" data-target="lunchList">
+        <button class="mini on" data-f="all">Alle 9</button>
+        <button class="mini" data-f="meat"><i class="d k-meat"></i>Hähnchen 6</button>
+        <button class="mini" data-f="fish"><i class="d k-fish"></i>Thunfisch 2</button>
+        <button class="mini" data-f="veg"><i class="d k-veg"></i>Vegetarisch 1</button>
+      </div>
+      <div class="rlist" id="lunchList">
+<details class="recipe" id="m-knusprige-haehnchen-nuggets-mit-pommes" data-kind="meat">
+  <summary>
+    <span class="thumb t-meat"><span class="emo">🍗</span></span>
+    <span class="rmid">
+      <span class="rname">Knusprige Hähnchen-Nuggets mit Pommes</span>
+      <span class="rmeta"><span class="chip k-meat"><i class="d"></i>Hähnchen</span><span class="chip">ca. 70 Min</span></span>
+    </span>
+    <span class="rnums"><b class="num">654</b><small>kcal</small><b class="num prot">50,8 g</b><small>Protein</small></span>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="rbody">
+    <p class="rlead">Airfryer, ohne Öl, paniert · ca. 70 Min inkl. Wartezeit, davon 20 Min Arbeit</p>
+    <div class="ing c2"><div class="ing-h"><span>Zutat</span><span>Menge</span></div><div class="ing-r"><span class="nm">Hähnchenbrust, gewürfelt</span><span class="n">130 g</span></div><div class="ing-r"><span class="nm">Kartoffeln, geschält</span><span class="n">420 g</span></div><div class="ing-r"><span class="nm">Paniermehl</span><span class="n">25 g</span></div><div class="ing-r"><span class="nm">Ei</span><span class="n">1 Stück</span></div><div class="ing-r"><span class="nm">TK-Gemüsemischung</span><span class="n">150 g</span></div><div class="ing-r"><span class="nm">Speisestärke</span><span class="n">1 TL</span></div></div>
+    <div class="howto"><p class="mise"><b>Zeitplan</b>Zuerst Fleisch und Kartoffeln einweichen, das läuft 30 Minuten nebenher. In der Zeit Paniermehl rösten und panieren. Dann 18 Minuten Pommes, danach 11 Minuten Nuggets.</p>
+<ol class="steps">
+<li><b>Natron-Lake ansetzen.</b> 500 ml kaltes Wasser in eine Schüssel, 1 gestrichener Teelöffel Natron dazu, mit der Gabel verrühren, bis nichts mehr am Boden liegt. Hähnchenbrust in Würfel von etwa 3 cm schneiden und in die Lake legen. 20 Minuten bei Zimmertemperatur stehen lassen, nicht länger als 30.
+            <span class="cue"><b>Warum eine Lake statt Pulver aufs Fleisch:</b> Ein Viertel Teelöffel lässt sich nicht sinnvoll abmessen und verteilt sich ungleichmäßig. In Wasser gelöst bekommt jedes Stück dieselbe Menge ab. Das Natron macht die Oberfläche basisch, dadurch ziehen sich die Eiweißfasern beim Garen weniger zusammen und das Fleisch bleibt saftig.</span>
+</li>
+<li><b>Kartoffeln wässern.</b> Parallel: 420 g geschälte Kartoffeln in Stifte von etwa 1 cm Dicke schneiden. In eine zweite Schüssel mit kaltem Wasser legen, sodass sie bedeckt sind. 30 Minuten stehen lassen.
+            <span class="cue"><b>Was passiert:</b> Das Wasser spült die Oberflächenstärke ab. Ohne diesen Schritt kleben die Pommes im Korb zusammen. Das Wasser wird trüb, das ist das Zeichen, dass es funktioniert.</span>
+</li>
+<li><b>Paniermehl rösten.</b> Das ist der wichtigste Schritt im ganzen Rezept. 25 g Paniermehl (etwa 4 gehäufte Esslöffel) in eine trockene Pfanne, kein Fett. Mittlere Hitze, also Stufe 5 von 9. 3 bis 4 Minuten unter ständigem Rühren rösten. Sofort auf einen kalten Teller kippen.
+            <span class="cue"><b>Fertig, wenn:</b> die Farbe von hellbeige auf haselnussbraun gewechselt ist und es nussig riecht. <b>Achtung:</b> In den letzten 30 Sekunden geht es sehr schnell, bleib am Herd stehen. Verbranntes Paniermehl schmeckt bitter und ist nicht zu retten.</span>
+</li>
+<li><b>Fleisch abspülen und trocknen.</b> Hähnchen in ein Sieb, 30 Sekunden unter fließendem kaltem Wasser abspülen und dabei mit der Hand durchmischen. Dann auf Küchenpapier legen und trocken tupfen.
+            <span class="cue"><b>Nicht überspringen.</b> Restliches Natron schmeckt seifig und bitter. Lieber einmal zu viel spülen. Trocken muss es sein, sonst klebt die Panade nicht.</span>
+</li>
+<li><b>Panierstraße aufbauen.</b> Drei flache Teller nebeneinander. Teller 1: 1 gestrichener Esslöffel Speisestärke. Teller 2: 1 Ei mit der Gabel verquirlt, dazu ½ Teelöffel Salz und 1 gestrichener Teelöffel Paprikapulver. Teller 3: das geröstete Paniermehl.</li>
+<li><b>Panieren.</b> Jeden Würfel einzeln: erst in die Stärke wälzen und überschüssiges abklopfen, dann durch das Ei ziehen und kurz abtropfen lassen, dann ins Paniermehl legen und mit den Fingern rundum fest andrücken. Auf einem Teller ablegen, nebeneinander, nicht stapeln.
+            <span class="cue"><b>Trockene Hand, nasse Hand:</b> Nimm eine Hand für Stärke und Paniermehl, die andere fürs Ei. Sonst panierst du nach drei Stücken deine eigenen Finger.</span>
+</li>
+<li><b>Pommes vorbereiten.</b> Kartoffelstifte abgießen und mit einem Küchentuch wirklich trocken reiben, jeden einzeln. Dann 1 gestrichenen Teelöffel Speisestärke drüberstäuben und vorsichtig durchmischen.</li>
+<li><b>Airfryer vorheizen.</b> 5 Minuten auf 200 °C. Nicht überspringen, sonst dampft alles in der Aufheizphase weich statt knusprig zu werden.</li>
+<li><b>Pommes garen.</b> 200 °C, 18 Minuten, einlagig in den Korb. Nach 6 und nach 12 Minuten herausziehen und kräftig schütteln. Danach sofort salzen und auf einem Teller warm stellen.
+            <span class="cue"><b>Fertig, wenn:</b> sie goldbraun sind und beim Schütteln rascheln statt zu kleben. Lieber zwei Durchgänge als ein voller Korb, übereinanderliegende Stifte werden weich.</span>
+</li>
+<li><b>Nuggets garen.</b> Temperatur auf 190 °C stellen. Nuggets einlagig rein, 11 Minuten. Nach 6 Minuten einzeln wenden, nicht schütteln, sonst fällt die Panade ab.
+            <span class="cue"><b>Fertig, wenn:</b> die Panade dunkelgolden ist. Zur Sicherheit einen Würfel halbieren, innen muss er durchgehend weiß sein. Kerntemperatur 74 °C.</span>
+</li>
+<li><b>Gemüse und Dip.</b> 500 ml Wasser mit ½ Teelöffel Salz aufkochen, 150 g TK-Gemüse rein, 6 Minuten ab dem Moment, wo es wieder kocht. Dip: 2 Esslöffel Magerquark, ½ Teelöffel Senf, ½ Teelöffel Paprikapulver, ½ Teelöffel Essig, Salz, Pfeffer.</li>
+</ol>
+<p class="tip"><b>Noch knuspriger:</b> Mische unter das geröstete Paniermehl eine Handvoll (etwa 15 g) zerbröselte Cornflakes. Gibt eine grobe, laute Kruste wie beim Imbiss. Dann 15 g Kartoffeln weniger.</p></div>
+  </div>
+</details>
+<details class="recipe" id="m-haehnchen-burger-mit-krautsalat" data-kind="meat">
+  <summary>
+    <span class="thumb t-meat"><span class="emo">🍔</span></span>
+    <span class="rmid">
+      <span class="rname">Hähnchen-Burger mit Krautsalat</span>
+      <span class="rmeta"><span class="chip k-meat"><i class="d"></i>Hähnchen</span><span class="chip">ca. 50 Min</span></span>
+    </span>
+    <span class="rnums"><b class="num">658</b><small>kcal</small><b class="num prot">51,7 g</b><small>Protein</small></span>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="rbody">
+    <p class="rlead">Airfryer, paniertes Filet am Stück · ca. 50 Min, davon 20 Min Arbeit</p>
+    <div class="ing c2"><div class="ing-h"><span>Zutat</span><span>Menge</span></div><div class="ing-r"><span class="nm">Vollkornbrötchen</span><span class="n">1 Stück</span></div><div class="ing-r"><span class="nm">Hähnchenbrust</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Kartoffeln, geschält</span><span class="n">200 g</span></div><div class="ing-r"><span class="nm">Paniermehl</span><span class="n">20 g</span></div><div class="ing-r"><span class="nm">Ei</span><span class="n">1 Stück</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">60 g</span></div><div class="ing-r"><span class="nm">Salat, Tomate, Zwiebel</span><span class="n">100 g</span></div></div>
+    <div class="howto"><p class="mise"><b>Zeitplan</b>Filet klopfen und 20 Minuten marinieren. In der Zeit Kartoffeln wässern, Paniermehl rösten und die Sauce anrühren. Dann 18 Minuten Pommes, 13 Minuten Filet, 2 Minuten Brötchen.</p>
+<ol class="steps">
+<li><b>Filet flach klopfen.</b> Hähnchenbrust zwischen zwei Lagen Frischhaltefolie oder in einen aufgeschnittenen Gefrierbeutel legen. Mit dem Boden einer Pfanne oder einem schweren Glas gleichmäßig draufschlagen, von der Mitte nach außen.
+            <span class="cue"><b>Ziel:</b> überall 1,5 cm dick und ungefähr so groß wie das Brötchen. Gleichmäßig dick heißt gleichmäßig gegart. Ein Filet, das an einer Stelle 3 cm und an der anderen 1 cm dick ist, wird entweder roh oder trocken.</span>
+</li>
+<li><b>Marinieren.</b> 2 Esslöffel Magerquark (etwa 35 g) mit 1 gestrichenen Teelöffel Senf, 1 Teelöffel Paprikapulver, ½ Teelöffel Knoblauchgranulat, ½ Teelöffel Salz und Pfeffer verrühren. Das Filet rundum damit einstreichen, 20 Minuten im Kühlschrank.
+            <span class="cue"><b>Warum Quark statt Öl:</b> Die Milchsäure macht das Fleisch zart, und die dicke Marinade bleibt beim Panieren kleben. Öl würde abtropfen und im Airfryer rauchen.</span>
+</li>
+<li><b>Kartoffeln wässern.</b> 200 g in 1-cm-Stifte schneiden, 30 Minuten in kaltes Wasser. Danach trocken reiben und mit ½ Teelöffel Speisestärke bestäuben.</li>
+<li><b>Paniermehl rösten.</b> 20 g in einer trockenen Pfanne, Stufe 5 von 9, 3 bis 4 Minuten unter ständigem Rühren. Sofort auf einen kalten Teller kippen.
+            <span class="cue"><b>Fertig, wenn:</b> haselnussbraun und nussig duftend. Die letzten 30 Sekunden gehen schnell.</span>
+</li>
+<li><b>Panieren.</b> Das marinierte Filet direkt in ein verquirltes Ei tauchen, abtropfen lassen, dann beidseitig ins geröstete Paniermehl drücken. Fest andrücken.
+            <span class="cue"><b>Kein Mehlgang nötig,</b> die Quarkmarinade übernimmt diese Rolle schon.</span>
+</li>
+<li><b>Pommes garen.</b> Airfryer 5 Minuten auf 200 °C vorheizen. Pommes einlagig, 18 Minuten, nach 6 und 12 Minuten schütteln. Salzen, warm stellen.</li>
+<li><b>Filet garen.</b> Temperatur auf 190 °C. Filet in den Korb, 13 Minuten, nach 7 Minuten einmal vorsichtig wenden.
+            <span class="cue"><b>Fertig, wenn:</b> die Panade goldbraun ist und beim Einschneiden an der dicksten Stelle kein Rosa mehr zu sehen ist. Kerntemperatur 74 °C.</span>
+</li>
+<li><b>Burgersauce.</b> Restlichen Magerquark (etwa 25 g) mit ½ Teelöffel Senf, ½ Teelöffel Essig, ½ Teelöffel Paprikapulver, Salz und Pfeffer verrühren. Wer es schärfer mag: eine Prise Chiliflocken.</li>
+<li><b>Brötchen toasten.</b> Brötchen aufschneiden und die letzten 2 Minuten mit in den Airfryer legen, Schnittfläche nach oben.
+            <span class="cue"><b>Warum:</b> Die getoastete Fläche bildet eine Barriere. Ohne das weicht das Brötchen von der Sauce durch und fällt beim Essen auseinander.</span>
+</li>
+<li><b>Zwiebeln entschärfen.</b> 20 g Zwiebel in dünne Ringe, 5 Minuten in kaltes Wasser legen, abgießen, trocken tupfen. Nimmt die Schärfe, ohne den Geschmack zu töten.</li>
+<li><b>Bauen.</b> In dieser Reihenfolge: untere Brötchenhälfte, Sauce, Salatblatt, Filet, Tomatenscheiben, Zwiebelringe, nochmal Sauce, Deckel.
+            <span class="cue"><b>Der Salat gehört unter das Fleisch,</b> nicht darüber. Er wirkt als Schutzschicht zwischen Sauce und Brötchen.</span>
+</li>
+</ol></div>
+  </div>
+</details>
+<details class="recipe" id="m-haehnchen-gyros-mit-tzatziki" data-kind="meat">
+  <summary>
+    <span class="thumb t-meat"><span class="emo">🥙</span></span>
+    <span class="rmid">
+      <span class="rname">Hähnchen-Gyros mit Tzatziki</span>
+      <span class="rmeta"><span class="chip k-meat"><i class="d"></i>Hähnchen</span><span class="chip">ca. 60 Min</span></span>
+    </span>
+    <span class="rnums"><b class="num">638</b><small>kcal</small><b class="num prot">48,2 g</b><small>Protein</small></span>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="rbody">
+    <p class="rlead">Airfryer, Streifen, griechisch gewürzt · ca. 60 Min, davon 20 Min Arbeit</p>
+    <div class="ing c2"><div class="ing-h"><span>Zutat</span><span>Menge</span></div><div class="ing-r"><span class="nm">Hähnchenbrust, in Streifen</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Kartoffeln, geschält</span><span class="n">580 g</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Gurke</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Rapsöl, kalt</span><span class="n">1 TL</span></div></div>
+    <div class="howto"><p class="mise"><b>Zeitplan</b>Fleisch marinieren und Tzatziki ansetzen, beides zieht 20 bis 30 Minuten. Kartoffeln 8 Minuten vorkochen, 5 Minuten ausdampfen, 22 Minuten im Airfryer. Fleisch danach 10 Minuten.</p>
+<ol class="steps">
+<li><b>Gyros-Gewürz mischen.</b> In einer kleinen Schale: 1 gestrichener Teelöffel Paprikapulver, 1 gestrichener Teelöffel Oregano, ½ Teelöffel Kreuzkümmel, ½ Teelöffel Knoblauchgranulat, ½ Teelöffel Salz, ordentlich Pfeffer.
+            <span class="cue"><b>Das ist Gyrosgewürz,</b> nur ohne die 2 € für die Fertigmischung und ohne Geschmacksverstärker.</span>
+</li>
+<li><b>Fleisch schneiden und marinieren.</b> Hähnchenbrust quer in Streifen von etwa 1 cm Breite schneiden, nicht in Würfel. Mit 2 Esslöffel Magerquark, der kompletten Gewürzmischung und 1 Teelöffel Essig vermengen, bis alles gleichmäßig bedeckt ist. Mindestens 20 Minuten, gern über Nacht im Kühlschrank.
+            <span class="cue"><b>Warum Streifen:</b> Mehr Oberfläche heißt mehr geröstete Kanten. Beim echten Gyros vom Spieß ist genau das der ganze Reiz.</span>
+</li>
+<li><b>Tzatziki ansetzen.</b> 100 g Gurke grob raspeln, in eine Schüssel, ½ Teelöffel Salz drüber, 10 Minuten stehen lassen. Dann mit beiden Händen kräftig ausdrücken und das Wasser weggießen.
+            <span class="cue"><b>Nicht überspringen.</b> Aus 100 g Gurke kommen gut 2 Esslöffel Wasser raus. Ohne Ausdrücken wird das Tzatziki eine Suppe, die vom Teller läuft.</span>
+</li>
+<li><b>Tzatziki fertig machen.</b> Ausgedrückte Gurke mit dem restlichen Quark (etwa 65 g), ½ Teelöffel Knoblauchgranulat, Salz, Pfeffer und 1 Teelöffel Essig verrühren. Abgedeckt in den Kühlschrank, mindestens 20 Minuten.</li>
+<li><b>Kartoffeln vorkochen.</b> 580 g geschälte Kartoffeln in Würfel von etwa 3 cm. In einen Topf mit 1,5 Liter kaltem Wasser, 1 gehäuftem Teelöffel Salz und 1 gestrichenem Teelöffel Natron. Auf voller Hitze aufkochen, dann auf Stufe 3 von 9 runter und 8 Minuten köcheln.
+            <span class="cue"><b>Fertig, wenn:</b> ein Messer an der Kante leicht eindringt, die Mitte aber noch fest ist. Lieber zu kurz als zu lang, sie garen im Airfryer weiter.</span>
+</li>
+<li><b>Aufrauen.</b> Wasser komplett abgießen, Kartoffeln zurück in den heißen Topf, Deckel drauf, dreimal kräftig schütteln.
+            <span class="cue"><b>Richtig, wenn:</b> die Kanten mehlig-pelzig aussehen statt glatt. Diese raue Schicht wird im Airfryer die Kruste und ersetzt das Öl komplett.</span>
+</li>
+<li><b>Ausdampfen und bestäuben.</b> Deckel ab, 5 Minuten offen stehen lassen. Dann 1 gestrichenen Teelöffel Speisestärke drüberstäuben und vorsichtig schwenken.
+            <span class="cue"><b>Fertig, wenn:</b> die Oberfläche matt statt glänzend aussieht. Solange Wasser verdampft, bleibt sie bei 100 °C und bräunt nicht.</span>
+</li>
+<li><b>Kartoffeln garen.</b> Airfryer 5 Minuten auf 200 °C vorheizen, Kartoffeln einlagig, 22 Minuten, nach 8 und 15 Minuten schütteln. Direkt nach dem Rausnehmen salzen und mit Oregano bestreuen.</li>
+<li><b>Fleisch garen.</b> Temperatur auf 190 °C, Streifen einlagig, 10 Minuten, nach 5 Minuten wenden.
+            <span class="cue"><b>Fertig, wenn:</b> die Ränder dunkelbraun sind und das Fleisch innen weiß. Die dunklen Stellen sind erwünscht, da sitzt der Gyros-Geschmack.</span>
+</li>
+<li><b>Anrichten.</b> Kartoffeln und Fleisch auf den Teller, Tzatziki in eine kleine Schale daneben. Den Teelöffel Rapsöl zum Schluss über das Tzatziki träufeln, nicht einrühren.</li>
+</ol></div>
+  </div>
+</details>
+<details class="recipe" id="m-haehnchen-am-stueck-mit-krautsalat" data-kind="meat">
+  <summary>
+    <span class="thumb t-meat"><span class="emo">🥩</span></span>
+    <span class="rmid">
+      <span class="rname">Hähnchen am Stück mit Krautsalat</span>
+      <span class="rmeta"><span class="chip k-meat"><i class="d"></i>Hähnchen</span><span class="chip">ca. 60 Min</span></span>
+    </span>
+    <span class="rnums"><b class="num">655</b><small>kcal</small><b class="num prot">50,3 g</b><small>Protein</small></span>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="rbody">
+    <p class="rlead">Airfryer, ganzes Filet · ca. 60 Min, davon 20 Min Arbeit</p>
+    <div class="ing c2"><div class="ing-h"><span>Zutat</span><span>Menge</span></div><div class="ing-r"><span class="nm">Hähnchenbrust am Stück</span><span class="n">120 g</span></div><div class="ing-r"><span class="nm">Kartoffeln, geschält</span><span class="n">550 g</span></div><div class="ing-r"><span class="nm">Weißkohl</span><span class="n">200 g</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">70 g</span></div><div class="ing-r"><span class="nm">Rapsöl, kalt</span><span class="n">1 TL</span></div></div>
+    <div class="howto"><p class="mise"><b>Zeitplan</b>Krautsalat zuerst, der braucht 20 Minuten Ziehzeit und wird mit jeder Stunde besser. Dann Kartoffeln vorkochen und 22 Minuten garen, Filet 14 Minuten, 5 Minuten ruhen.</p>
+<ol class="steps">
+<li><b>Kohl hobeln.</b> 200 g Weißkohl so fein wie möglich schneiden. Vom Kopf eine Scheibe abschneiden, flach auf das Brett legen und in dünne Streifen schneiden.
+            <span class="cue"><b>Ziel:</b> Streifen von 2 bis 3 mm. Je feiner, desto zarter wird der Salat. Ein Sparschäler oder ein Gemüsehobel geht auch.</span>
+</li>
+<li><b>Kohl kneten.</b> In eine Schüssel, 1 gestrichener Teelöffel Salz drüber. Jetzt mit beiden Händen 2 Minuten kräftig kneten und quetschen, als würdest du Teig bearbeiten.
+            <span class="cue"><b>Fertig, wenn:</b> das Volumen sichtbar um ein Drittel geschrumpft ist und sich Flüssigkeit am Boden sammelt. Der Kohl fühlt sich weich und biegsam an statt hart und quietschend. Dieser Schritt ersetzt stundenlanges Ziehen.</span>
+</li>
+<li><b>Dressing anrühren.</b> 70 g Magerquark mit 2 Esslöffel Essig, 1 gestrichenem Teelöffel Senf, 1 Prise Zucker, ½ Teelöffel Salz, Pfeffer und dem Teelöffel Rapsöl verrühren, bis es glatt ist.</li>
+<li><b>Mischen und ziehen lassen.</b> Dressing unter den gekneteten Kohl heben. Mindestens 20 Minuten stehen lassen, eine Stunde ist besser.
+            <span class="cue"><b>Hält 3 Tage im Kühlschrank</b> und wird jeden Tag besser. Mach gleich die dreifache Menge, dann hast du zweimal eine fertige Beilage.</span>
+</li>
+<li><b>Filet würzen.</b> Hähnchenbrust am Stück lassen, mit Küchenpapier trocken tupfen. Rundum einreiben mit ½ Teelöffel Salz, Pfeffer, 1 Teelöffel Paprikapulver und ½ Teelöffel Knoblauchgranulat.
+            <span class="cue"><b>Kein Öl nötig.</b> Die Gewürze haften auf dem leicht feuchten Fleisch von allein.</span>
+</li>
+<li><b>Kartoffeln vorkochen.</b> 550 g in Spalten schneiden: jede Kartoffel längs halbieren, jede Hälfte in drei Spalten. In 1,5 Liter kaltes Wasser mit 1 gehäuftem Teelöffel Salz und 1 gestrichenem Teelöffel Natron. Aufkochen auf voller Hitze, dann Stufe 3 von 9, 8 Minuten köcheln.</li>
+<li><b>Aufrauen, ausdampfen, bestäuben.</b> Vorsichtig abgießen, zurück in den heißen Topf, Deckel drauf, zweimal vorsichtig schwenken (Spalten brechen leichter als Würfel). 5 Minuten offen ausdampfen, dann 1 gestrichener Teelöffel Speisestärke drüber.</li>
+<li><b>Kartoffeln garen.</b> Airfryer 5 Minuten auf 200 °C vorheizen, Spalten einlagig, 22 Minuten, nach 8 und 15 Minuten schütteln. Salzen, warm stellen.</li>
+<li><b>Filet garen.</b> Temperatur auf 190 °C runter. Filet in den Korb, 14 Minuten, nach 7 Minuten wenden.
+            <span class="cue"><b>Warum nicht heißer:</b> Ein ganzes Filet ohne Öl wird bei 200 °C außen trocken, bevor die Mitte 74 °C erreicht. 190 °C ist der Kompromiss. Prüfen: dickste Stelle einschneiden, kein Rosa, Saft klar.</span>
+</li>
+<li><b>Ruhen lassen.</b> Filet aus dem Korb nehmen, auf ein Brett legen und 5 Minuten einfach liegen lassen.
+            <span class="cue"><b>Das ist kein optionaler Schritt.</b> In der Ruhezeit verteilt sich der Saft wieder im Fleisch. Schneidest du sofort, läuft die Hälfte auf das Brett und das Filet ist trocken.</span>
+</li>
+<li><b>Anschneiden.</b> Quer zur Faserrichtung in Scheiben von etwa 1 cm. Die Fasern laufen längs durch das Filet, du schneidest also quer darüber. Das macht jeden Bissen zarter.</li>
+</ol></div>
+  </div>
+</details>
+<details class="recipe" id="m-haehnchen-curry-mit-reis" data-kind="meat">
+  <summary>
+    <span class="thumb t-meat"><span class="emo">🍛</span></span>
+    <span class="rmid">
+      <span class="rname">Hähnchen-Curry mit Reis</span>
+      <span class="rmeta"><span class="chip k-meat"><i class="d"></i>Hähnchen</span><span class="chip">ca. 30 Min</span></span>
+    </span>
+    <span class="rnums"><b class="num">645</b><small>kcal</small><b class="num prot">46,1 g</b><small>Protein</small></span>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="rbody">
+    <p class="rlead">Ein Topf plus Reistopf · ca. 30 Min</p>
+    <div class="ing c2"><div class="ing-h"><span>Zutat</span><span>Menge</span></div><div class="ing-r"><span class="nm">Hähnchenbrust, gewürfelt</span><span class="n">150 g</span></div><div class="ing-r"><span class="nm">Reis, roh</span><span class="n">105 g</span></div><div class="ing-r"><span class="nm">TK-Gemüsemischung</span><span class="n">150 g</span></div><div class="ing-r"><span class="nm">Passierte Tomaten</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">1 TL</span></div></div>
+    <div class="howto"><p class="mise"><b>Zeitplan</b>Reis braucht 17 Minuten von aufsetzen bis fertig. Das Curry braucht 20. Setz zuerst den Reis auf, dann hast du beides gleichzeitig fertig.</p>
+<ol class="steps">
+<li><b>Reis aufsetzen.</b> 105 g Reis und 210 ml Wasser (genau die doppelte Menge) in einen kleinen Topf, ½ Teelöffel Salz. Auf voller Hitze aufkochen, dann Deckel drauf und sofort auf Stufe 2 von 9 runter. 12 Minuten. Dann Herd ganz aus und 5 Minuten mit geschlossenem Deckel stehen lassen.
+            <span class="cue"><b>In diesen 17 Minuten nicht umrühren und nicht den Deckel heben.</b> Der Reis gart im Dampf. Jedes Mal Deckel heben kostet Dampf und der Reis wird unten hart.</span>
+</li>
+<li><b>Zwiebel vorbereiten.</b> ½ Zwiebel (etwa 50 g) fein würfeln. Hähnchenbrust in Würfel von etwa 2 cm.</li>
+<li><b>Zwiebel anbraten.</b> 1 Teelöffel Rapsöl in einen Topf oder eine große Pfanne, mittlere Hitze (Stufe 5 von 9). Zwiebel rein, 4 bis 5 Minuten braten, gelegentlich umrühren.
+            <span class="cue"><b>Fertig, wenn:</b> die Zwiebelstücke durchscheinend sind und einzelne Ränder goldbraun werden. Nicht weiter, sonst wird es bitter.</span>
+</li>
+<li><b>Gewürze mitrösten.</b> 1 gehäufter Teelöffel Currypulver und ½ Teelöffel Kreuzkümmel dazu. 30 Sekunden unter ständigem Rühren mitrösten.
+            <span class="cue"><b>Der wichtigste Schritt für den Geschmack.</b> Gewürze brauchen Fett und Hitze, um ihre Aromastoffe freizusetzen. Wer sie nur ins Wasser schüttet, bekommt ein Drittel vom Geschmack. Fertig, wenn es stark duftet, nach spätestens 45 Sekunden, sonst verbrennt es.</span>
+</li>
+<li><b>Fleisch anbraten.</b> Hitze hoch auf Stufe 7 von 9, Hähnchenwürfel dazu, 3 Minuten unter Rühren anbraten.
+            <span class="cue"><b>Fertig, wenn:</b> die Würfel außen komplett weiß sind. Innen dürfen sie noch roh sein, sie garen beim Schmoren fertig.</span>
+</li>
+<li><b>Ablöschen.</b> 100 g passierte Tomaten und 150 ml Wasser dazu. Mit einem Holzlöffel über den Topfboden kratzen, bis sich alle angebackenen braunen Stellen lösen.
+            <span class="cue"><b>Diese braunen Stellen sind der Geschmack,</b> nicht Dreck. Sie lösen sich in der Flüssigkeit und machen die Sauce dunkel und kräftig.</span>
+</li>
+<li><b>Schmoren.</b> 150 g TK-Gemüse dazu, Deckel drauf, Hitze auf Stufe 3 von 9, 10 Minuten köcheln lassen.
+            <span class="cue"><b>Fertig, wenn:</b> das Gemüse weich ist und die Sauce leicht eingedickt. Zu dünn? Deckel ab und 3 Minuten weiterkochen.</span>
+</li>
+<li><b>Abschmecken.</b> Salz, Pfeffer, und jetzt 1 Teelöffel Essig.
+            <span class="cue"><b>Probier vor und nach dem Essig.</b> Vorher schmeckt das Curry flach und irgendwie unfertig, nachher ist es rund. Das ist der Trick, der in fast jedem Rezept fehlt. Wer Schärfe mag: Chiliflocken dazu.</span>
+</li>
+<li><b>Cremig machen, optional.</b> Topf vom Herd nehmen, 2 Esslöffel Magerquark einrühren.
+            <span class="cue"><b>Nur außerhalb der Hitze.</b> Im kochenden Topf flockt Magerquark sofort aus und sieht aus wie geronnene Milch.</span>
+</li>
+</ol></div>
+  </div>
+</details>
+<details class="recipe" id="m-thunfisch-pasta-arrabbiata" data-kind="fish">
+  <summary>
+    <span class="thumb t-fish"><span class="emo">🍝</span></span>
+    <span class="rmid">
+      <span class="rname">Thunfisch-Pasta Arrabbiata</span>
+      <span class="rmeta"><span class="chip k-fish"><i class="d"></i>Thunfisch</span><span class="chip">ca. 20 Min</span><span class="chip">leichter Snack</span></span>
+    </span>
+    <span class="rnums"><b class="num">654</b><small>kcal</small><b class="num prot">56,1 g</b><small>Protein</small></span>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="rbody">
+    <p class="rlead">Ein Topf plus Nudeltopf · ca. 20 Min. Leichter Snack an diesem Tag</p>
+    <div class="ing c2"><div class="ing-h"><span>Zutat</span><span>Menge</span></div><div class="ing-r"><span class="nm">Thunfisch, abgetropft</span><span class="n">150 g</span></div><div class="ing-r"><span class="nm">Nudeln, roh</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Passierte Tomaten</span><span class="n">200 g</span></div><div class="ing-r"><span class="nm">TK-Gemüsemischung</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">1 TL</span></div></div>
+    <div class="howto"><p class="mise"><b>Zeitplan</b>Nudelwasser aufsetzen, dauert am längsten. Während es heiß wird, die Sauce starten. Beides ist nach etwa 20 Minuten gleichzeitig fertig.</p>
+<ol class="steps">
+<li><b>Nudelwasser aufsetzen.</b> 1 Liter Wasser in einen großen Topf, volle Hitze, Deckel drauf. Erst wenn es sprudelnd kocht, 1 gehäuften Teelöffel Salz (etwa 10 g) reingeben.
+            <span class="cue"><b>Das Wasser soll deutlich salzig schmecken.</b> Das ist die einzige Gelegenheit, die Nudeln von innen zu würzen. Salz erst ins kochende Wasser, vorher dauert das Aufkochen länger.</span>
+</li>
+<li><b>Zwiebel anbraten.</b> ½ Zwiebel fein würfeln. 1 Teelöffel Rapsöl in einen zweiten Topf, mittlere Hitze (Stufe 5 von 9), Zwiebel 4 bis 5 Minuten braten, bis sie durchscheinend ist.</li>
+<li><b>Schärfe aufbauen.</b> ½ Teelöffel Knoblauchgranulat und ½ bis 1 gestrichener Teelöffel Chiliflocken dazu, 30 Sekunden mitrösten.
+            <span class="cue"><b>Arrabbiata heißt wörtlich "wütend",</b> es darf also scharf sein. Fang mit ½ Teelöffel an, nachlegen geht immer, rausnehmen nicht.</span>
+</li>
+<li><b>Sauce einkochen.</b> 200 g passierte Tomaten und 100 g TK-Gemüse dazu. Deckel halb drauf, Stufe 4 von 9, 10 Minuten köcheln lassen, zweimal umrühren.
+            <span class="cue"><b>Fertig, wenn:</b> die Sauce von hellrot auf dunkelrot gewechselt hat und am Löffel haften bleibt, statt abzulaufen. Je länger, desto süßer und dicker.</span>
+</li>
+<li><b>Nudeln kochen.</b> 100 g in das kochende Salzwasser, einmal umrühren. Packungsangabe minus 1 Minute. Vor dem Abgießen eine Tasse Nudelwasser mit einer Kelle herausschöpfen.
+            <span class="cue"><b>Das Nudelwasser nicht vergessen.</b> Es ist der wichtigste Zutat in diesem Rezept und kostet nichts.</span>
+</li>
+<li><b>Zusammenführen.</b> Abgetropfte Nudeln in den Saucentopf geben, 3 Esslöffel Nudelwasser dazu, Hitze auf Stufe 6 von 9 und 1 Minute kräftig durchschwenken.
+            <span class="cue"><b>Was passiert:</b> Die Stärke im Nudelwasser bindet die Sauce an die Nudeln. Ohne diesen Schritt liegt die Sauce unten in der Schüssel und die Nudeln sind nackt. Fertig, wenn die Nudeln glänzend überzogen sind.</span>
+</li>
+<li><b>Thunfisch ganz zum Schluss.</b> Herd aus. 150 g abgetropften Thunfisch in groben Stücken unterheben, zweimal vorsichtig wenden, nicht zerrühren.
+            <span class="cue"><b>Nicht mitkochen.</b> Thunfisch aus der Dose ist bereits gegart. Jede weitere Minute Hitze macht ihn trocken und faserig.</span>
+</li>
+<li><b>Abschmecken.</b> Salz, Pfeffer, 1 gehäufter Teelöffel Oregano. Falls die Tomaten zu süß sind: ½ Teelöffel Essig.</li>
+</ol>
+<p class="tip"><b>An diesem Tag der leichte Snack.</b> Thunfisch bringt viel Protein, mit einem Quark-Snack kämst du über 150 g. Nimm die Kichererbsen oder die Apfelchips.</p></div>
+  </div>
+</details>
+<details class="recipe" id="m-lauwarmer-thunfisch-kartoffelsalat" data-kind="fish">
+  <summary>
+    <span class="thumb t-fish"><span class="emo">🥗</span></span>
+    <span class="rmid">
+      <span class="rname">Lauwarmer Thunfisch-Kartoffelsalat</span>
+      <span class="rmeta"><span class="chip k-fish"><i class="d"></i>Thunfisch</span><span class="chip">ca. 45 Min</span><span class="chip">leichter Snack</span></span>
+    </span>
+    <span class="rnums"><b class="num">650</b><small>kcal</small><b class="num prot">52,6 g</b><small>Protein</small></span>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="rbody">
+    <p class="rlead">Airfryer, hält 3 Tage · ca. 45 Min. Leichter Snack an diesem Tag</p>
+    <div class="ing c2"><div class="ing-h"><span>Zutat</span><span>Menge</span></div><div class="ing-r"><span class="nm">Thunfisch, abgetropft</span><span class="n">150 g</span></div><div class="ing-r"><span class="nm">Kartoffeln, geschält</span><span class="n">550 g</span></div><div class="ing-r"><span class="nm">TK-Gemüsemischung</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Zwiebel</span><span class="n">50 g</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">1 TL</span></div></div>
+    <div class="howto"><p class="mise"><b>Der entscheidende Moment</b>ist Schritt 6. Das Dressing muss auf die heißen Kartoffeln, direkt aus dem Airfryer. Bereite es deshalb vorher zu, damit es bereitsteht.</p>
+<ol class="steps">
+<li><b>Kartoffeln vorkochen.</b> 550 g in Würfel von etwa 2 cm. In 1,5 Liter kaltes Wasser mit 1 gehäuftem Teelöffel Salz und 1 gestrichenem Teelöffel Natron. Aufkochen auf voller Hitze, dann Stufe 3 von 9, nur 7 Minuten köcheln.
+            <span class="cue"><b>Eine Minute kürzer als sonst.</b> Die Würfel sollen beim späteren Mischen nicht zerfallen. Ein Messer muss auf Widerstand stoßen.</span>
+</li>
+<li><b>Aufrauen und bestäuben.</b> Abgießen, zurück in den heißen Topf, Deckel drauf, nur einmal kurz schütteln (nicht dreimal, sie sollen in Form bleiben). 5 Minuten offen ausdampfen, dann 1 gestrichener Teelöffel Speisestärke drüber.</li>
+<li><b>Im Airfryer bräunen.</b> 5 Minuten auf 200 °C vorheizen, Würfel einlagig, 18 Minuten, nach 7 und 13 Minuten schütteln.
+            <span class="cue"><b>Fertig, wenn:</b> außen goldbraun und innen noch weich. Die Kruste saugt später das Dressing besonders gut auf.</span>
+</li>
+<li><b>Dressing anrühren.</b> Während die Kartoffeln garen: 3 Esslöffel Essig, 1 gestrichener Teelöffel Senf, ½ Teelöffel Salz, Pfeffer, 1 Prise Zucker und 4 Esslöffel heißes Wasser verrühren.</li>
+<li><b>Zwiebel entschärfen.</b> 50 g Zwiebel sehr fein würfeln und direkt in das Dressing legen.
+            <span class="cue"><b>Die Säure nimmt der rohen Zwiebel die Schärfe,</b> während die Kartoffeln garen. Nach 15 Minuten im Essig ist sie mild und knackig statt beißend.</span>
+</li>
+<li><b>Heiß mischen.</b> Kartoffelwürfel direkt aus dem Airfryer in eine Schüssel kippen, sofort das komplette Dressing drüber und vorsichtig von unten nach oben wenden.
+            <span class="cue"><b>Das ist der Schritt, an dem Kartoffelsalat gelingt oder scheitert.</b> Heiße Kartoffeln saugen Flüssigkeit auf wie ein Schwamm. Kalte nehmen nichts mehr an, dann schwimmt das Dressing unten und der Salat schmeckt nach nichts.</span>
+</li>
+<li><b>10 Minuten ziehen lassen.</b> In der Zeit 100 g TK-Gemüse mit kochendem Wasser übergießen, 2 Minuten stehen lassen, abgießen, abtropfen.</li>
+<li><b>Fertig machen.</b> Gemüse und 150 g Thunfisch in groben Stücken unterheben. 1 Teelöffel Rapsöl drüber. Mit Pfeffer und 1 Teelöffel Oregano abschmecken.</li>
+</ol>
+<p class="tip"><b>Lauwarm servieren, nicht kalt.</b> Falls er im Kühlschrank war: 20 Minuten vorher rausstellen. Kalt schmeckt jeder Kartoffelsalat deutlich flacher, weil Kälte Aromen dämpft.</p></div>
+  </div>
+</details>
+<details class="recipe" id="m-airfryer-wedges-mit-kraeuterquark" data-kind="veg">
+  <summary>
+    <span class="thumb t-veg"><span class="emo">🥔</span></span>
+    <span class="rmid">
+      <span class="rname">Airfryer-Wedges mit Kräuterquark</span>
+      <span class="rmeta"><span class="chip k-veg"><i class="d"></i>Vegetarisch</span><span class="chip">ca. 45 Min</span></span>
+    </span>
+    <span class="rnums"><b class="num">642</b><small>kcal</small><b class="num prot">46,4 g</b><small>Protein</small></span>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="rbody">
+    <p class="rlead">Ohne Fleisch, der günstigste Tag · ca. 45 Min, davon 10 Min Arbeit</p>
+    <div class="ing c2"><div class="ing-h"><span>Zutat</span><span>Menge</span></div><div class="ing-r"><span class="nm">Kartoffeln, geschält</span><span class="n">450 g</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">180 g</span></div><div class="ing-r"><span class="nm">Eier</span><span class="n">2 Stück</span></div><div class="ing-r"><span class="nm">Rapsöl, kalt</span><span class="n">1 TL</span></div></div>
+    <div class="howto"><ol class="steps">
+<li><b>Kartoffeln in Spalten.</b> 450 g geschälte Kartoffeln längs halbieren, jede Hälfte längs in drei Spalten.
+            <span class="cue"><b>Gleich große Stücke sind wichtiger als die genaue Form.</b> Unterschiedlich dicke Spalten werden teils verbrannt, teils roh.</span>
+</li>
+<li><b>Vorkochen.</b> In 1,5 Liter kaltes Wasser mit 1 gehäuftem Teelöffel Salz und 1 gestrichenem Teelöffel Natron. Volle Hitze bis es kocht, dann Stufe 3 von 9, 8 Minuten. Vorsichtig abgießen.</li>
+<li><b>Aufrauen.</b> Zurück in den heißen Topf, Deckel drauf, zweimal vorsichtig schwenken. Nicht so wild wie bei Würfeln, Spalten brechen leichter. Dann 5 Minuten offen ausdampfen lassen.
+            <span class="cue"><b>Fertig, wenn:</b> die Oberfläche matt aussieht und kein Dampf mehr aufsteigt.</span>
+</li>
+<li><b>Würzen und bestäuben.</b> 1 gestrichener Teelöffel Speisestärke, 1 gestrichener Teelöffel Paprikapulver, ½ Teelöffel Knoblauchgranulat, Pfeffer. Vorsichtig schwenken, bis alle Spalten überzogen sind.</li>
+<li><b>Garen.</b> Airfryer 5 Minuten auf 200 °C vorheizen, Spalten einlagig, 22 Minuten, nach 8 und 15 Minuten schütteln. Direkt nach dem Rausnehmen salzen.
+            <span class="cue"><b>Fertig, wenn:</b> die Kanten dunkelbraun sind. Bei Spalten musst du nicht die ganze Fläche braun bekommen, die Kanten reichen.</span>
+</li>
+<li><b>Eier kochen.</b> Wasser in einem kleinen Topf aufkochen, Eier mit einem Löffel vorsichtig hineingleiten lassen, Stufe 4 von 9, 8 Minuten für wachsweich, 10 Minuten für hart. Danach sofort 1 Minute unter kaltes Wasser halten.
+            <span class="cue"><b>Das kalte Wasser</b> stoppt das Garen und löst die Schale vom Ei. Ohne das pulst du hinterher Krater ins Eiweiß.</span>
+</li>
+<li><b>Kräuterquark.</b> 180 g Magerquark mit 4 Esslöffel Wasser 30 Sekunden cremig rühren. Dann ½ Teelöffel Salz, Pfeffer, 1 gestrichener Teelöffel Senf, ½ Teelöffel Knoblauchgranulat, 1 gehäufter Teelöffel Oregano und 1 Teelöffel Essig. Eine fein gewürfelte halbe Zwiebel unterrühren.
+            <span class="cue"><b>10 Minuten ziehen lassen,</b> bevor du ihn isst. Frisch angerührt schmeckt er nach Quark mit Gewürzen drauf, nach 10 Minuten nach Kräuterquark.</span>
+</li>
+<li><b>Öl zum Schluss.</b> Den Teelöffel Rapsöl obendrauf träufeln, nicht einrühren. So schmeckst du ihn und er schwimmt nicht unter.</li>
+</ol>
+<p class="tip"><b>Dieser Tag kostet dich etwa 1,10 €.</b> Falls das Geld mal knapp wird, ist das die Variante, die du doppelt einplanst.</p></div>
+  </div>
+</details>
+<details class="recipe" id="m-linsen-bolognese-mit-haehnchen" data-kind="meat">
+  <summary>
+    <span class="thumb t-meat"><span class="emo">🍲</span></span>
+    <span class="rmid">
+      <span class="rname">Linsen-Bolognese mit Hähnchen</span>
+      <span class="rmeta"><span class="chip k-meat"><i class="d"></i>Hähnchen</span><span class="chip">ca. 35 Min</span></span>
+    </span>
+    <span class="rnums"><b class="num">652</b><small>kcal</small><b class="num prot">49,8 g</b><small>Protein</small></span>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="rbody">
+    <p class="rlead">Ein Topf, sehr sättigend, einfrierbar · ca. 35 Min</p>
+    <div class="ing c2"><div class="ing-h"><span>Zutat</span><span>Menge</span></div><div class="ing-r"><span class="nm">Hähnchenbrust, fein gehackt</span><span class="n">120 g</span></div><div class="ing-r"><span class="nm">Nudeln, roh</span><span class="n">80 g</span></div><div class="ing-r"><span class="nm">Rote Linsen, roh</span><span class="n">40 g</span></div><div class="ing-r"><span class="nm">Passierte Tomaten</span><span class="n">150 g</span></div><div class="ing-r"><span class="nm">Zwiebel und Karotte</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">1 TL</span></div></div>
+    <div class="howto"><ol class="steps">
+<li><b>Hähnchen hacken.</b> Brustfilet erst in dünne Scheiben schneiden, dann in Streifen, dann quer darüber mit dem Messer durchhacken, bis es wie Hackfleisch aussieht. Dauert etwa 3 Minuten.
+            <span class="cue"><b>Deutlich günstiger als gekauftes Geflügelhack</b> und du weißt genau, was drin ist. Wenn das Fleisch 15 Minuten im Gefrierfach war, lässt es sich leichter schneiden.</span>
+</li>
+<li><b>Gemüsebasis schneiden.</b> 50 g Zwiebel und 50 g Karotte so fein wie möglich würfeln, etwa 3 mm.
+            <span class="cue"><b>Fein ist hier Pflicht.</b> Grobe Stücke bleiben spürbar, feine lösen sich in der Sauce auf und machen sie süß.</span>
+</li>
+<li><b>Gemüse anbraten.</b> 1 Teelöffel Rapsöl in einen Topf, mittlere Hitze (Stufe 5 von 9), Zwiebel und Karotte 6 Minuten braten, gelegentlich umrühren.
+            <span class="cue"><b>Fertig, wenn:</b> die Zwiebelränder braun werden und es süßlich riecht. Nicht abkürzen, hier entsteht die Grundsüße der Sauce. 6 Minuten fühlen sich lang an, sind aber richtig.</span>
+</li>
+<li><b>Fleisch anbraten.</b> Hitze auf Stufe 7 von 9. Gehacktes Hähnchen dazu, 3 Minuten braten und dabei mit dem Löffelrücken auseinanderdrücken, damit keine Klumpen entstehen. ½ Teelöffel Salz dazu.</li>
+<li><b>Gewürze rösten.</b> 1 gestrichener Teelöffel Paprikapulver und ½ Teelöffel Oregano dazu, 30 Sekunden mitrösten.</li>
+<li><b>Linsen und Flüssigkeit.</b> 150 g passierte Tomaten, 40 g rote Linsen und 250 ml Wasser dazu, einmal umrühren, aufkochen lassen, dann Deckel halb drauf und Stufe 3 von 9. 15 Minuten köcheln, zweimal umrühren.
+            <span class="cue"><b>Fertig, wenn:</b> die Linsen komplett zerfallen sind und man sie nicht mehr einzeln erkennt. Sie geben der Sauce die Bindung, die sonst Hackfleischfett liefern würde.</span>
+</li>
+<li><b>Nudeln kochen.</b> 80 g in 1 Liter kochendem Salzwasser, Packungsangabe minus 1 Minute. Eine Tasse Nudelwasser aufheben.</li>
+<li><b>Zusammenführen.</b> Nudeln mit 2 Esslöffel Nudelwasser in die Sauce schwenken, 1 Minute bei Stufe 6 von 9. Abschmecken mit Salz, Pfeffer, Oregano und 1 Teelöffel Essig.</li>
+</ol>
+<p class="tip"><b>Mach die dreifache Menge Sauce</b> und friere sie portionsweise ein. Sie wird beim Aufwärmen besser, und du hast an stressigen Tagen in 10 Minuten ein fertiges Essen.</p></div>
+  </div>
+</details></div>
+    </div>
+  </details>
+
+  <details class="card sec" id="snacks">
+    <summary><span class="sico s-sn">🍎</span><span class="shd"><span class="ctitle">Snacks</span><span class="csub">6 Varianten, 110 bis 180 kcal</span></span>
+      <span class="snums"><b class="num">~175</b> kcal · <b class="num">~16 g</b></span><span class="chev">▾</span></summary>
+    <div class="cbody">
+      <p class="intro">Die ersten vier bringen 14 bis 17 g Protein und passen zu Hähnchen-Tagen. Die beiden leichten unten nimmst du an Thunfisch-Tagen, sonst rutschst du über 150 g Protein.</p>
+      <div class="filters" data-target="snackList">
+        <button class="mini on" data-f="all">Alle 6</button>
+        <button class="mini" data-f="snack"><i class="d k-snack"></i>Proteinreich 4</button>
+        <button class="mini" data-f="light"><i class="d k-light"></i>Leicht 2</button>
+      </div>
+      <div class="rlist" id="snackList">
+<details class="recipe" id="s-quark-mit-apfel-und-zimt" data-kind="snack">
+  <summary>
+    <span class="thumb t-snack"><span class="emo">🍎</span></span>
+    <span class="rmid">
+      <span class="rname">Quark mit Apfel und Zimt</span>
+      <span class="rmeta"><span class="chip k-snack"><i class="d"></i>Proteinreich</span><span class="chip">ca. 0,45 €</span><span class="chip">5 Min</span></span>
+    </span>
+    <span class="rnums"><b class="num">180</b><small>kcal</small><b class="num prot">16,9 g</b><small>Protein</small></span>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="rbody">
+    <p class="rlead">180 kcal · 16,9 g Protein · ca. 0,45 € · 5 Min</p>
+    <div class="ing c2"><div class="ing-h"><span>Zutat</span><span>Menge</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">110 g</span></div><div class="ing-r"><span class="nm">Apfel</span><span class="n">½ Stück</span></div><div class="ing-r"><span class="nm">Haferflocken</span><span class="n">18 g</span></div></div>
+    <div class="howto"><ol class="steps">
+<li><b>Haferflocken rösten.</b> 18 g (2 gehäufte Esslöffel) in eine trockene Pfanne, mittlere Hitze (Stufe 5 von 9), 3 Minuten unter Rühren. Auf einen kalten Teller kippen.
+            <span class="cue"><b>Fertig, wenn:</b> sie goldbraun sind und nussig riechen. Macht aus einem langweiligen Quark ein Dessert mit Crunch und kostet keine einzige Kalorie extra.</span>
+</li>
+<li><b>Quark cremig rühren.</b> 110 g Magerquark mit 2 Esslöffel Wasser 30 Sekunden mit der Gabel glattrühren.</li>
+<li><b>Mischen.</b> Halben Apfel in 1-cm-Würfel, mit ½ Teelöffel Zimt und 1 Prise Salz unter den Quark. Geröstete Flocken erst ganz zum Schluss obendrauf streuen, sonst weichen sie durch.</li>
+</ol></div>
+  </div>
+</details>
+<details class="recipe" id="s-karottensticks-mit-quark-dip" data-kind="snack">
+  <summary>
+    <span class="thumb t-snack"><span class="emo">🥕</span></span>
+    <span class="rmid">
+      <span class="rname">Karottensticks mit Quark-Dip</span>
+      <span class="rmeta"><span class="chip k-snack"><i class="d"></i>Proteinreich</span><span class="chip">ca. 0,40 €</span><span class="chip">10 Min plus Ziehzeit</span></span>
+    </span>
+    <span class="rnums"><b class="num">164</b><small>kcal</small><b class="num prot">17,2 g</b><small>Protein</small></span>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="rbody">
+    <p class="rlead">164 kcal · 17,2 g Protein · ca. 0,40 € · 10 Min plus Ziehzeit</p>
+    <div class="ing c2"><div class="ing-h"><span>Zutat</span><span>Menge</span></div><div class="ing-r"><span class="nm">Karotten</span><span class="n">200 g</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">120 g</span></div></div>
+    <div class="howto"><ol class="steps">
+<li><b>Karotten schneiden.</b> 200 g schälen, in etwa fingerdicke Stifte von 7 bis 8 cm Länge.</li>
+<li><b>In Eiswasser legen.</b> Stifte in eine Schüssel mit kaltem Wasser, 15 Minuten in den Kühlschrank.
+            <span class="cue"><b>Warum:</b> Die Karotten ziehen Wasser und werden dadurch richtig knackig statt biegsam. Der Unterschied ist deutlich spürbar.</span>
+</li>
+<li><b>Dip anrühren.</b> 120 g Quark mit 3 Esslöffel Wasser cremig rühren. Dann 1 gestrichener Teelöffel Senf, ½ Teelöffel Knoblauchgranulat, ½ Teelöffel Paprikapulver, ½ Teelöffel Salz, Pfeffer, 1 Teelöffel Essig.</li>
+<li><b>20 Minuten ziehen lassen.</b>
+<span class="cue"><b>Nicht überspringen.</b> Frisch angerührt schmeckt der Dip nach Quark mit Gewürzen obendrauf. Nach 20 Minuten haben sich die Aromen verteilt und es schmeckt nach einem Dip.</span>
+</li>
+</ol></div>
+  </div>
+</details>
+<details class="recipe" id="s-zwei-eier-mit-gurke" data-kind="snack">
+  <summary>
+    <span class="thumb t-snack"><span class="emo">🥚</span></span>
+    <span class="rmid">
+      <span class="rname">Zwei Eier mit Gurke</span>
+      <span class="rmeta"><span class="chip k-snack"><i class="d"></i>Proteinreich</span><span class="chip">ca. 0,55 €</span><span class="chip">10 Min</span></span>
+    </span>
+    <span class="rnums"><b class="num">168</b><small>kcal</small><b class="num prot">14,6 g</b><small>Protein</small></span>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="rbody">
+    <p class="rlead">168 kcal · 14,6 g Protein · ca. 0,55 € · 10 Min</p>
+    <div class="ing c2"><div class="ing-h"><span>Zutat</span><span>Menge</span></div><div class="ing-r"><span class="nm">Eier</span><span class="n">2 Stück</span></div><div class="ing-r"><span class="nm">Gurke</span><span class="n">100 g</span></div></div>
+    <div class="howto"><ol class="steps">
+<li><b>Wasser aufkochen.</b> Kleiner Topf, so viel Wasser, dass die Eier bedeckt sind. Volle Hitze, bis es sprudelt.</li>
+<li><b>Eier einlegen.</b> Mit einem Löffel vorsichtig hineingleiten lassen, nicht fallen lassen. Hitze auf Stufe 4 von 9 runter, 8 Minuten.
+            <span class="cue"><b>8 Minuten gibt wachsweich</b> mit cremigem Kern, 10 Minuten komplett hart. Wachsweich schmeckt deutlich besser und ist leichter zu schälen.</span>
+</li>
+<li><b>Abschrecken.</b> Sofort 1 Minute unter kaltes fließendes Wasser halten, dann schälen.</li>
+<li><b>Gurke anmachen.</b> 100 g in Scheiben von etwa 5 mm, mit ½ Teelöffel Salz, Pfeffer und 1 Teelöffel Essig mischen.</li>
+<li><b>Anrichten.</b> Eier halbieren, mit Salz und Paprikapulver bestreuen.</li>
+</ol>
+<p class="tip"><b>Koch sechs Eier auf einmal.</b> Gekochte Eier halten ungeschält eine Woche im Kühlschrank und sind der schnellste Snack überhaupt.</p></div>
+  </div>
+</details>
+<details class="recipe" id="s-banane-mit-quark" data-kind="snack">
+  <summary>
+    <span class="thumb t-snack"><span class="emo">🍌</span></span>
+    <span class="rmid">
+      <span class="rname">Banane mit Quark</span>
+      <span class="rmeta"><span class="chip k-snack"><i class="d"></i>Proteinreich</span><span class="chip">ca. 0,45 €</span><span class="chip">3 Min</span></span>
+    </span>
+    <span class="rnums"><b class="num">176</b><small>kcal</small><b class="num prot">14,3 g</b><small>Protein</small></span>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="rbody">
+    <p class="rlead">176 kcal · 14,3 g Protein · ca. 0,45 € · 3 Min</p>
+    <div class="ing c2"><div class="ing-h"><span>Zutat</span><span>Menge</span></div><div class="ing-r"><span class="nm">Banane</span><span class="n">1 Stück</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">100 g</span></div></div>
+    <div class="howto"><ol class="steps">
+<li><b>Banane zerdrücken</b> statt in Scheiben schneiden. Mit einer Gabel in einer Schüssel zu Mus drücken.
+            <span class="cue"><b>Warum:</b> Zerdrückt verteilt sie sich im Quark und süßt ihn komplett durch. In Scheiben hast du abwechselnd sauren Quark und süße Banane.</span>
+</li>
+<li><b>Mit 100 g Quark verrühren,</b> dazu ½ Teelöffel Zimt und 1 Prise Salz.</li>
+</ol>
+<p class="tip"><b>Je brauner die Banane, desto süßer.</b> Fleckige Bananen sind für diesen Snack die besten und oft reduziert.</p></div>
+  </div>
+</details>
+<details class="recipe" id="s-airfryer-kichererbsen" data-kind="light">
+  <summary>
+    <span class="thumb t-light"><span class="emo">🫘</span></span>
+    <span class="rmid">
+      <span class="rname">Airfryer-Kichererbsen</span>
+      <span class="rmeta"><span class="chip k-light"><i class="d"></i>Leicht</span><span class="chip">ca. 0,25 €</span><span class="chip">Einweichen über Nacht</span></span>
+    </span>
+    <span class="rnums"><b class="num">164</b><small>kcal</small><b class="num prot">6,9 g</b><small>Protein</small></span>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="rbody">
+    <p class="rlead">164 kcal · 6,9 g Protein · ca. 0,25 € · Einweichen über Nacht</p>
+    <div class="ing c2"><div class="ing-h"><span>Zutat</span><span>Menge</span></div><div class="ing-r"><span class="nm">Kichererbsen, trocken</span><span class="n">35 g</span></div><div class="ing-r"><span class="nm">Apfel</span><span class="n">½ Stück</span></div></div>
+    <div class="howto"><p class="mise"><b>Mach gleich die zehnfache Menge.</b>Gekochte Kichererbsen halten 4 Tage im Kühlschrank und lassen sich einfrieren. Der Aufwand ist bei 350 g derselbe wie bei 35 g.</p>
+<ol class="steps">
+<li><b>Über Nacht einweichen.</b> Kichererbsen in eine Schüssel, dreifache Menge kaltes Wasser drüber. Mindestens 8 Stunden, gern 12.
+            <span class="cue"><b>Sie verdreifachen ihr Volumen,</b> nimm also eine große Schüssel. Aus 35 g trocken werden etwa 90 g gekocht.</span>
+</li>
+<li><b>Weich kochen.</b> Einweichwasser weggießen, frisches Wasser, 1 gestrichener Teelöffel Salz. Aufkochen, dann Stufe 3 von 9, 45 Minuten köcheln.
+            <span class="cue"><b>Fertig, wenn:</b> sich eine Kichererbse zwischen den Fingern leicht zerdrücken lässt. Zu fest bleiben sie auch im Airfryer hart.</span>
+</li>
+<li><b>Sehr gründlich trocknen.</b> Abgießen, auf ein Küchentuch kippen, ein zweites Tuch drüber und vorsichtig rollen. 10 Minuten offen liegen lassen.
+            <span class="cue"><b>Der Schritt, an dem es scheitert.</b> Jeder Tropfen Restwasser verhindert, dass sie knusprig werden. Sie müssen sich trocken anfühlen.</span>
+</li>
+<li><b>Würzen.</b> ½ Teelöffel Paprikapulver, ½ Teelöffel Kreuzkümmel, ½ Teelöffel Knoblauchgranulat, ½ Teelöffel Salz. Kein Öl nötig.</li>
+<li><b>Garen.</b> Airfryer 5 Minuten auf 200 °C vorheizen, Kichererbsen einlagig, 12 bis 15 Minuten, nach 5 und 10 Minuten schütteln.
+            <span class="cue"><b>Fertig, wenn:</b> sie beim Draufbeißen hörbar knacken. Einzelne platzen auf, das ist normal und gewollt.</span>
+</li>
+<li><b>Sofort essen.</b>
+<span class="cue"><b>Sie halten die Knusprigkeit nur 2 bis 3 Stunden.</b> In einem geschlossenen Behälter werden sie schon nach einer Stunde zäh. Lieber kleine Portionen frisch machen.</span>
+</li>
+</ol>
+<p class="tip"><b>Der beste Snack im ganzen Plan,</b> was Preis und Knuspern angeht. Eine 500-g-Packung kostet 1,19 € und reicht für vierzehn Portionen.</p></div>
+  </div>
+</details>
+<details class="recipe" id="s-airfryer-apfelchips" data-kind="light">
+  <summary>
+    <span class="thumb t-light"><span class="emo">🍏</span></span>
+    <span class="rmid">
+      <span class="rname">Airfryer-Apfelchips</span>
+      <span class="rmeta"><span class="chip k-light"><i class="d"></i>Leicht</span><span class="chip">ca. 0,25 €</span><span class="chip">30 Min</span></span>
+    </span>
+    <span class="rnums"><b class="num">110</b><small>kcal</small><b class="num prot">1,8 g</b><small>Protein</small></span>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="rbody">
+    <p class="rlead">110 kcal · 1,8 g Protein · ca. 0,25 € · 30 Min</p>
+    <div class="ing c2"><div class="ing-h"><span>Zutat</span><span>Menge</span></div><div class="ing-r"><span class="nm">Apfel</span><span class="n">2 Stück</span></div><div class="ing-r"><span class="nm">Zimt</span><span class="n">1 Prise</span></div></div>
+    <div class="howto"><ol class="steps">
+<li><b>Hauchdünn schneiden.</b> Apfel quer in Scheiben, maximal 2 mm dick. Mit einem scharfen Messer oder, deutlich einfacher, mit einem Sparschäler.
+            <span class="cue"><b>Die Dicke entscheidet alles.</b> 2 mm werden knusprig, 4 mm bleiben ledrig und zäh. Lieber langsam und dünn als schnell und dick.</span>
+</li>
+<li><b>Kerne rauspulen,</b> das Kerngehäuse selbst kann bleiben. Runde Scheiben mit Sternmuster sehen gut aus.</li>
+<li><b>Mit Zimt bestreuen.</b> Kein Zucker nötig.
+            <span class="cue"><b>Warum kein Zucker:</b> Das Trocknen entzieht Wasser und konzentriert den Fruchtzucker von allein. Zusätzlicher Zucker würde nur karamellisieren und anbrennen.</span>
+</li>
+<li><b>Garen.</b> Airfryer auf 150 °C, Scheiben einlagig, 20 bis 25 Minuten, alle 7 Minuten wenden.
+            <span class="cue"><b>150 °C ist Pflicht.</b> Bei 200 °C verbrennen die Ränder, bevor die Mitte trocken ist. Hier ist niedrig und lang der einzige Weg.</span>
+</li>
+<li><b>Auskühlen lassen.</b>
+<span class="cue"><b>Direkt aus dem Airfryer sind sie noch weich</b> und du denkst, es hat nicht funktioniert. Erst beim Abkühlen auf Zimmertemperatur werden sie knusprig. Gib ihnen 10 Minuten.</span>
+</li>
+</ol></div>
+  </div>
+</details></div>
+    </div>
+  </details>
+
+  <details class="card sec" id="abendessen">
+    <summary><span class="sico s-ab">🍲</span><span class="shd"><span class="ctitle">Abendessen</span><span class="csub">Linseneintopf, drei Würzrichtungen</span></span>
+      <span class="snums"><b class="num">604</b> kcal · <b class="num">45,0 g</b></span><span class="chev">▾</span></summary>
+    <div class="cbody">
+      <p class="intro">Zutaten und Nährwerte bleiben jeden Tag gleich, der Geschmack nicht. Drei Würzrichtungen aus denselben Zutaten, du wechselst einfach durch.</p>
+      <div class="wzgrid"><div class="wz"><div class="wzh"><span class="wzt">Indisch</span><span class="wzs">Dal, cremig und warm</span></div><p>1 gehäufter TL Currypulver, ½ TL Kreuzkümmel, ½ TL Chiliflocken. Der Quark wird am Ende eingerührt statt als Nachtisch gegessen</p></div><div class="wz"><div class="wzh"><span class="wzt">Türkisch</span><span class="wzs">Mercimek, säuerlich und frisch</span></div><p>1 gestrichener TL Paprikapulver, ½ TL Kreuzkümmel. Am Ende die doppelte Menge Essig, also 2 gehäufte TL</p></div><div class="wz"><div class="wzh"><span class="wzt">Italienisch</span><span class="wzs">dicke Tomatensauce mit Linsen</span></div><p>1 gehäufter TL Oregano, ½ TL Knoblauchgranulat, ½ TL Chiliflocken. Dazu 250 g passierte Tomaten statt 150 g und nur 250 ml Wasser</p></div></div>
+      <div class="ing c4"><div class="ing-h"><span>Zutat</span><span>Menge</span><span>kcal</span><span>Protein</span></div><div class="ing-r"><span class="nm">Rote Linsen, roh</span><span class="n">90 g</span><span class="n">306</span><span class="n">21,6 g</span></div><div class="ing-r"><span class="nm">Karotte</span><span class="n">100 g</span><span class="n">40</span><span class="n">0,8 g</span></div><div class="ing-r"><span class="nm">Zwiebel</span><span class="n">50 g</span><span class="n">20</span><span class="n">0,6 g</span></div><div class="ing-r"><span class="nm">Passierte Tomaten</span><span class="n">150 g</span><span class="n">45</span><span class="n">2,0 g</span></div><div class="ing-r"><span class="nm">Ei</span><span class="n">1 Stück</span><span class="n">78</span><span class="n">7,0 g</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">100 g</span><span class="n">70</span><span class="n">13,0 g</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">1 TL</span><span class="n">45</span><span class="n">–</span></div></div>
+      <div class="ing-total"><span>Summe</span><span class="num">604 kcal</span><span class="num">45,0 g</span></div>
+      <h3 class="subhead">Grundrezept Schritt für Schritt</h3>
+      <div class="howto"><p class="mise"><b>Gesamtzeit etwa 30 Minuten,</b>davon 8 Minuten Arbeit. Der Rest läuft von allein.</p>
+<ol class="steps">
+<li><b>Linsen abspülen.</b> 90 g rote Linsen in ein Sieb, unter kaltem Wasser abspülen und dabei mit der Hand durchmischen, bis das ablaufende Wasser klar bleibt. Dauert etwa 30 Sekunden.
+          <span class="cue"><b>Einweichen ist nicht nötig.</b> Rote Linsen sind geschält und garen in 12 bis 15 Minuten. Das Abspülen entfernt Staub und das Schaumbilden beim Kochen.</span>
+</li>
+<li><b>Gemüse schneiden.</b> 50 g Zwiebel und 100 g Karotte in Würfel von etwa 5 mm.</li>
+<li><b>Anbraten.</b> 1 Teelöffel Rapsöl in einen Topf, mittlere Hitze (Stufe 5 von 9). Zwiebel und Karotte 6 Minuten braten, zweimal umrühren.
+          <span class="cue"><b>Fertig, wenn:</b> die Zwiebelränder goldbraun werden und die Karotte an den Kanten weich wird. Hier nicht hetzen, das ist die komplette Geschmacksbasis des Gerichts.</span>
+</li>
+<li><b>Gewürze mitrösten.</b> Je nach Richtung (Tabelle unten) 30 Sekunden trocken mitrösten, bevor Flüssigkeit dazukommt.
+          <span class="cue"><b>Fertig, wenn:</b> es kräftig duftet. Länger als 45 Sekunden wird bitter.</span>
+</li>
+<li><b>Linsen und Flüssigkeit.</b> Linsen, 150 g passierte Tomaten und 350 ml Wasser dazu. Einmal umrühren, auf voller Hitze aufkochen, dann sofort auf Stufe 3 von 9 runter.</li>
+<li><b>Köcheln.</b> 12 bis 15 Minuten, alle 4 Minuten umrühren, damit nichts am Boden ansetzt.
+          <span class="cue"><b>Fertig, wenn:</b> die Linsen zerfallen sind und die Masse am Löffel haften bleibt. Zu dick? Schluck Wasser dazu. Zu dünn? Deckel ab, 3 Minuten weiter.</span>
+</li>
+<li><b>Ei zubereiten.</b> Entweder als Spiegelei in einer beschichteten Pfanne ohne Fett bei Stufe 4 von 9, etwa 4 Minuten mit Deckel. Oder gekocht: 7 Minuten, abschrecken, halbieren.
+          <span class="cue"><b>Das weiche Eigelb ist der Punkt.</b> Es läuft in den Eintopf und macht ihn cremig. Hart gekocht verschenkst du diesen Effekt.</span>
+</li>
+<li><b>Abschmecken.</b> ½ Teelöffel Salz, Pfeffer, und auf jeden Fall 1 gehäufter Teelöffel Essig.
+          <span class="cue"><b>Linsen ohne Säure schmecken immer stumpf,</b> das ist kein Zufall, sondern Chemie. Probier einen Löffel vor und einen nach dem Essig.</span>
+</li>
+<li><b>Quark dazu.</b> Als Nachtisch oder als Klecks obendrauf. Wenn obendrauf, dann erst wenn der Eintopf auf Esstemperatur abgekühlt ist.
+          <span class="cue"><b>Magerquark flockt in heißer Flüssigkeit aus.</b> Dann sieht es aus wie geronnene Milch. Schmeckt noch, sieht aber unappetitlich aus.</span>
+</li>
+</ol></div>
+      <p class="note">Wer will, nimmt zweimal die Woche 150 g Sauerkraut als Beilage statt Quark. Kostet 20 Cent, liefert ordentlich Vitamin C und Vitamin K und bringt die Säure gleich mit.</p>
+    </div>
+  </details>
+
+  <div class="grp">Planung</div>
+
+  <details class="card sec" id="woche">
+    <summary><span class="sico s-wo">📅</span><span class="shd"><span class="ctitle">Vorschlag für die Woche</span><span class="csub">So gehen 600 g Hähnchenbrust und beide Thunfischdosen genau auf.</span></span><span class="chev">▾</span></summary>
+    <div class="cbody">
+      <div class="wkh"><span>Tag</span><span>Mittagessen</span><span>Snack</span><span>kcal</span><span>Protein</span></div>
+      <div class="wklist"><div class="wk" data-day="0">
+  <span class="wkd">Mo</span>
+  <a class="wkm" href="#m-knusprige-haehnchen-nuggets-mit-pommes" data-open="m-knusprige-haehnchen-nuggets-mit-pommes">Hähnchen-Nuggets mit Pommes</a>
+  <a class="wks" href="#s-quark-mit-apfel-und-zimt" data-open="s-quark-mit-apfel-und-zimt">Quark, Apfel, Zimt</a>
+  <span class="wkn num">1.984</span><span class="wkn num">147,8 g</span>
+</div><div class="wk" data-day="1">
+  <span class="wkd">Di</span>
+  <a class="wkm" href="#m-haehnchen-am-stueck-mit-krautsalat" data-open="m-haehnchen-am-stueck-mit-krautsalat">Hähnchen am Stück mit Krautsalat</a>
+  <a class="wks" href="#s-karottensticks-mit-quark-dip" data-open="s-karottensticks-mit-quark-dip">Karotten mit Dip</a>
+  <span class="wkn num">1.969</span><span class="wkn num">147,6 g</span>
+</div><div class="wk" data-day="2">
+  <span class="wkd">Mi</span>
+  <a class="wkm" href="#m-haehnchen-curry-mit-reis" data-open="m-haehnchen-curry-mit-reis">Hähnchen-Curry mit Reis</a>
+  <a class="wks" href="#s-quark-mit-apfel-und-zimt" data-open="s-quark-mit-apfel-und-zimt">Quark, Apfel, Zimt</a>
+  <span class="wkn num">1.975</span><span class="wkn num">143,1 g</span>
+</div><div class="wk" data-day="3">
+  <span class="wkd">Do</span>
+  <a class="wkm" href="#m-haehnchen-burger-mit-krautsalat" data-open="m-haehnchen-burger-mit-krautsalat">Hähnchen-Burger mit Krautsalat</a>
+  <a class="wks" href="#s-banane-mit-quark" data-open="s-banane-mit-quark">Banane mit Quark</a>
+  <span class="wkn num">1.984</span><span class="wkn num">146,1 g</span>
+</div><div class="wk" data-day="4">
+  <span class="wkd">Fr</span>
+  <a class="wkm" href="#m-lauwarmer-thunfisch-kartoffelsalat" data-open="m-lauwarmer-thunfisch-kartoffelsalat">Thunfisch-Kartoffelsalat</a>
+  <a class="wks" href="#s-quark-mit-apfel-und-zimt" data-open="s-quark-mit-apfel-und-zimt">Quark, Apfel, Zimt</a>
+  <span class="wkn num">1.980</span><span class="wkn num">149,6 g</span>
+</div><div class="wk" data-day="5">
+  <span class="wkd">Sa</span>
+  <a class="wkm" href="#m-haehnchen-gyros-mit-tzatziki" data-open="m-haehnchen-gyros-mit-tzatziki">Hähnchen-Gyros mit Tzatziki</a>
+  <a class="wks" href="#s-karottensticks-mit-quark-dip" data-open="s-karottensticks-mit-quark-dip">Karotten mit Dip</a>
+  <span class="wkn num">1.952</span><span class="wkn num">145,5 g</span>
+</div><div class="wk" data-day="6">
+  <span class="wkd">So</span>
+  <a class="wkm" href="#m-thunfisch-pasta-arrabbiata" data-open="m-thunfisch-pasta-arrabbiata">Thunfisch-Pasta Arrabbiata</a>
+  <a class="wks" href="#s-airfryer-kichererbsen" data-open="s-airfryer-kichererbsen">Airfryer-Kichererbsen</a>
+  <span class="wkn num">1.968</span><span class="wkn num">143,1 g</span>
+</div></div>
+      <p class="note">Jeder Tag liegt unter 2.000 kcal und zwischen 143 und 150 g Protein. Linsen-Bolognese und Wedges mit Kräuterquark sind die Joker, wenn du einen Tag tauschen willst.</p>
+    </div>
+  </details>
+
+  <details class="card sec" id="einkauf">
+    <summary><span class="sico s-ek">🛒</span><span class="shd"><span class="ctitle">Einkaufsliste</span><span class="csub">Alles Kaufland-Eigenmarke, wo es sie gibt. Preise sind Richtwerte und schwanken je nach Filiale und Woche.</span></span>
+      <span class="snums"><b class="num" id="shopCount">0/26</b> · <b class="num">50,61 €</b></span><span class="chev">▾</span></summary>
+    <div class="cbody">
+      <div class="prog"><i id="shopBar"></i></div>
+      <div class="cklist"><label class="ck"><input type="checkbox" data-key="shop" data-i="0"><span class="box"></span>
+  <span class="cknm">K-Classic Speisequark Magerstufe<small>3 × 1 kg</small></span><span class="ckp num">6,87 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="1"><span class="box"></span>
+  <span class="cknm">K-Purland Hähnchenbrustfilet<small>600 g</small></span><span class="ckp num">6,79 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="2"><span class="box"></span>
+  <span class="cknm">K-Classic Speisekartoffeln, mehligkochend<small>5 kg</small></span><span class="ckp num">3,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="3"><span class="box"></span>
+  <span class="cknm">K-Classic Äpfel<small>1,5 kg</small></span><span class="ckp num">2,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="4"><span class="box"></span>
+  <span class="cknm">K-Classic Thunfisch in eigenem Saft<small>2 Dosen</small></span><span class="ckp num">2,98 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="5"><span class="box"></span>
+  <span class="cknm">K-Classic Rote Linsen<small>1 kg</small></span><span class="ckp num">2,58 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="6"><span class="box"></span>
+  <span class="cknm">K-Classic Rapsöl<small>1 l</small></span><span class="ckp num">2,29 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="7"><span class="box"></span>
+  <span class="cknm">K-Classic Eier, Bodenhaltung<small>10 Stück</small></span><span class="ckp num">1,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="8"><span class="box"></span>
+  <span class="cknm">Bananen, lose<small>1,2 kg</small></span><span class="ckp num">1,95 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="9"><span class="box"></span>
+  <span class="cknm">K-Classic Langkornreis<small>1 kg</small></span><span class="ckp num">1,79 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="10"><span class="box"></span>
+  <span class="cknm">K-Classic Passierte Tomaten<small>3 × 500 g</small></span><span class="ckp num">1,77 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="11"><span class="box"></span>
+  <span class="cknm">K-Classic Karotten<small>1,5 kg</small></span><span class="ckp num">1,49 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="12"><span class="box"></span>
+  <span class="cknm">K-Classic TK-Gemüsemischung<small>750 g</small></span><span class="ckp num">1,39 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="13"><span class="box"></span>
+  <span class="cknm">K-Classic Zwiebeln<small>1 kg</small></span><span class="ckp num">1,29 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="14"><span class="box"></span>
+  <span class="cknm">K-Classic Haferflocken<small>1 kg</small></span><span class="ckp num">1,29 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="15"><span class="box"></span>
+  <span class="cknm">K-Classic Kichererbsen, getrocknet<small>500 g</small></span><span class="ckp num">1,19 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="16"><span class="box"></span>
+  <span class="cknm">K-Classic Vollkornbrötchen<small>4 Stück</small></span><span class="ckp num">0,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="17"><span class="box"></span>
+  <span class="cknm">Weißkohl<small>1 Kopf</small></span><span class="ckp num">0,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="18"><span class="box"></span>
+  <span class="cknm">K-Classic Leinsamen, geschrotet<small>250 g</small></span><span class="ckp num">0,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="19"><span class="box"></span>
+  <span class="cknm">Eisbergsalat<small>1 Kopf</small></span><span class="ckp num">0,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="20"><span class="box"></span>
+  <span class="cknm">K-Classic Speisestärke<small>400 g</small></span><span class="ckp num">0,79 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="21"><span class="box"></span>
+  <span class="cknm">Natron<small>3 × 50 g</small></span><span class="ckp num">0,79 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="22"><span class="box"></span>
+  <span class="cknm">Salatgurke<small>1 Stück</small></span><span class="ckp num">0,69 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="23"><span class="box"></span>
+  <span class="cknm">Tomaten, lose<small>250 g</small></span><span class="ckp num">0,60 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="24"><span class="box"></span>
+  <span class="cknm">K-Classic Nudeln<small>500 g</small></span><span class="ckp num">0,59 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="25"><span class="box"></span>
+  <span class="cknm">K-Classic Paniermehl<small>400 g</small></span><span class="ckp num">0,55 €</span></label></div>
+      <div class="ing-total two"><span>Kassenbon</span><span class="num">50,61 €</span></div>
+      <div class="cfoot"><button class="mini" data-reset="shop">Häkchen zurücksetzen</button></div>
+      <p class="note">Rund 17 € davon ist Vorrat für die kommenden Wochen: Reis, Nudeln, Linsen, Haferflocken, Öl, Kichererbsen, Paniermehl, Stärke, Natron, Leinsamen, der halbe Kartoffelsack und die Hälfte des Kohls. <strong>Tatsächliche Wochenkosten: etwa 33,50 €, also 4,79 € am Tag.</strong> Dazu einmalig 7,42 € für die Gewürze.</p><p class="note"><strong>Zwei echte Sparhebel:</strong> Magerquark im 1-kg-Becher statt im 500-g-Becher spart rund 1,30 € pro Kilo, das ist in diesem Plan der größte Einzelposten. Und Hähnchenbrust nur im Angebot kaufen, die Teilstücke gibt es regelmäßig für etwa 8,30 € statt 11 € pro Kilo.</p>
+    </div>
+  </details>
+
+  <details class="card sec" id="gewuerze">
+    <summary><span class="sico s-gw">🧂</span><span class="shd"><span class="ctitle">Gewürz-Grundausstattung</span><span class="csub">Einmalig 7,42 €, reicht drei bis sechs Monate. Ohne das schmeckt kein Sparplan der Welt gut, mit dem schmeckt fast jeder.</span></span>
+      <span class="snums"><b class="num" id="spiceCount">0/10</b> · <b class="num">7,42 €</b></span><span class="chev">▾</span></summary>
+    <div class="cbody">
+      <div class="prog"><i id="spiceBar"></i></div>
+      <div class="cklist"><label class="ck"><input type="checkbox" data-key="spice" data-i="0"><span class="box"></span>
+  <span class="cknm">Paprikapulver edelsüß<small>Nuggets, Wedges, Gyros, Bolognese, überall</small></span><span class="ckp num">0,89 €</span></label><label class="ck"><input type="checkbox" data-key="spice" data-i="1"><span class="box"></span>
+  <span class="cknm">Knoblauchgranulat<small>Dips, Marinaden, Tzatziki. Hält ewig und ist praktischer als frischer Knoblauch</small></span><span class="ckp num">0,99 €</span></label><label class="ck"><input type="checkbox" data-key="spice" data-i="2"><span class="box"></span>
+  <span class="cknm">Currypulver<small>Curry und die indische Linsenrichtung</small></span><span class="ckp num">0,89 €</span></label><label class="ck"><input type="checkbox" data-key="spice" data-i="3"><span class="box"></span>
+  <span class="cknm">Kreuzkümmel gemahlen<small>Gyros, Curry, Kichererbsen, türkische Linsen</small></span><span class="ckp num">0,89 €</span></label><label class="ck"><input type="checkbox" data-key="spice" data-i="4"><span class="box"></span>
+  <span class="cknm">Pfeffer gemahlen<small>alles</small></span><span class="ckp num">0,89 €</span></label><label class="ck"><input type="checkbox" data-key="spice" data-i="5"><span class="box"></span>
+  <span class="cknm">Chiliflocken<small>Arrabbiata, Curry, überall wo es langweilig wird</small></span><span class="ckp num">0,79 €</span></label><label class="ck"><input type="checkbox" data-key="spice" data-i="6"><span class="box"></span>
+  <span class="cknm">Oregano<small>Gyros, Pasta, Bolognese, Kräuterquark</small></span><span class="ckp num">0,69 €</span></label><label class="ck"><input type="checkbox" data-key="spice" data-i="7"><span class="box"></span>
+  <span class="cknm">Branntweinessig<small>Der wichtigste Posten. Ein Spritzer am Ende rettet jedes Gericht</small></span><span class="ckp num">0,55 €</span></label><label class="ck"><input type="checkbox" data-key="spice" data-i="8"><span class="box"></span>
+  <span class="cknm">Senf mittelscharf<small>alle Dips, Dressings und Marinaden</small></span><span class="ckp num">0,45 €</span></label><label class="ck"><input type="checkbox" data-key="spice" data-i="9"><span class="box"></span>
+  <span class="cknm">Jodsalz<small>schließt gleichzeitig die Jodlücke</small></span><span class="ckp num">0,39 €</span></label></div>
+      <div class="ing-total two"><span>Einmalig</span><span class="num">7,42 €</span></div>
+      <div class="cfoot"><button class="mini" data-reset="spice">Häkchen zurücksetzen</button></div>
+      <p class="note">Zimt brauchst du täglich fürs Frühstück, den hast du vermutlich schon. Falls nicht: 0,69 € dazu.</p>
+    </div>
+  </details>
+
+  <div class="grp" id="wissen">Wissen</div>
+  
+<details class="card sec" id="ehrlich-gesagt">
+  <summary><span class="sico">💬</span><span class="shd"><span class="ctitle">Ehrlich gesagt</span><span class="csub">Du hast nach einer realistischen Einschätzung gefragt, also hier die ungeschönte Version der alten Fassung.</span></span><span class="chev">▾</span></summary>
+  <div class="cbody"><div class="callout"><p><strong>Sieben Mal derselbe Linseneintopf hält kein Mensch durch.</strong> Das war der größte Schwachpunkt. Die Zutaten bleiben jetzt gleich, aber es gibt drei Würzrichtungen, die komplett anders schmecken. Gleicher Aufwand, gleiche Nährwerte.</p>
+<p><strong>Der eigentliche Grund für fades Essen war nicht das Öl, sondern das fehlende Gewürzregal.</strong> Im alten Plan standen Salz und Pfeffer. Für 7,42 € einmalig bekommst du zehn Gewürze, die Monate halten und jedes einzelne Gericht retten. Das ist der mit Abstand beste Euro in diesem ganzen Plan.</p>
+<p><strong>Komplett ohne Öl rate ich dir ab, und zwar aus einem konkreten Grund.</strong> Im Airfryer brauchst du kein Fett für die Kruste, das stimmt. Aber Rapsöl ist in diesem Plan deine einzige Quelle für Vitamin E und Omega-3. Ein Teelöffel am Tag, kalt über das fertige Essen, kostet 45 kcal und schließt zwei echte Lücken. Zum Braten brauchst du es nicht mehr.</p>
+<p><strong>Säure hat komplett gefehlt.</strong> Ein Spritzer Essig am Ende ist der Unterschied zwischen "irgendwie fertig" und "schmeckt". Kostet nichts und steht jetzt in fast jeder Anleitung.</p></div></div>
+</details>
+  
+<details class="card sec" id="so-laeuft-der-tag">
+  <summary><span class="sico">⏱️</span><span class="shd"><span class="ctitle">So läuft der Tag</span><span class="csub">Vier Slots. Frühstück und Abendessen rührst du nicht an, die sind der Anker. Mittags und beim Snack wählst du frei. Alle Mittagsvarianten liegen bei 638 bis 655 kcal, alle Snacks bei 110 bis 180 kcal, deshalb kannst du beliebig kombinieren, ohne nachzurechnen.</span></span><span class="chev">▾</span></summary>
+  <div class="cbody"><div class="prose"><div class="tblwrap"><table class="tbl">
+<thead><tr><th>Slot</th><th>Wann</th><th class="n">kcal</th><th class="n">Protein</th></tr></thead>
+<tbody>
+<tr><td><strong>Frühstück</strong>, immer gleich</td><td>morgens</td><td class="n">546</td><td class="n">35,1 g</td></tr>
+<tr><td><strong>Mittagessen</strong>, neun Varianten</td><td>mittags</td><td class="n">~650</td><td class="n">~50 g</td></tr>
+<tr><td><strong>Snack</strong>, sechs Varianten</td><td>nachmittags</td><td class="n">~175</td><td class="n">~16 g</td></tr>
+<tr><td><strong>Abendessen</strong>, immer gleich</td><td>abends</td><td class="n">604</td><td class="n">45,0 g</td></tr>
+<tr class="total"><td>Tag</td><td></td><td class="n">1.975</td><td class="n">146,1 g</td></tr>
+</tbody>
+</table></div>
+<p class="note">Eine einzige Regel musst du dir merken: An den beiden Thunfisch-Tagen nimmst du einen leichten Snack, sonst landest du über 150 g Protein. Steht auf den Karten dran.</p></div></div>
+</details>
+  
+<details class="card sec" id="kuechen-grundlagen">
+  <summary><span class="sico">🍳</span><span class="shd"><span class="ctitle">Küchen-Grundlagen</span><span class="csub">Einmal lesen, dann verstehst du jede Anleitung weiter unten. Diese vier Tabellen nehmen dir das Raten ab.</span></span><span class="chev">▾</span></summary>
+  <div class="cbody"><div class="prose"><h3 class="subhead">Mengen ohne Waage</h3>
+<div class="tblwrap"><table class="tbl">
+<thead><tr><th>Angabe</th><th>Entspricht</th><th>Wie du es erkennst</th></tr></thead>
+<tbody>
+<tr><td><strong>1 gestrichener TL</strong></td><td>5 ml</td><td>Teelöffel voll, mit dem Messerrücken glatt abgestrichen. Salz 6 g, Natron 4 g, Gewürzpulver 3 g, Stärke 3 g</td></tr>
+<tr><td><strong>1 gehäufter TL</strong></td><td>ca. 8 ml</td><td>So viel, wie oben drauf liegen bleibt, ohne runterzufallen</td></tr>
+<tr><td><strong>1 gestrichener EL</strong></td><td>15 ml</td><td>Genau 3 Teelöffel. Quark 18 g, Stärke 9 g, Wasser 15 ml</td></tr>
+<tr><td><strong>1 Messerspitze</strong></td><td>ca. 0,5 g</td><td>Was auf der Spitze eines Messers liegen bleibt. Ungefähr ein Achtel Teelöffel</td></tr>
+<tr><td><strong>1 Prise</strong></td><td>ca. 0,3 g</td><td>Was zwischen Daumen und Zeigefinger passt, wenn du einmal zugreifst</td></tr>
+<tr><td><strong>Handvoll</strong></td><td>ca. 30 g</td><td>Bei Kräutern, Cornflakes, Salat. Keine exakte Größe nötig</td></tr>
+</tbody>
+</table></div>
+<p class="note">In diesem Plan kommt bewusst kein Viertel-Teelöffel mehr vor. Wo so kleine Mengen nötig wären, löse ich sie stattdessen in Wasser auf. Das ist genauer und einfacher.</p>
+<h3 class="subhead">Herdstufen übersetzt</h3>
+<div class="tblwrap"><table class="tbl">
+<thead><tr><th>Was in der Anleitung steht</th><th class="n">9er-Herd</th><th class="n">6er-Herd</th><th>Woran du es siehst</th></tr></thead>
+<tbody>
+<tr><td><strong>Volle Hitze</strong>, zum Aufkochen</td><td class="n">9</td><td class="n">6</td><td>Wasser sprudelt kräftig, große Blasen</td></tr>
+<tr><td><strong>Scharf anbraten</strong></td><td class="n">7</td><td class="n">5</td><td>Es zischt laut, sobald das Fleisch die Pfanne berührt</td></tr>
+<tr><td><strong>Mittlere Hitze</strong></td><td class="n">5</td><td class="n">3</td><td>Zwiebeln brutzeln leise und werden in 5 Minuten glasig, ohne schwarz zu werden</td></tr>
+<tr><td><strong>Köcheln</strong></td><td class="n">2 bis 3</td><td class="n">2</td><td>Nur kleine Bläschen steigen auf, es sprudelt nicht</td></tr>
+<tr><td><strong>Warmhalten</strong></td><td class="n">1</td><td class="n">1</td><td>Nichts bewegt sich, es dampft nur leicht</td></tr>
+</tbody>
+</table></div>
+<p class="note">Induktion wird deutlich schneller heiß als Ceran oder Gas. Wenn du Induktion hast, nimm jeweils eine Stufe weniger und geh lieber hoch, als etwas anbrennen zu lassen.</p>
+<h3 class="subhead">Ist das Hähnchen durch?</h3>
+<div class="tblwrap"><table class="tbl">
+<thead><tr><th>Form</th><th class="n">Airfryer</th><th class="n">Zeit</th><th>Prüfen</th></tr></thead>
+<tbody>
+<tr><td>Würfel, 3 cm</td><td class="n">190 °C</td><td class="n">11 Min</td><td>Einen Würfel halbieren, innen durchgehend weiß</td></tr>
+<tr><td>Streifen, 1 cm breit</td><td class="n">190 °C</td><td class="n">10 Min</td><td>Ränder leicht gebräunt, innen weiß</td></tr>
+<tr><td>Filet flach geklopft, 1,5 cm</td><td class="n">190 °C</td><td class="n">13 Min</td><td>An der dicksten Stelle einschneiden, kein Rosa, Saft läuft klar</td></tr>
+<tr><td>Filet am Stück, 120 g</td><td class="n">190 °C</td><td class="n">14 Min</td><td>Dasselbe, plus 5 Minuten ruhen lassen</td></tr>
+</tbody>
+</table></div>
+<p class="note"><strong>Kerntemperatur 74 °C</strong> ist die sichere Zahl. Ein Einstichthermometer kostet etwa 8 € und ist die beste Küchenanschaffung in dieser Preisklasse, weil du dann nie wieder trockenes oder rohes Hähnchen hast. Ohne Thermometer gilt: dickste Stelle aufschneiden, durchgehend weiß, Saft klar.</p>
+<h3 class="subhead">Wasser und Salz</h3>
+<div class="tblwrap"><table class="tbl">
+<thead><tr><th>Wofür</th><th>Wasser</th><th>Salz</th><th>Hinweis</th></tr></thead>
+<tbody>
+<tr><td>Nudeln</td><td>1 Liter pro 100 g</td><td>1 gehäufter TL pro Liter</td><td>Das Wasser soll salzig schmecken. Das ist die einzige Gelegenheit, die Nudeln selbst zu würzen</td></tr>
+<tr><td>Reis</td><td>doppelte Menge, also 105 g Reis auf 210 ml</td><td>½ TL</td><td>Abmessen, nicht schätzen. Zu viel Wasser gibt Pampe</td></tr>
+<tr><td>Kartoffeln vorkochen</td><td>1,5 Liter, Kartoffeln 2 cm bedeckt</td><td>1 gehäufter TL</td><td>Dazu 1 gestrichener TL Natron, siehe Airfryer-Technik</td></tr>
+<tr><td>Linsen</td><td>350 ml auf 90 g</td><td>erst am Ende salzen</td><td>Salz am Anfang verlängert die Garzeit spürbar</td></tr>
+<tr><td>TK-Gemüse</td><td>500 ml</td><td>½ TL</td><td>6 Minuten ab dem Moment, wo es wieder kocht</td></tr>
+</tbody>
+</table></div></div></div>
+</details>
+  
+<details class="card sec" id="airfryer-technik">
+  <summary><span class="sico">🌀</span><span class="shd"><span class="ctitle">Airfryer-Technik</span><span class="csub">Drei Tricks, die in diesem Plan immer wieder auftauchen. Wenn du nur diese drei kannst, kochst du besser als die meisten.</span></span><span class="chev">▾</span></summary>
+  <div class="cbody"><div class="prose"><div class="tblwrap"><table class="tbl">
+<thead><tr><th>Trick</th><th>Genau wie</th><th>Warum das funktioniert</th></tr></thead>
+<tbody>
+<tr><td><strong>Natron-Kartoffeln</strong></td><td>1 gestrichener TL Natron und 1 gehäufter TL Salz auf 1,5 Liter Wasser. Aufkochen, dann Stufe 3 von 9, 8 Minuten. Abgießen, im Topf dreimal kräftig schütteln, 5 Minuten offen ausdampfen, 1 gestrichener TL Speisestärke drüber. Airfryer 200 °C, 20 bis 24 Minuten</td><td>Das Natron macht das Wasser basisch und löst das Pektin zwischen den Zellen. Dadurch entsteht beim Schütteln eine mehlige Außenschicht, die im Airfryer austrocknet und zur Kruste wird. Diese Schicht ersetzt das Öl vollständig</td></tr>
+<tr><td><strong>Geröstete Panade</strong></td><td>Paniermehl trocken in eine Pfanne ohne Fett, Stufe 5 von 9, 3 bis 4 Minuten unter ständigem Rühren bis haselnussbraun. Sofort auf einen kalten Teller. Erst dann panieren</td><td>Im Airfryer fehlt das Fett, das sonst die Hitze an die Panade überträgt. Rohe Panade bleibt deshalb blass und mehlig. Vorgeröstet ist sie bereits braun und muss nur noch trocknen</td></tr>
+<tr><td><strong>Natron-Lake am Fleisch</strong></td><td>1 gestrichener TL Natron in 500 ml kaltem Wasser auflösen. Hähnchenwürfel 20 Minuten einlegen, dann 30 Sekunden unter fließendem Wasser abspülen und trocken tupfen</td><td>Die basische Lake verhindert, dass sich die Eiweißfasern beim Garen stark zusammenziehen. Das Fleisch verliert weniger Saft und bleibt zart. Als Lake statt als Pulver, weil sich ein Viertel Teelöffel nicht sinnvoll abmessen oder verteilen lässt</td></tr>
+</tbody>
+</table></div>
+<p class="note"><strong>Zwei Grundregeln für jedes Gericht:</strong> Immer 5 Minuten vorheizen, sonst dampft das Gargut in der Aufheizphase weich statt knusprig zu werden. Und immer einlagig füllen. Zwei Durchgänge sind besser als ein voller Korb, in dem sich alles gegenseitig weich dämpft. Wenn du zwei Durchgänge machst, hältst du den ersten im Backofen bei 80 °C warm.</p></div></div>
+</details>
+  
+<details class="card sec" id="bekommst-du-genug-vitamine">
+  <summary><span class="sico">🧬</span><span class="shd"><span class="ctitle">Bekommst du genug Vitamine?</span><span class="csub">Ehrliche Bilanz. Die meisten Nährstoffe sind gut gedeckt, fünf sind es nicht, und bei einem hilft kein Lebensmittel aus diesem Budget.</span></span><span class="chev">▾</span></summary>
+  <div class="cbody"><div class="prose"><div class="tblwrap"><table class="tbl">
+<thead><tr><th>Nährstoff</th><th>Stand</th><th>Woher im Plan</th></tr></thead>
+<tbody>
+<tr><td>Vitamin C</td><td><span class="pill ok">gedeckt</span></td><td>Kartoffeln liefern überraschend viel, dazu TK-Gemüse, Kohl und Obst</td></tr>
+<tr><td>Vitamin A</td><td><span class="pill ok">gedeckt</span></td><td>Karotten, täglich mindestens 100 g</td></tr>
+<tr><td>Vitamin B12</td><td><span class="pill ok">gedeckt</span></td><td>Quark, Eier, Fleisch und Fisch, deutlich über Bedarf</td></tr>
+<tr><td>B-Vitamine gesamt</td><td><span class="pill ok">gedeckt</span></td><td>Haferflocken, Linsen, Hähnchen</td></tr>
+<tr><td>Eisen</td><td><span class="pill ok">gedeckt</span></td><td>Linsen und Haferflocken, dazu Fleisch. Die Säure aus Essig und Tomaten verbessert die Aufnahme deutlich</td></tr>
+<tr><td>Kalium, Magnesium, Zink</td><td><span class="pill ok">gedeckt</span></td><td>Kartoffeln, Haferflocken, Linsen</td></tr>
+<tr><td>Ballaststoffe</td><td><span class="pill ok">reichlich</span></td><td>etwa 45 g am Tag, deutlich über dem Richtwert von 30 g</td></tr>
+<tr><td><strong>Calcium</strong></td><td><span class="pill warn">knapp</span></td><td>Quark bringt etwa 500 mg, der Rest kommt aus Hafer und Gemüse. Du landest bei rund 800 von 1.000 mg. Fix: 150 g Quark mehr an Tagen ohne Quark-Snack</td></tr>
+<tr><td><strong>Jod</strong></td><td><span class="pill warn">Lücke</span></td><td>In Deutschland ohne Seefisch und ohne jodiertes Salz kritisch. Fix: beim Salz einfach Jodsalz kaufen, kostet dasselbe</td></tr>
+<tr><td><strong>Omega-3</strong></td><td><span class="pill warn">Lücke</span></td><td>Thunfisch im eigenen Saft hat kaum welche. Fix: 10 g geschrotete Leinsamen ins Frühstück, 4 Cent am Tag. Oder einmal die Woche eine Dose Makrele statt Thunfisch</td></tr>
+<tr><td><strong>Vitamin E</strong></td><td><span class="pill warn">knapp</span></td><td>Hängt komplett am Rapsöl. Wenn du es ganz weglässt, kippt dieser Wert. Deshalb der eine Teelöffel am Tag</td></tr>
+<tr><td><strong>Vitamin D</strong></td><td><span class="pill warn">Lücke</span></td><td>Nicht über Essen lösbar, gilt in Deutschland von Oktober bis März für fast alle. Ein Präparat mit 1.000 IE kostet unter 5 € für sechs Monate</td></tr>
+</tbody>
+</table></div>
+<p class="note">Unterm Strich: Der Plan ist nährstoffseitig deutlich besser als das, was die meisten Leute mit diesem Budget essen. Die Lücken kosten dich zusammen etwa 1,50 € pro Monat plus einmalig das Vitamin D.</p></div></div>
+</details>
+
+  <footer>Nährwerte gerundet, berechnet auf Basis von Standardwerten für rohe Zutaten. Abweichungen von drei bis fünf Prozent sind normal und für deine Zielwerte ohne Bedeutung. Kartoffelmengen sind immer geschält gewogen, aus 5 kg Sackware werden etwa 4 kg geschälte Kartoffeln. Herdstufen beziehen sich auf eine 9er-Skala bei Ceran oder Gas, bei Induktion jeweils eine Stufe weniger. Der Plan ist auf einen gesunden Erwachsenen mit normalem Aktivitätsniveau ausgelegt. Wenn du länger als ein paar Monate so isst oder Vorerkrankungen hast, lohnt sich einmal der Blick einer Ärztin oder eines Ernährungsberaters, vor allem wegen Calcium und Vitamin D.</footer>
+</div>
+<div class="toTop" id="toTop" aria-hidden="true">↑</div>
+<script>
+const WEEK = [["Mo", "Hähnchen-Nuggets mit Pommes", "m-knusprige-haehnchen-nuggets-mit-pommes", "Quark, Apfel, Zimt", "s-quark-mit-apfel-und-zimt", "1.984", "147,8 g", "🍗", "🍎"], ["Di", "Hähnchen am Stück mit Krautsalat", "m-haehnchen-am-stueck-mit-krautsalat", "Karotten mit Dip", "s-karottensticks-mit-quark-dip", "1.969", "147,6 g", "🥩", "🥕"], ["Mi", "Hähnchen-Curry mit Reis", "m-haehnchen-curry-mit-reis", "Quark, Apfel, Zimt", "s-quark-mit-apfel-und-zimt", "1.975", "143,1 g", "🍛", "🍎"], ["Do", "Hähnchen-Burger mit Krautsalat", "m-haehnchen-burger-mit-krautsalat", "Banane mit Quark", "s-banane-mit-quark", "1.984", "146,1 g", "🍔", "🍌"], ["Fr", "Thunfisch-Kartoffelsalat", "m-lauwarmer-thunfisch-kartoffelsalat", "Quark, Apfel, Zimt", "s-quark-mit-apfel-und-zimt", "1.980", "149,6 g", "🥗", "🍎"], ["Sa", "Hähnchen-Gyros mit Tzatziki", "m-haehnchen-gyros-mit-tzatziki", "Karotten mit Dip", "s-karottensticks-mit-quark-dip", "1.952", "145,5 g", "🥙", "🥕"], ["So", "Thunfisch-Pasta Arrabbiata", "m-thunfisch-pasta-arrabbiata", "Airfryer-Kichererbsen", "s-airfryer-kichererbsen", "1.968", "143,1 g", "🍝", "🫘"]];
+(function(){
+  var $ = function(s, r){ return (r || document).querySelector(s); };
+  var $$ = function(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var store = {
+    get: function(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } },
+    set: function(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+  };
+
+  // Hell / Dunkel
+  $('#themeB').addEventListener('click', function(){
+    var t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+    try{ localStorage.setItem('ep-theme', t); }catch(e){}
+  });
+
+  // Öffnen + hinscrollen (inkl. Elternbereich)
+  function openTo(id){
+    var el = document.getElementById(id);
+    if(!el) return;
+    var p = el.parentElement ? el.parentElement.closest('details') : null;
+    if(p) p.open = true;
+    if(el.tagName === 'DETAILS') el.open = true;
+    if(el.classList.contains('recipe')){
+      var list = el.parentElement, f = list && list.parentElement.querySelector('.filters');
+      if(f && el.classList.contains('hide')) f.querySelector('[data-f="all"]').click();
+    }
+    requestAnimationFrame(function(){
+      el.scrollIntoView({behavior:'smooth', block:'start'});
+      el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+    });
+  }
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('[data-open]');
+    if(!a) return;
+    e.preventDefault();
+    openTo(a.getAttribute('data-open'));
+    if(history.replaceState) history.replaceState(null, '', '#' + a.getAttribute('data-open'));
+  });
+
+  // Alles zuklappen
+  $('#collapseB').addEventListener('click', function(){
+    $$('details[open]').forEach(function(d){ d.open = false; });
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+
+  // Filter
+  $$('.filters').forEach(function(f){
+    var list = document.getElementById(f.getAttribute('data-target'));
+    f.addEventListener('click', function(e){
+      var b = e.target.closest('button'); if(!b) return;
+      $$('button', f).forEach(function(x){ x.classList.toggle('on', x === b); });
+      var k = b.getAttribute('data-f');
+      $$('.recipe', list).forEach(function(r){
+        r.classList.toggle('hide', k !== 'all' && r.getAttribute('data-kind') !== k);
+      });
+    });
+  });
+
+  // Heute
+  var dow = (new Date().getDay() + 6) % 7; // Mo = 0
+  var w = WEEK[dow];
+  var DAYN = ['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag'];
+  $('#todayTitle').textContent = 'Heute · ' + DAYN[dow];
+  $('#todayK').innerHTML = w[5] + ' kcal · <span style="color:var(--accent)">' + w[6] + '</span>';
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function slot(emo, k, n, id){
+    return '<a class="tslot" href="#' + id + '" data-open="' + id + '"><span class="emo">' + emo + '</span><span class="tt"><span class="tk">' + k + '</span><span class="tn">' + esc(n) + '</span></span></a>';
+  }
+  $('#todayGrid').innerHTML =
+    slot('🥣', 'Frühstück', 'Hafer-Quark mit Banane und Apfel', 'fruehstueck') +
+    slot(w[7], 'Mittag', w[1], w[2]) +
+    slot(w[8], 'Snack', w[3], w[4]) +
+    slot('🍲', 'Abend', 'Linseneintopf', 'abendessen');
+  $$('.wk').forEach(function(r){ if(+r.getAttribute('data-day') === dow) r.classList.add('today'); });
+
+  // Checklisten (bleiben im Browser gespeichert)
+  function bindList(key, countId, barId){
+    var boxes = $$('input[data-key="' + key + '"]');
+    var saved = store.get('ep-' + key) || {};
+    function upd(){
+      var n = boxes.filter(function(b){ return b.checked; }).length;
+      $('#' + countId).textContent = n + '/' + boxes.length;
+      $('#' + barId).style.width = (100 * n / boxes.length) + '%';
+    }
+    boxes.forEach(function(b){
+      b.checked = !!saved[b.getAttribute('data-i')];
+      b.addEventListener('change', function(){
+        saved[b.getAttribute('data-i')] = b.checked;
+        store.set('ep-' + key, saved); upd();
+      });
+    });
+    var r = $('[data-reset="' + key + '"]');
+    if(r) r.addEventListener('click', function(){
+      saved = {}; store.set('ep-' + key, saved);
+      boxes.forEach(function(b){ b.checked = false; }); upd();
+    });
+    upd();
+  }
+  bindList('shop', 'shopCount', 'shopBar');
+  bindList('spice', 'spiceCount', 'spiceBar');
+
+  // Nach oben
+  var tt = $('#toTop');
+  window.addEventListener('scroll', function(){ tt.classList.toggle('on', window.scrollY > 700); }, {passive:true});
+  tt.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
+
+  // Drucken: alles aufklappen
+  window.addEventListener('beforeprint', function(){ $$('details').forEach(function(d){ d.open = true; }); });
+
+  // Direktlink (#id) öffnen
+  if(location.hash.length > 1) openTo(decodeURIComponent(location.hash.slice(1)));
+})();
+
+</script>
+</body>
+</html>
