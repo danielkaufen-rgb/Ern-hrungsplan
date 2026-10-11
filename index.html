@@ -348,6 +348,29 @@ footer{margin:26px 4px 0;font-size:12px;color:var(--faint);line-height:1.6;}
   opacity:0;transform:translateY(10px);transition:.25s;pointer-events:none;z-index:40;}
 .toTop.on{opacity:1;transform:none;pointer-events:auto;}
 
+
+/* Schritte abhaken */
+.steps li::before{display:none;}
+.stepck{position:absolute;left:0;top:0;width:26px;height:26px;border-radius:9px;border:none;padding:0;cursor:pointer;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:12px;font-weight:800;font-family:var(--num);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 6px 14px -8px var(--accent);transition:.18s cubic-bezier(.4,0,.2,1);}
+.stepck:hover{transform:scale(1.1);}
+.stepck:focus-visible{outline:none;box-shadow:var(--ring);}
+.stepck .ok{display:none;width:6px;height:11px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px);}
+.steps li.done .stepck{background:linear-gradient(135deg,var(--green),#2fcf7a);box-shadow:0 6px 14px -8px var(--green);}
+.steps li.done .stepck .n{display:none;} .steps li.done .stepck .ok{display:block;}
+.steps li.done{text-decoration:line-through;text-decoration-color:var(--faint);color:var(--faint);}
+.steps li.done b,.steps li.done .cue,.steps li.done .cue b{color:var(--faint);}
+.steps li.done .cue{opacity:.7;}
+.stepbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 14px;padding:9px 12px;border-radius:12px;
+  background:var(--card2);border:1px solid var(--line);font-size:12px;color:var(--muted);}
+.stepbar .sp{flex:1;min-width:120px;height:6px;background:var(--lineSoft);border-radius:999px;overflow:hidden;}
+.stepbar .sp i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--green),#2fcf7a);transition:width .4s cubic-bezier(.4,0,.2,1);}
+.stepbar b{color:var(--ink);font-family:var(--num);}
+.stepbar .sreset{border:none;background:none;color:var(--accent);font-size:12px;font-weight:700;cursor:pointer;padding:2px 4px;border-radius:6px;}
+.stepbar .sreset:hover{background:var(--accentSoft);}
+.stepbar .shint{width:100%;font-size:11px;color:var(--faint);}
+
 @media (max-width:800px){
   .hstats{grid-template-columns:repeat(2,1fr);}
   .tgrid{grid-template-columns:repeat(2,1fr);}
@@ -1379,6 +1402,59 @@ const WEEK = [["Mo", "Hähnchen-Nuggets mit Pommes", "m-knusprige-haehnchen-nugg
   }
   bindList('shop', 'shopCount', 'shopBar');
   bindList('spice', 'spiceCount', 'spiceBar');
+
+  // Schritte abhaken (läuft nach 2 Stunden ab)
+  var STEP_TTL = 2 * 60 * 60 * 1000;
+  var steps = store.get('ep-steps') || {};
+  function pruneSteps(){
+    var now = Date.now(), changed = false;
+    Object.keys(steps).forEach(function(k){ if(now - steps[k] >= STEP_TTL){ delete steps[k]; changed = true; } });
+    if(changed) store.set('ep-steps', steps);
+    return changed;
+  }
+  var stepLists = $$('ol.steps').map(function(ol){
+    var host = ol.closest('[id]'), id = host ? host.id : 'x';
+    var items = $$(':scope > li', ol);
+    var bar = document.createElement('div');
+    bar.className = 'stepbar';
+    bar.innerHTML = '<span><b class="sc">0/' + items.length + '</b> Schritte erledigt</span><span class="sp"><i></i></span>' +
+      '<button type="button" class="sreset">Zurücksetzen</button><span class="shint">Tippe auf die Nummer, um einen Schritt abzuhaken. Häkchen verschwinden nach 2 Stunden von selbst.</span>';
+    ol.parentNode.insertBefore(bar, ol);
+    items.forEach(function(li, i){
+      var key = id + ':' + i;
+      li.setAttribute('data-step', key);
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'stepck';
+      b.setAttribute('aria-label', 'Schritt ' + (i + 1) + ' erledigt');
+      b.innerHTML = '<span class="n">' + (i + 1) + '</span><span class="ok"></span>';
+      b.addEventListener('click', function(){
+        if(steps[key]) delete steps[key]; else steps[key] = Date.now();
+        store.set('ep-steps', steps); paintSteps();
+      });
+      li.insertBefore(b, li.firstChild);
+    });
+    bar.querySelector('.sreset').addEventListener('click', function(){
+      items.forEach(function(li){ delete steps[li.getAttribute('data-step')]; });
+      store.set('ep-steps', steps); paintSteps();
+    });
+    return {items:items, bar:bar};
+  });
+  function paintSteps(){
+    stepLists.forEach(function(l){
+      var n = 0;
+      l.items.forEach(function(li){
+        var on = !!steps[li.getAttribute('data-step')];
+        li.classList.toggle('done', on);
+        li.querySelector('.stepck').setAttribute('aria-pressed', on ? 'true' : 'false');
+        if(on) n++;
+      });
+      l.bar.querySelector('.sc').textContent = n + '/' + l.items.length;
+      l.bar.querySelector('.sp i').style.width = (100 * n / l.items.length) + '%';
+    });
+  }
+  pruneSteps(); paintSteps();
+  setInterval(function(){ if(pruneSteps()) paintSteps(); }, 30000);
+  document.addEventListener('visibilitychange', function(){ if(!document.hidden && pruneSteps()) paintSteps(); });
 
   // Nach oben
   var tt = $('#toTop');
