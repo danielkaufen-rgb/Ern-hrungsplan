@@ -371,6 +371,23 @@ footer{margin:26px 4px 0;font-size:12px;color:var(--faint);line-height:1.6;}
 .stepbar .sreset:hover{background:var(--accentSoft);}
 .stepbar .shint{width:100%;font-size:11px;color:var(--faint);}
 
+
+/* Süßes */
+.s-su{background:linear-gradient(135deg,rgba(236,72,153,.28),rgba(251,191,36,.12));border-color:rgba(236,72,153,.3);}
+.k-pan .d,.d.k-pan{background:var(--amber);} .k-air .d,.d.k-air{background:#db2777;} .k-cold .d,.d.k-cold{background:var(--sky);}
+.t-pan{background:linear-gradient(135deg,rgba(201,130,15,.22),rgba(201,130,15,.05));border-color:rgba(201,130,15,.28);}
+.t-air{background:linear-gradient(135deg,rgba(219,39,119,.2),rgba(219,39,119,.04));border-color:rgba(219,39,119,.25);}
+.t-cold{background:linear-gradient(135deg,rgba(15,127,196,.2),rgba(15,127,196,.04));border-color:rgba(15,127,196,.25);}
+.t-shop{background:linear-gradient(135deg,rgba(74,92,245,.2),rgba(74,92,245,.04));border-color:rgba(74,92,245,.25);}
+.ing-g{padding:7px 13px 5px;font-size:10.5px;letter-spacing:1px;text-transform:uppercase;font-weight:800;color:var(--accent);
+  background:var(--card2);border-bottom:1px solid var(--hair);}
+.ing-r+.ing-g{border-top:1px solid var(--line);}
+.fit{margin:-4px 0 14px;padding:10px 13px;border-radius:12px;background:var(--greenSoft);color:var(--ink2);font-size:13px;line-height:1.5;
+  border-left:3px solid var(--green);}
+.fit b{color:var(--green);}
+.tip.rule{margin:0 0 14px;}
+.subshop{margin-top:14px;border-style:dashed;}
+
 @media (max-width:800px){
   .hstats{grid-template-columns:repeat(2,1fr);}
   .tgrid{grid-template-columns:repeat(2,1fr);}
@@ -460,6 +477,7 @@ footer{margin:26px 4px 0;font-size:12px;color:var(--faint);line-height:1.6;}
     <a href="#mittagessen" data-open="mittagessen">Mittagessen</a>
     <a href="#snacks" data-open="snacks">Snacks</a>
     <a href="#abendessen" data-open="abendessen">Abendessen</a>
+    <a href="#suesses" data-open="suesses">Süßes</a>
     <a href="#woche" data-open="woche">Woche</a>
     <a href="#einkauf" data-open="einkauf">Einkauf</a>
     <a href="#wissen">Wissen</a>
@@ -1083,6 +1101,292 @@ footer{margin:26px 4px 0;font-size:12px;color:var(--faint);line-height:1.6;}
     </div>
   </details>
 
+  <div class="grp">Extra</div>
+
+  <details class="card sec" id="suesses">
+    <summary><span class="sico s-su">🧁</span><span class="shd"><span class="ctitle">Süßes</span><span class="csub">7 Rezepte: Pancakes, Zimtschnecken, Kaiserschmarrn und mehr</span></span>
+      <span class="snums">ohne Zucker · ohne Salz</span><span class="chev">▾</span></summary>
+    <div class="cbody">
+      <p class="intro">Süß, aber so gebaut, dass es in den Plan passt. Die Süße kommt fast nur aus reifer Banane, Apfel, Zimt und Vanille, dazu höchstens ein paar Teelöffel Honig. Quark bringt Protein, Haferflocken bringen Ballaststoffe. Und wie überall im Plan: kein Salz.</p>
+      <p class="tip rule">Pancakes, Kaiserschmarrn und Crumble können das Frühstück ersetzen und haben dabei sogar weniger Kalorien. Cookies, Bites und Mousse ersetzen den Snack. Eine Zimtschnecke ist ein kleines Extra. Bei jedem Rezept steht, wie es genau in deinen Tag passt.</p>
+      <div class="filters" data-target="sweetList">
+        <button class="mini on" data-f="all">Alle 7</button>
+        <button class="mini" data-f="pan"><i class="d k-pan"></i>Pfanne 3</button>
+        <button class="mini" data-f="air"><i class="d k-air"></i>Airfryer 2</button>
+        <button class="mini" data-f="cold"><i class="d k-cold"></i>Kalt 2</button>
+      </div>
+      <div class="rlist" id="sweetList">
+<details class="recipe" id="x-fluffige-quark-pancakes-mit-warmen-beeren" data-kind="pan">
+  <summary>
+    <span class="thumb t-pan"><span class="emo">🥞</span></span>
+    <span class="rmid">
+      <span class="rname">Fluffige Quark-Pancakes mit warmen Beeren</span>
+      <span class="rmeta"><span class="chip k-pan"><i class="d"></i>Pfanne</span><span class="chip">1 Portion</span><span class="chip">20 Min</span></span>
+    </span>
+    <span class="rnums"><b class="num">441</b><small>kcal</small><b class="num prot">28,9 g</b><small>Protein</small></span>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="rbody">
+    <p class="rlead">441 kcal · 28,9 g Protein · ca. 1,20 € · 1 Portion · 20 Min</p><p class="fit"><b>So passt es in den Plan:</b> Statt Frühstück: 105 kcal weniger als das normale Frühstück und nur 6 g weniger Protein.</p>
+    <div class="ing c2"><div class="ing-h"><span>Zutat</span><span>Menge</span></div><div class="ing-g">Teig</div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">125 g</span></div><div class="ing-r"><span class="nm">Ei</span><span class="n">1 Stück</span></div><div class="ing-r"><span class="nm">Weizenmehl Type 405</span><span class="n">40 g</span></div><div class="ing-r"><span class="nm">Banane, sehr reif</span><span class="n">½ Stück</span></div><div class="ing-r"><span class="nm">Backpulver</span><span class="n">1 gestr. TL</span></div><div class="ing-r"><span class="nm">Zimt</span><span class="n">½ TL</span></div><div class="ing-g">Dazu</div><div class="ing-r"><span class="nm">TK-Beerenmischung</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Honig</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Rapsöl für die Pfanne</span><span class="n">ein paar Tropfen</span></div></div>
+    <div class="howto"><p class="mise"><b>Was du brauchst</b>Eine beschichtete Pfanne, eine Schüssel, eine Gabel, einen kleinen Topf, einen Pfannenwender. 40 g Mehl sind 4 gehäufte Esslöffel. Es werden etwa 6 kleine Pancakes.</p>
+<ol class="steps">
+<li><b>Quark und Ei verrühren.</b> 125 g Magerquark und das Ei in eine Schüssel, mit der Gabel 30 Sekunden glatt rühren. Die halbe Banane dazu und direkt in der Schüssel mit der Gabel zu Mus zerdrücken. Kleine Stückchen dürfen bleiben.
+          <span class="cue"><b>Je brauner die Banane, desto süßer der Teig.</b> Mit einer fleckigen Banane brauchst du im Teig überhaupt keinen Zucker.</span>
+</li>
+<li><b>Mehl unterrühren.</b> 40 g Mehl, 1 gestrichenen Teelöffel Backpulver und ½ Teelöffel Zimt drüberstreuen. Nur so lange rühren, bis kein trockenes Mehl mehr zu sehen ist. Dann 5 Minuten stehen lassen.
+          <span class="cue"><b>Nicht glatt rühren.</b> Kleine Klümpchen sind richtig. Wer zu lange rührt, bekommt zähe, flache Pancakes. In den 5 Minuten fängt das Backpulver an zu arbeiten und der Teig wird sichtbar luftiger.</span>
+</li>
+<li><b>Beeren aufsetzen.</b> 100 g TK-Beeren in den kleinen Topf, Stufe 3 von 9, Deckel drauf. Sie brauchen etwa 6 Minuten und laufen nebenher.</li>
+<li><b>Pfanne vorheizen.</b> Beschichtete Pfanne auf Stufe 4 von 9, 2 Minuten. Ein paar Tropfen Rapsöl rein und mit Küchenpapier hauchdünn verreiben.
+          <span class="cue"><b>Test:</b> Ein Tropfen Wasser soll leise zischen und verdampfen. Springt er wild herum, ist die Pfanne zu heiß und die Pancakes werden außen dunkel, bevor sie innen durch sind.</span>
+</li>
+<li><b>Backen.</b> Pro Pancake 1 gehäuften Esslöffel Teig in die Pfanne, leicht zu einem Kreis von etwa 8 cm verstreichen. 3 bis 4 gleichzeitig. 2 bis 3 Minuten backen.
+          <span class="cue"><b>Wenden, wenn:</b> sich an der Oberfläche kleine Bläschen zeigen und der Rand matt statt glänzend aussieht. Vorher lässt er sich nicht sauber wenden.</span>
+</li>
+<li><b>Wenden und fertig backen.</b> Mit dem Pfannenwender umdrehen, noch 1½ bis 2 Minuten. Dann auf einen Teller und den Rest genauso backen.
+          <span class="cue"><b>Fertig, wenn:</b> beide Seiten goldbraun sind und die Mitte bei leichtem Druck zurückfedert.</span>
+</li>
+<li><b>Beeren fertig machen.</b> Die Beeren sind jetzt zerfallen und haben viel Saft gezogen. 1 Teelöffel Honig einrühren, über die Pancakes geben.</li>
+</ol>
+<p class="tip"><b>Schoko-Pancakes:</b> 1 gehäufter Teelöffel Backkakao zusätzlich in Schritt 2. Kostet 15 kcal und schmeckt wie Brownie-Teig.</p>
+<p class="tip"><b>Für den Vorrat:</b> Doppelte Menge backen, abkühlen lassen und einfrieren. Zum Aufwärmen direkt aus dem Gefrierfach in den Toaster oder 4 Minuten bei 180 °C in den Airfryer.</p></div>
+  </div>
+</details>
+<details class="recipe" id="x-quark-zimtschnecken-aus-dem-airfryer" data-kind="air">
+  <summary>
+    <span class="thumb t-air"><span class="emo">🥐</span></span>
+    <span class="rmid">
+      <span class="rname">Quark-Zimtschnecken aus dem Airfryer</span>
+      <span class="rmeta"><span class="chip k-air"><i class="d"></i>Airfryer</span><span class="chip">6 Stück</span><span class="chip">ca. 60 Min</span></span>
+    </span>
+    <span class="rnums"><b class="num">255</b><small>kcal/Stück</small><b class="num prot">11,0 g</b><small>Protein</small></span>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="rbody">
+    <p class="rlead">255 kcal · 11,0 g Protein · ca. 0,27 € pro Stück · 6 Stück · ca. 60 Min, davon 20 Min Arbeit</p><p class="fit"><b>So passt es in den Plan:</b> 1 Schnecke statt Snack: etwa 80 kcal mehr als ein normaler Snack. Zwei sind dann das Extra.</p>
+    <div class="ing c2"><div class="ing-h"><span>Zutat</span><span>Menge</span></div><div class="ing-g">Teig, ohne Hefe</div><div class="ing-r"><span class="nm">Weizenmehl Type 405</span><span class="n">250 g</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">200 g</span></div><div class="ing-r"><span class="nm">Ei</span><span class="n">1 Stück</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">2 EL</span></div><div class="ing-r"><span class="nm">Honig</span><span class="n">1 EL</span></div><div class="ing-r"><span class="nm">Backpulver</span><span class="n">½ Päckchen</span></div><div class="ing-r"><span class="nm">Vanillearoma</span><span class="n">ein paar Tropfen</span></div><div class="ing-g">Füllung</div><div class="ing-r"><span class="nm">Banane, sehr reif</span><span class="n">1 Stück</span></div><div class="ing-r"><span class="nm">Zimt</span><span class="n">2 gehäufte TL</span></div><div class="ing-r"><span class="nm">Honig</span><span class="n">1 TL</span></div><div class="ing-g">Quark-Glasur</div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">50 g</span></div><div class="ing-r"><span class="nm">Honig</span><span class="n">1 TL</span></div></div>
+    <div class="howto"><p class="mise"><b>Was du brauchst</b>Zwei Schüsseln, eine Gabel, ein Nudelholz (eine glatte Glasflasche geht auch), ein scharfes Messer, Backpapier. Die Nährwerte gelten pro Schnecke. Ein Quark-Öl-Teig braucht keine Hefe und keine Gehzeit, deshalb geht das an einem normalen Nachmittag.</p>
+<ol class="steps">
+<li><b>Feuchte Zutaten verrühren.</b> 200 g Magerquark, das Ei, 2 Esslöffel Rapsöl, 1 Esslöffel Honig und ein paar Tropfen Vanillearoma in eine Schüssel. Mit der Gabel 30 Sekunden glatt rühren.</li>
+<li><b>Mehl dazu und kurz kneten.</b> 250 g Mehl mit ½ Päckchen Backpulver (etwa 2 gestrichene Teelöffel) in der zweiten Schüssel mischen, dann zur Quarkmasse geben. Erst mit der Gabel verrühren, dann mit der Hand höchstens 1 Minute zu einem glatten Teig kneten.
+          <span class="cue"><b>Fertig, wenn:</b> der Teig weich wie Knete ist und kaum noch an den Fingern klebt. Klebt er stark: 1 Esslöffel Mehl mehr. Bröselt er: 1 Esslöffel Wasser. <b>Nicht länger kneten.</b> Quark-Öl-Teig wird durch langes Kneten zäh statt fluffig.</span>
+</li>
+<li><b>Füllung anrühren.</b> Die Banane auf einem Teller mit der Gabel zu einem ganz glatten Mus zerdrücken. 2 gehäufte Teelöffel Zimt und 1 Teelöffel Honig unterrühren.
+          <span class="cue"><b>Die Banane ersetzt Butter und Zucker.</b> Beim Backen karamellisiert sie leicht und hält den Zimt an Ort und Stelle. Je fleckiger die Banane, desto besser.</span>
+</li>
+<li><b>Ausrollen.</b> Arbeitsfläche dünn bemehlen. Teig zu einem Rechteck von etwa 30 × 20 cm ausrollen, gut 5 mm dick. Die Füllung gleichmäßig verstreichen, an einer langen Seite einen 2 cm breiten Streifen frei lassen.</li>
+<li><b>Aufrollen und schneiden.</b> Von der langen, bestrichenen Seite her eng aufrollen und den freien Rand gut andrücken. Die Rolle mit der Naht nach unten legen und in 6 Stücke von etwa 5 cm schneiden.
+          <span class="cue"><b>Sägend schneiden, nicht drücken.</b> Mit Druck quetschst du die Schnecke platt. Noch sauberer geht es mit einem Faden: unter die Rolle legen, oben überkreuzen und durchziehen.</span>
+</li>
+<li><b>Airfryer vorbereiten.</b> 5 Minuten auf 160 °C vorheizen. Ein Stück Backpapier zuschneiden, das genau in den Korb passt. Die Schnecken mit der Schnittfläche nach oben drauflegen, 2 cm Abstand. Meist passen 3 bis 4 auf einmal.
+          <span class="cue"><b>Backpapier nie ohne Gewicht in den Airfryer.</b> Der Luftstrom wirbelt leeres Papier gegen die Heizspirale. Erst die Schnecken drauf, dann mit dem Papier in den Korb.</span>
+</li>
+<li><b>Backen.</b> 160 °C, 14 bis 16 Minuten. Nach 10 Minuten einmal reinschauen: Werden sie oben schon dunkel, ein Stück Alufolie locker drüberlegen.
+          <span class="cue"><b>Fertig, wenn:</b> sie goldbraun sind und ein Zahnstocher, in die dickste Stelle gestochen, ohne feuchten Teig herauskommt. Die Unterseite bleibt heller, muss sich aber fest anfühlen. Dann den zweiten Durchgang backen.</span>
+</li>
+<li><b>Glasur.</b> 50 g Magerquark, 1 Teelöffel Honig, ein paar Tropfen Vanillearoma und 1 Teelöffel Wasser glatt rühren. Die Schnecken 10 Minuten abkühlen lassen und erst dann bestreichen.
+          <span class="cue"><b>Warum warten:</b> Auf heißen Schnecken schmilzt die Glasur und läuft komplett runter. Lauwarm bleibt sie als weiße Schicht drauf, genau wie beim Bäcker.</span>
+</li>
+</ol>
+<p class="tip"><b>Ohne Airfryer:</b> Backofen auf 180 °C Ober- und Unterhitze, alle 6 auf einem Blech mit Backpapier, 20 bis 25 Minuten.</p>
+<p class="tip"><b>Hält 2 Tage</b> in einer Dose. Ohne Glasur lassen sie sich einfrieren. Zum Aufbacken 4 Minuten bei 160 °C in den Airfryer, dann schmecken sie wie frisch.</p></div>
+  </div>
+</details>
+<details class="recipe" id="x-kaiserschmarrn-mit-zimt-apfelkompott" data-kind="pan">
+  <summary>
+    <span class="thumb t-pan"><span class="emo">🍳</span></span>
+    <span class="rmid">
+      <span class="rname">Kaiserschmarrn mit Zimt-Apfelkompott</span>
+      <span class="rmeta"><span class="chip k-pan"><i class="d"></i>Pfanne</span><span class="chip">1 Portion</span><span class="chip">25 Min</span></span>
+    </span>
+    <span class="rnums"><b class="num">523</b><small>kcal</small><b class="num prot">31,6 g</b><small>Protein</small></span>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="rbody">
+    <p class="rlead">523 kcal · 31,6 g Protein · ca. 1,10 € · 1 Portion · 25 Min</p><p class="fit"><b>So passt es in den Plan:</b> Statt Frühstück: fast genauso viele Kalorien (523 statt 546), 3,5 g weniger Protein. Perfekt fürs Wochenende.</p>
+    <div class="ing c2"><div class="ing-h"><span>Zutat</span><span>Menge</span></div><div class="ing-g">Schmarrn</div><div class="ing-r"><span class="nm">Eier</span><span class="n">2 Stück</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Weizenmehl Type 405</span><span class="n">40 g</span></div><div class="ing-r"><span class="nm">Vanillearoma</span><span class="n">ein paar Tropfen</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Honig zum Karamellisieren</span><span class="n">1 TL</span></div><div class="ing-g">Kompott</div><div class="ing-r"><span class="nm">Apfel</span><span class="n">1 Stück</span></div><div class="ing-r"><span class="nm">Honig</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Zimt</span><span class="n">½ TL</span></div></div>
+    <div class="howto"><p class="mise"><b>Was du brauchst</b>Eine beschichtete Pfanne mit Deckel, einen kleinen Topf, zwei Schüsseln, einen Schneebesen, einen Pfannenwender. Der Trick für fluffigen Schmarrn ist steif geschlagenes Eiweiß. Das klappt mit einem Schneebesen in 3 bis 4 Minuten von Hand.</p>
+<ol class="steps">
+<li><b>Kompott zuerst.</b> Apfel vierteln, Kerngehäuse rausschneiden, in Würfel von etwa 1 cm. In den kleinen Topf mit 3 Esslöffel Wasser, ½ Teelöffel Zimt und 1 Teelöffel Honig. Deckel drauf, Stufe 4 von 9, 6 bis 8 Minuten. Danach auf Stufe 1 warm halten.
+          <span class="cue"><b>Fertig, wenn:</b> die Würfel weich sind, aber noch ihre Form haben. Schale dranlassen, sie gibt Farbe und Ballaststoffe.</span>
+</li>
+<li><b>Eier trennen.</b> Das Eiweiß in eine saubere, trockene Schüssel, das Eigelb in die zweite. Am einfachsten: Ei aufschlagen und das Eigelb über der Schüssel ein paar Mal zwischen den Schalenhälften hin und her geben.
+          <span class="cue"><b>Kein Eigelb ins Eiweiß.</b> Schon ein kleiner Tropfen Fett verhindert, dass das Eiweiß steif wird. Falls es passiert: mit einer Schalenhälfte rausfischen.</span>
+</li>
+<li><b>Teig anrühren.</b> Zum Eigelb 100 g Magerquark, 3 Esslöffel Wasser und ein paar Tropfen Vanillearoma, glatt rühren. Dann 40 g Mehl unterrühren, bis keine Klümpchen mehr da sind.</li>
+<li><b>Eischnee schlagen.</b> Das Eiweiß mit dem Schneebesen kräftig schlagen, 3 bis 4 Minuten.
+          <span class="cue"><b>Fertig, wenn:</b> der Schnee weiß und fest ist und Spitzen stehen bleiben, wenn du den Schneebesen rausziehst. Profi-Test: Schüssel kurz umdrehen, nichts rutscht.</span>
+</li>
+<li><b>Unterheben.</b> Den Eischnee in zwei Portionen mit einem Löffel vorsichtig unter den Teig heben. Von unten nach oben falten, nicht rühren.
+          <span class="cue"><b>Ein paar weiße Schlieren sind richtig.</b> Jedes Rühren drückt die Luft wieder raus, und die Luft ist der ganze Unterschied zwischen Schmarrn und Omelett.</span>
+</li>
+<li><b>Backen.</b> 1 Teelöffel Rapsöl in die Pfanne, Stufe 4 von 9, 1 Minute heiß werden lassen. Teig rein, glatt streichen, Deckel drauf, 5 bis 6 Minuten.
+          <span class="cue"><b>Bereit zum Wenden, wenn:</b> die Oberfläche fast fest ist und die Unterseite goldbraun (am Rand mit dem Pfannenwender anheben und nachsehen).</span>
+</li>
+<li><b>Wenden und zerreißen.</b> Den Fladen mit dem Pfannenwender vierteln und jedes Viertel einzeln wenden. 2 Minuten weiter backen. Dann mit zwei Gabeln in mundgroße Stücke reißen.
+          <span class="cue"><b>Vierteln statt ganz wenden.</b> Ein ganzer Fladen aus luftigem Teig bricht beim Wenden sowieso, so bleibt er wenigstens ordentlich.</span>
+</li>
+<li><b>Karamellisieren.</b> Stufe 5 von 9, 1 Teelöffel Honig über die Stücke träufeln und 1 Minute schwenken. Sofort auf den Teller, Kompott daneben.
+          <span class="cue"><b>Honig verbrennt sehr schnell.</b> Sobald die Stücke glänzen und an den Kanten leicht dunkel werden, sofort runter vom Herd.</span>
+</li>
+</ol>
+<p class="tip"><b>Kein Schneebesen?</b> Mit einer Gabel geht es auch, dauert aber 6 bis 8 Minuten. Notlösung: Eier gar nicht trennen und stattdessen ½ Teelöffel Backpulver in den Teig. Wird weniger fluffig, schmeckt aber trotzdem.</p></div>
+  </div>
+</details>
+<details class="recipe" id="x-schoko-hafer-cookies-ohne-zucker" data-kind="air">
+  <summary>
+    <span class="thumb t-air"><span class="emo">🍪</span></span>
+    <span class="rmid">
+      <span class="rname">Schoko-Hafer-Cookies ohne Zucker</span>
+      <span class="rmeta"><span class="chip k-air"><i class="d"></i>Airfryer</span><span class="chip">8 Stück</span><span class="chip">35 Min</span></span>
+    </span>
+    <span class="rnums"><b class="num">108</b><small>kcal/Stück</small><b class="num prot">3,1 g</b><small>Protein</small></span>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="rbody">
+    <p class="rlead">108 kcal · 3,1 g Protein · ca. 0,13 € pro Stück · 8 Stück · 35 Min, davon 10 Min Arbeit</p><p class="fit"><b>So passt es in den Plan:</b> 1 Cookie geht immer extra. 2 Cookies (216 kcal) ersetzen den Snack.</p>
+    <div class="ing c2"><div class="ing-h"><span>Zutat</span><span>Menge</span></div><div class="ing-r"><span class="nm">Bananen, sehr reif</span><span class="n">2 Stück</span></div><div class="ing-r"><span class="nm">Haferflocken</span><span class="n">120 g</span></div><div class="ing-r"><span class="nm">Zartbitterschokolade, mind. 70 %</span><span class="n">20 g</span></div><div class="ing-r"><span class="nm">Leinsamen, geschrotet</span><span class="n">10 g</span></div><div class="ing-r"><span class="nm">Backkakao</span><span class="n">1 gehäufter EL</span></div><div class="ing-r"><span class="nm">Zimt</span><span class="n">1 TL</span></div></div>
+    <div class="howto"><p class="mise"><b>Was du brauchst</b>Eine Schüssel, eine Gabel, ein Messer, Backpapier. Kein Mehl, kein Ei, kein Zucker. Die Banane klebt alles zusammen und süßt gleichzeitig. Ergibt 8 Cookies, die Nährwerte gelten pro Stück.</p>
+<ol class="steps">
+<li><b>Bananen zerdrücken.</b> Beide Bananen in die Schüssel und mit der Gabel zu einem möglichst glatten Mus zerdrücken.
+          <span class="cue"><b>Hier zählt die Banane alles.</b> Sie muss braun gefleckt sein. Mit gelben Bananen schmecken die Cookies nach Haferflocken statt nach Keks.</span>
+</li>
+<li><b>Trockene Zutaten unterrühren.</b> 120 g Haferflocken, 10 g Leinsamen, 1 gehäuften Esslöffel Backkakao und 1 Teelöffel Zimt dazu, gut verrühren. 10 Minuten quellen lassen.
+          <span class="cue"><b>Fertig, wenn:</b> die Masse wie dicker, formbarer Brei ist. Zu nass: 1 Esslöffel Haferflocken mehr. Ohne das Quellen fallen die Cookies im Airfryer auseinander.</span>
+</li>
+<li><b>Schokolade hacken.</b> 20 g Schokolade (zwei Riegel) grob hacken, gut drei Viertel unterheben. Den Rest zum Draufdrücken aufheben.</li>
+<li><b>Formen.</b> Mit feuchten Händen 8 Kugeln formen, jede etwa so groß wie ein gehäufter Esslöffel. Auf Backpapier legen und auf etwa 1 cm Dicke flach drücken. Die restlichen Schokostückchen obendrauf drücken.
+          <span class="cue"><b>Sie laufen beim Backen nicht auseinander.</b> Die Form, die du jetzt drückst, ist die fertige Form. Dicker als 1 cm bleibt innen klitschig.</span>
+</li>
+<li><b>Backen.</b> Airfryer 5 Minuten auf 170 °C vorheizen. Cookies mit dem Papier in den Korb, 4 pro Durchgang, 9 bis 11 Minuten.
+          <span class="cue"><b>Fertig, wenn:</b> die Ränder fest und die Oberfläche trocken ist. In der Mitte dürfen sie noch leicht nachgeben, beim Abkühlen werden sie fester.</span>
+</li>
+<li><b>Abkühlen lassen.</b> 10 Minuten auf dem Papier liegen lassen, erst dann anfassen.
+          <span class="cue"><b>Warm brechen sie.</b> Erst beim Abkühlen bindet die Banane richtig ab.</span>
+</li>
+</ol>
+<p class="tip"><b>Halten 4 Tage</b> in einer Dose und lassen sich gut einfrieren. Direkt aus dem Gefrierfach schmecken sie wie Keksteig-Eis.</p></div>
+  </div>
+</details>
+<details class="recipe" id="x-warmer-pfannen-crumble-mit-vanillequark" data-kind="pan">
+  <summary>
+    <span class="thumb t-pan"><span class="emo">🥧</span></span>
+    <span class="rmid">
+      <span class="rname">Warmer Pfannen-Crumble mit Vanillequark</span>
+      <span class="rmeta"><span class="chip k-pan"><i class="d"></i>Pfanne</span><span class="chip">1 Portion</span><span class="chip">15 Min</span></span>
+    </span>
+    <span class="rnums"><b class="num">381</b><small>kcal</small><b class="num prot">24,2 g</b><small>Protein</small></span>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="rbody">
+    <p class="rlead">381 kcal · 24,2 g Protein · ca. 0,80 € · 1 Portion · 15 Min</p><p class="fit"><b>So passt es in den Plan:</b> Als Dessert etwa 200 kcal mehr als ein normaler Snack. Oder statt Frühstück, dann sparst du sogar 165 kcal.</p>
+    <div class="ing c2"><div class="ing-h"><span>Zutat</span><span>Menge</span></div><div class="ing-g">Streusel</div><div class="ing-r"><span class="nm">Haferflocken</span><span class="n">30 g</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Honig</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Zimt</span><span class="n">½ TL</span></div><div class="ing-g">Äpfel und Quark</div><div class="ing-r"><span class="nm">Apfel</span><span class="n">1 Stück</span></div><div class="ing-r"><span class="nm">Zimt</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">150 g</span></div><div class="ing-r"><span class="nm">Honig</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Vanillearoma</span><span class="n">ein paar Tropfen</span></div></div>
+    <div class="howto"><p class="mise"><b>Was du brauchst</b>Eine Pfanne, eine Schüssel, einen Teller. Kein Ofen, keine Auflaufform. Warme Äpfel, kalter Quark und knusprige Streusel: Der Kontrast macht das Dessert.</p>
+<ol class="steps">
+<li><b>Streusel rösten.</b> 30 g Haferflocken in die trockene Pfanne, Stufe 5 von 9, 3 Minuten unter ständigem Rühren. Dann 1 Teelöffel Rapsöl, 1 Teelöffel Honig und ½ Teelöffel Zimt dazu und noch 1 Minute weiterrühren. Sofort auf einen kalten Teller kippen.
+          <span class="cue"><b>Fertig, wenn:</b> die Flocken glänzen, nussig riechen und zu kleinen Klümpchen zusammenkleben. Auf dem kalten Teller werden sie in 2 Minuten knusprig wie Granola. <b>Achtung:</b> Honig verbrennt in Sekunden, nicht vom Herd weggehen.</span>
+</li>
+<li><b>Apfel schneiden.</b> Vierteln, Kerngehäuse raus, in Würfel von etwa 1,5 cm. Schale dranlassen.</li>
+<li><b>Apfel garen.</b> In dieselbe Pfanne, nicht spülen. 2 Esslöffel Wasser und ½ Teelöffel Zimt dazu, Stufe 5 von 9, 5 bis 6 Minuten, ab und zu umrühren.
+          <span class="cue"><b>Fertig, wenn:</b> das Wasser verdampft ist und die Würfel glasig und weich sind, aber nicht zerfallen. Die Reste vom Honig in der Pfanne karamellisieren die Äpfel gleich mit.</span>
+</li>
+<li><b>Vanillequark.</b> 150 g Magerquark mit 2 Esslöffel Wasser, 1 Teelöffel Honig und ein paar Tropfen Vanillearoma 30 Sekunden cremig rühren.</li>
+<li><b>Anrichten.</b> Warme Äpfel in eine Schüssel, Quark daneben oder obendrauf, Streusel ganz zum Schluss drüber.
+          <span class="cue"><b>Streusel immer zuletzt.</b> Auf feuchten Äpfeln sind sie nach 5 Minuten weich.</span>
+</li>
+</ol>
+<p class="tip"><b>Streusel auf Vorrat:</b> Die fünffache Menge rösten, im Schraubglas halten sie 2 Wochen. Dann dauert das Dessert nur noch 8 Minuten. Passen auch aufs Frühstück.</p></div>
+  </div>
+</details>
+<details class="recipe" id="x-schoko-quark-mousse-mit-beeren" data-kind="cold">
+  <summary>
+    <span class="thumb t-cold"><span class="emo">🍫</span></span>
+    <span class="rmid">
+      <span class="rname">Schoko-Quark-Mousse mit Beeren</span>
+      <span class="rmeta"><span class="chip k-cold"><i class="d"></i>Kalt</span><span class="chip">1 Portion</span><span class="chip">10 Min + 20 Min Kühlen</span></span>
+    </span>
+    <span class="rnums"><b class="num">307</b><small>kcal</small><b class="num prot">29,5 g</b><small>Protein</small></span>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="rbody">
+    <p class="rlead">307 kcal · 29,5 g Protein · ca. 1,15 € · 1 Portion · 10 Min plus 20 Min Kühlen</p><p class="fit"><b>So passt es in den Plan:</b> Statt Snack: 130 kcal mehr, dafür fast doppelt so viel Protein. Nicht an Thunfisch-Tagen, sonst landest du über 150 g Protein.</p>
+    <div class="ing c2"><div class="ing-h"><span>Zutat</span><span>Menge</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">200 g</span></div><div class="ing-r"><span class="nm">Backkakao</span><span class="n">1 gehäufter EL</span></div><div class="ing-r"><span class="nm">Banane, sehr reif</span><span class="n">½ Stück</span></div><div class="ing-r"><span class="nm">Honig</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">TK-Beerenmischung</span><span class="n">80 g</span></div><div class="ing-r"><span class="nm">Zartbitterschokolade, mind. 70 %</span><span class="n">5 g</span></div></div>
+    <div class="howto"><p class="mise"><b>Was du brauchst</b>Eine Schüssel, eine Tasse, eine Gabel oder einen Schneebesen, heißes Wasser aus dem Wasserkocher. Beeren am besten schon morgens in den Kühlschrank legen, dann sind sie aufgetaut.</p>
+<ol class="steps">
+<li><b>Kakao anrühren.</b> 1 gehäuften Esslöffel Backkakao in eine Tasse, 2 Esslöffel heißes Wasser dazu und zu einer glatten Paste rühren.
+          <span class="cue"><b>Der wichtigste Schritt.</b> Kakaopulver klumpt in kaltem Quark und schmeckt staubig. Mit heißem Wasser angerührt löst er sich komplett und schmeckt deutlich schokoladiger.</span>
+</li>
+<li><b>Banane zerdrücken.</b> Die halbe Banane mit der Gabel zu einem ganz glatten Mus zerdrücken, ohne Stücke.</li>
+<li><b>Aufschlagen.</b> 200 g Magerquark mit 2 Esslöffel kaltem Wasser 30 Sekunden cremig rühren. Kakaopaste, Banane und 1 Teelöffel Honig dazu und 1 Minute kräftig schlagen.
+          <span class="cue"><b>Fertig, wenn:</b> die Masse gleichmäßig dunkel ist, ohne helle Schlieren, und luftig vom Löffel fällt.</span>
+</li>
+<li><b>Kalt stellen.</b> Abgedeckt 20 Minuten in den Kühlschrank.
+          <span class="cue"><b>Warum warten:</b> In der Zeit zieht der Kakao durch und die Mousse wird fester. Direkt gegessen schmeckt sie nach Quark mit Kakao, nach 20 Minuten nach Schokopudding.</span>
+</li>
+<li><b>Toppen.</b> 80 g aufgetaute Beeren samt Saft drauf. 5 g Schokolade (ein halber Riegel) mit einem Messer fein drüberschaben.</li>
+</ol>
+<p class="tip"><b>Overnight-Version:</b> Abends machen, gefrorene Beeren direkt obendrauf, Deckel drauf. Am nächsten Tag sind die Beeren aufgetaut und ihr Saft ist in die Mousse gelaufen.</p></div>
+  </div>
+</details>
+<details class="recipe" id="x-schoko-bananen-bites-aus-dem-gefrierfach" data-kind="cold">
+  <summary>
+    <span class="thumb t-cold"><span class="emo">🍌</span></span>
+    <span class="rmid">
+      <span class="rname">Schoko-Bananen-Bites aus dem Gefrierfach</span>
+      <span class="rmeta"><span class="chip k-cold"><i class="d"></i>Kalt</span><span class="chip">1 Portion, ca. 10 Stück</span><span class="chip">15 Min + 2 Std Gefrieren</span></span>
+    </span>
+    <span class="rnums"><b class="num">235</b><small>kcal</small><b class="num prot">10,5 g</b><small>Protein</small></span>
+    <span class="chev">▾</span>
+  </summary>
+  <div class="rbody">
+    <p class="rlead">235 kcal · 10,5 g Protein · ca. 0,55 € · 1 Portion, ca. 10 Stück · 15 Min plus 2 Std Gefrieren</p><p class="fit"><b>So passt es in den Plan:</b> Statt Snack: etwa 60 kcal mehr. Ideal abends, wenn die Lust auf Eis kommt.</p>
+    <div class="ing c2"><div class="ing-h"><span>Zutat</span><span>Menge</span></div><div class="ing-r"><span class="nm">Banane</span><span class="n">1 Stück</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">60 g</span></div><div class="ing-r"><span class="nm">Zartbitterschokolade, mind. 70 %</span><span class="n">15 g</span></div><div class="ing-r"><span class="nm">Zimt</span><span class="n">1 Messerspitze</span></div><div class="ing-r"><span class="nm">Vanillearoma</span><span class="n">ein paar Tropfen</span></div></div>
+    <div class="howto"><p class="mise"><b>Was du brauchst</b>Einen Teller mit Backpapier, der ins Gefrierfach passt, einen kleinen Topf und eine Schüssel, die oben auf den Topf passt, einen Teelöffel. Am besten auf Vorrat machen: Die Bites halten einen Monat im Gefrierfach.</p>
+<ol class="steps">
+<li><b>Banane schneiden.</b> In Scheiben von etwa 1 cm schneiden, das gibt ungefähr 20 Scheiben.</li>
+<li><b>Quark würzen.</b> 60 g Magerquark mit ein paar Tropfen Vanillearoma und einer Messerspitze Zimt verrühren. Kein Wasser dazugeben.
+          <span class="cue"><b>Der Quark muss dick bleiben,</b> sonst quillt er zwischen den Bananenscheiben raus.</span>
+</li>
+<li><b>Sandwiches bauen.</b> Auf die Hälfte der Scheiben je einen kleinen Teelöffel Quark, die andere Hälfte als Deckel draufdrücken. Nebeneinander auf den Teller mit Backpapier setzen.</li>
+<li><b>Schokolade schmelzen.</b> 3 cm Wasser in den kleinen Topf, Stufe 3 von 9. Die Schüssel so draufsetzen, dass sie das Wasser nicht berührt. 15 g Schokolade rein und 2 bis 3 Minuten rühren, bis sie ganz flüssig ist.
+          <span class="cue"><b>Kein Tropfen Wasser in die Schokolade.</b> Schon ein Spritzer lässt sie krümelig und stumpf werden. Und nicht sprudelnd kochen lassen, nur leicht dampfen.</span>
+</li>
+<li><b>Verzieren.</b> Mit einem Teelöffel die Schokolade in dünnen Fäden über alle Bites ziehen.
+          <span class="cue"><b>Fäden statt eintauchen:</b> So reichen 15 g Schokolade für alle Bites und jedes bekommt etwas ab.</span>
+</li>
+<li><b>Einfrieren.</b> Mindestens 2 Stunden ins Gefrierfach. Danach in einen Gefrierbeutel umfüllen, dann kleben sie nicht aneinander.
+          <span class="cue"><b>Vor dem Essen 5 Minuten antauen lassen.</b> Direkt aus dem Gefrierfach sind sie steinhart, nach 5 Minuten haben sie die Konsistenz von Eiskonfekt.</span>
+</li>
+</ol></div>
+  </div>
+</details></div>
+      <details class="recipe subshop" id="suesses-einkauf">
+        <summary>
+          <span class="thumb t-shop"><span class="emo">🛒</span></span>
+          <span class="rmid"><span class="rname">Zusatz-Einkauf für Süßes</span><span class="rmeta"><span class="chip">einmalig</span><span class="chip">8 Produkte</span></span></span>
+          <span class="rnums"><b class="num" id="sweetCount">0/8</b><small></small><b class="num prot">11,02 €</b><small></small></span>
+          <span class="chev">▾</span>
+        </summary>
+        <div class="rbody">
+          <div class="prog"><i id="sweetBar"></i></div>
+          <div class="cklist"><label class="ck"><input type="checkbox" data-key="sweet" data-i="0"><span class="box"></span>
+  <span class="cknm">K-Classic Weizenmehl Type 405<small>1 kg</small></span><span class="ckp num">0,79 €</span></label><label class="ck"><input type="checkbox" data-key="sweet" data-i="1"><span class="box"></span>
+  <span class="cknm">K-Classic Blütenhonig<small>500 g</small></span><span class="ckp num">2,99 €</span></label><label class="ck"><input type="checkbox" data-key="sweet" data-i="2"><span class="box"></span>
+  <span class="cknm">K-Classic TK-Beerenmischung<small>500 g</small></span><span class="ckp num">2,49 €</span></label><label class="ck"><input type="checkbox" data-key="sweet" data-i="3"><span class="box"></span>
+  <span class="cknm">Backkakao, stark entölt, ungesüßt<small>125 g</small></span><span class="ckp num">1,49 €</span></label><label class="ck"><input type="checkbox" data-key="sweet" data-i="4"><span class="box"></span>
+  <span class="cknm">Zartbitterschokolade, mind. 70 %<small>100 g</small></span><span class="ckp num">0,99 €</span></label><label class="ck"><input type="checkbox" data-key="sweet" data-i="5"><span class="box"></span>
+  <span class="cknm">Backpapier<small>1 Rolle</small></span><span class="ckp num">0,99 €</span></label><label class="ck"><input type="checkbox" data-key="sweet" data-i="6"><span class="box"></span>
+  <span class="cknm">Vanille-Backaroma<small>4 Fläschchen</small></span><span class="ckp num">0,79 €</span></label><label class="ck"><input type="checkbox" data-key="sweet" data-i="7"><span class="box"></span>
+  <span class="cknm">Backpulver<small>5 Päckchen</small></span><span class="ckp num">0,49 €</span></label></div>
+          <div class="ing-total two"><span>Einmalig</span><span class="num">11,02 €</span></div>
+          <div class="cfoot"><button class="mini" data-reset="sweet">Häkchen zurücksetzen</button></div>
+          <p class="note">Reicht für jedes Rezept mehrmals, nur Beeren und Schokolade gehen schneller aus. Quark, Eier, Haferflocken, Leinsamen, Äpfel und Zimt hast du schon aus dem Wochenplan. <strong>Bananen extra kaufen:</strong> Für Cookies und Bites brauchst du 2 bis 3 zusätzliche, je fleckiger desto besser. Die braunen gibt es oft reduziert.</p>
+        </div>
+      </details>
+    </div>
+  </details>
+
   <div class="grp">Planung</div>
 
   <details class="card sec" id="woche">
@@ -1405,6 +1709,7 @@ const WEEK = [["Mo", "Hähnchen-Nuggets mit Pommes", "m-knusprige-haehnchen-nugg
   }
   bindList('shop', 'shopCount', 'shopBar');
   bindList('spice', 'spiceCount', 'spiceBar');
+  bindList('sweet', 'sweetCount', 'sweetBar');
 
   // Schritte abhaken (läuft nach 2 Stunden ab)
   var STEP_TTL = 2 * 60 * 60 * 1000;
