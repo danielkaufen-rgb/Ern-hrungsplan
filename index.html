@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ernährungsplan</title>
-<meta name="description" content="Wochenplan 3.0 – schnell nach der Uni, rund 1.975 kcal und 148 g Protein am Tag">
+<meta name="description" content="Wochenplan 3.1 – schnell und lecker ohne Salz, rund 2.000 kcal und 143 g Protein am Tag">
 <script>
 (function(){var t=null;try{t=localStorage.getItem("ep-theme");}catch(e){}
 if(!t)t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
@@ -329,6 +329,26 @@ footer{margin:30px 6px 0;font-size:12.5px;color:var(--faint);line-height:1.6;max
   opacity:0;transform:translateY(10px);transition:.25s;pointer-events:none;z-index:40;}
 .toTop.on{opacity:.85;transform:none;pointer-events:auto;}
 
+
+/* Hinweis-Karte und Regeln */
+.newbox{display:flex;align-items:center;gap:14px;padding:14px 18px;margin:0 0 6px;border-radius:16px;text-decoration:none;color:var(--ink);
+  background:linear-gradient(135deg,var(--accentSoft),color-mix(in srgb,var(--card) 70%,var(--accentSoft)));border:1px solid var(--line);transition:transform .15s,box-shadow .15s;}
+.newbox:hover{transform:translateY(-1px);box-shadow:var(--sh);}
+.nbi{font-size:22px;flex:none;}
+.nbt{flex:1;min-width:0;}
+.nbt b{display:block;font-size:14.5px;}
+.nbt small{display:block;font-size:12.5px;color:var(--muted);margin-top:1px;}
+.nbc{color:var(--accent);font-size:20px;font-weight:700;flex:none;}
+.lead-p{margin:0 0 6px;font-size:14px;line-height:1.6;color:var(--ink2);max-width:72ch;}
+.rules{margin:0;padding:0;list-style:none;counter-reset:ru;}
+.rules li{position:relative;padding:10px 0 10px 38px;border-bottom:1px solid var(--lineSoft);font-size:14px;line-height:1.6;color:var(--ink2);counter-increment:ru;}
+.rules li:last-child{border-bottom:none;}
+.rules li::before{content:counter(ru);position:absolute;left:0;top:10px;width:25px;height:25px;border-radius:50%;background:var(--accentSoft);color:var(--accent);
+  font-family:var(--num);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.rules b{color:var(--ink);}
+.prose .subhead{margin-top:26px;}
+.prose .subhead:first-of-type{margin-top:14px;}
+
 /* ---------- Responsiv ---------- */
 @media (max-width:860px){
   .rcols,.rcols.wide{grid-template-columns:1fr;gap:20px;}
@@ -384,7 +404,7 @@ footer{margin:30px 6px 0;font-size:12.5px;color:var(--faint);line-height:1.6;max
 <div class="app">
 
   <div class="topbar">
-    <div class="brand"><span class="eyebrow">ERNÄHRUNGSPLAN</span><h1>Wochenplan 3.0</h1></div>
+    <div class="brand"><span class="eyebrow">ERNÄHRUNGSPLAN</span><h1>Wochenplan 3.1</h1></div>
     <div class="mnav">
       <button class="ghost" id="collapseB">Alles zuklappen</button>
       <button class="mbtn" id="themeB" title="Hell / Dunkel" aria-label="Hell / Dunkel umschalten">◐</button>
@@ -395,22 +415,22 @@ footer{margin:30px 6px 0;font-size:12.5px;color:var(--faint);line-height:1.6;max
     <div class="htop">
       <div>
         <div class="hlbl">PRO TAG IM SCHNITT</div>
-        <div class="hbig num">1.973<span class="unit"> kcal</span></div>
+        <div class="hbig num">2.003<span class="unit"> kcal</span></div>
       </div>
       <div class="hside">
-        <div class="hfig"><b class="num">148 g</b><small>Protein</small></div>
-        <div class="hfig"><b class="num">5,00 €</b><small>pro Tag</small></div>
+        <div class="hfig"><b class="num">143 g</b><small>Protein</small></div>
+        <div class="hfig"><b class="num">5,70 €</b><small>pro Tag</small></div>
       </div>
     </div>
-    <div class="hsmall">Schnell nach der Uni: fast alles in 15 bis 25 Minuten. Zwei Frühstücke, neun Mittagessen, sechs Snacks, drei Abendessen.</div>
+    <div class="hsmall">Schnell nach der Uni und lecker ohne Salz: Röstaromen, Gewürzöl, Zitrone und Kräuter machen den Geschmack. Fast alles in 15 bis 25 Minuten.</div>
     <div class="hbar" role="img" aria-label="Kalorienverteilung über den Tag">
-      <i class="b1" style="width:27.4%"></i><i class="b2" style="width:33%"></i><i class="b3" style="width:8.9%"></i><i class="b4" style="width:30.7%"></i>
+      <i class="b1" style="width:27.5%"></i><i class="b2" style="width:32.5%"></i><i class="b3" style="width:8.5%"></i><i class="b4" style="width:31.5%"></i>
     </div>
     <div class="hlegend">
-      <a class="hl" href="#fruehstueck" data-open="fruehstueck"><span class="hn"><i class="b1"></i>Frühstück</span><span class="hv num">~540 <small>kcal</small></span><span class="hp num">~37 g Protein</span></a>
+      <a class="hl" href="#fruehstueck" data-open="fruehstueck"><span class="hn"><i class="b1"></i>Frühstück</span><span class="hv num">~550 <small>kcal</small></span><span class="hp num">~36 g Protein</span></a>
       <a class="hl" href="#mittagessen" data-open="mittagessen"><span class="hn"><i class="b2"></i>Mittag</span><span class="hv num">~650 <small>kcal</small></span><span class="hp num">~50 g Protein</span></a>
-      <a class="hl" href="#snacks" data-open="snacks"><span class="hn"><i class="b3"></i>Snack</span><span class="hv num">~175 <small>kcal</small></span><span class="hp num">~16 g Protein</span></a>
-      <a class="hl" href="#abendessen" data-open="abendessen"><span class="hn"><i class="b4"></i>Abend</span><span class="hv num">~605 <small>kcal</small></span><span class="hp num">~45 g Protein</span></a>
+      <a class="hl" href="#snacks" data-open="snacks"><span class="hn"><i class="b3"></i>Snack</span><span class="hv num">~170 <small>kcal</small></span><span class="hp num">~15 g Protein</span></a>
+      <a class="hl" href="#abendessen" data-open="abendessen"><span class="hn"><i class="b4"></i>Abend</span><span class="hv num">~630 <small>kcal</small></span><span class="hp num">~43 g Protein</span></a>
     </div>
   </div></div>
 
@@ -431,67 +451,70 @@ footer{margin:30px 6px 0;font-size:12.5px;color:var(--faint);line-height:1.6;max
     <div class="tgrid" id="todayGrid"></div>
   </div>
 
+  <a class="newbox" href="#lecker-ohne-salz" data-open="lecker-ohne-salz"><span class="nbi">✨</span><span class="nbt"><b>Neu: Lecker ohne Salz</b><small>Warum es lasch geschmeckt hat und was jetzt in jedem Rezept anders ist</small></span><span class="nbc">›</span></a>
+
   <div class="grp">Mahlzeiten</div>
 
   <details class="card sec" id="fruehstueck">
     <summary><span class="sico s-fr">🥣</span><span class="shd"><span class="ctitle">Frühstück</span><span class="csub">2 Varianten: Hafer-Quark in 3 Minuten oder Spiegeleier auf Brot in 10</span></span>
-      <span class="snums"><b class="num">~540</b> kcal · <b class="num">~37 g</b></span><span class="chev">▾</span></summary>
+      <span class="snums"><b class="num">~550</b> kcal · <b class="num">~36 g</b></span><span class="chev">▾</span></summary>
     <div class="cbody">
-      <p class="intro">Beide Frühstücke haben fast gleich viele Kalorien. Das Spiegelei-Brot bringt etwas mehr Protein, deshalb steht es im Wochenvorschlag an zwei passenden Tagen.</p>
+      <p class="intro">Hafer-Quark ist der schnelle Alltag, das Spiegelei-Brot die herzhafte Alternative. Die Kalorien sind fast gleich, du kannst also jederzeit tauschen.</p>
       <div class="rlist">
 <details class="recipe" id="f-hafer-quark" data-kind="cold">
   <summary>
     <span class="thumb t-cold"><span class="emo">🥣</span></span>
-    <span class="rmid"><span class="rname">Hafer-Quark mit Banane und Apfel</span><span class="rmeta"><i class="d k-cold"></i>Ohne Kochen · 3 Min</span></span>
-    <span class="rnums"><span class="rk"><b class="num">546</b> <small>kcal</small></span><span class="rp"><b class="num">35,1 g</b> <small>Protein</small></span></span>
+    <span class="rmid"><span class="rname">Hafer-Quark mit Banane, Apfel und Zimt</span><span class="rmeta"><i class="d k-cold"></i>Ohne Kochen · 3 Min</span></span>
+    <span class="rnums"><span class="rk"><b class="num">547</b> <small>kcal</small></span><span class="rp"><b class="num">35,1 g</b> <small>Protein</small></span></span>
     <span class="chev">▾</span>
   </summary>
   <div class="rbody">
-    <p class="rlead">Kein Herd, keine Pfanne · 3 Minuten Arbeit, 5 Minuten quellen · ca. 0,70 €</p>
+    <p class="rlead">Kein Herd · 3 Minuten Arbeit, 5 Minuten quellen · süß braucht kein Salz</p>
     <div class="rcols">
-      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Haferflocken</span><span class="n">75 g</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">180 g</span></div><div class="ing-r"><span class="nm">Banane</span><span class="n">1 Stück</span></div><div class="ing-r"><span class="nm">Apfel</span><span class="n">½ Stück</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Zimt</span><span class="n">½ gestr. TL</span></div><div class="ing-r"><span class="nm">Leinsamen, geschrotet (optional, +55 kcal)</span><span class="n">10 g</span></div></div></div>
-      <div class="rcol-how"><div class="colh">Zubereitung</div><div class="howto"><p class="mise"><b>Was du brauchst</b>Eine Schüssel, eine Gabel, ein Messer. 75 g Haferflocken sind etwa 8 gehäufte Esslöffel. 180 g Magerquark sind gut ein Drittel vom 500-g-Becher.</p>
+      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Haferflocken</span><span class="n">75 g</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">180 g</span></div><div class="ing-r"><span class="nm">Banane, gern fleckig</span><span class="n">1 Stück</span></div><div class="ing-r"><span class="nm">Apfel</span><span class="n">½ Stück</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Zimt</span><span class="n">½ gestr. TL</span></div><div class="ing-r"><span class="nm">Zitrone (optional, für die Schale)</span><span class="n">ein paar Züge</span></div><div class="ing-r"><span class="nm">Leinsamen, geschrotet (optional, +53 kcal)</span><span class="n">10 g</span></div></div></div>
+      <div class="rcol-how"><div class="colh">Zubereitung</div><div class="howto"><p class="mise"><b>Was du brauchst</b>Eine Schüssel, eine Gabel, ein Messer. 75 g Haferflocken sind etwa 8 gehäufte Esslöffel, 180 g Quark etwa 6 gehäufte Esslöffel.</p>
 <ol class="steps">
-<li><b>Quark cremig rühren.</b> 180 g Magerquark in eine Schüssel. 4 Esslöffel kaltes Wasser (60 ml) dazu. Mit der Gabel 30 Sekunden kräftig rühren.
-          <span class="cue"><b>Fertig, wenn:</b> der Quark glänzt und vom Löffel fließt wie dicker Joghurt. Solange er noch in Brocken hängt, weiter rühren oder einen Esslöffel Wasser mehr. Ohne diesen Schritt wird das Frühstück ein trockener Klumpen.</span>
+<li><b>Quark cremig rühren.</b> 180 g Magerquark mit 4 Esslöffel kaltem Wasser 30 Sekunden kräftig mit der Gabel rühren.
+        <span class="cue"><b>Fertig, wenn:</b> der Quark glänzt und vom Löffel fließt wie dicker Joghurt. Ohne diesen Schritt wird das Frühstück ein trockener Klumpen.</span>
 </li>
-<li><b>Haferflocken unterrühren.</b> 75 g einfach reinschütten, mit der Gabel durchmischen, bis keine trockenen Stellen mehr zu sehen sind. Dann 5 Minuten stehen lassen.
-          <span class="cue"><b>Warum warten:</b> Die Flocken ziehen Flüssigkeit und werden weich. Sofort gegessen sind sie hart und kratzig.</span>
+<li><b>Haferflocken unterrühren.</b> 75 g reinschütten, durchmischen, 5 Minuten stehen lassen.
+        <span class="cue"><b>Warum warten:</b> Die Flocken ziehen Flüssigkeit und werden weich. Sofort gegessen sind sie hart und kratzig.</span>
 </li>
-<li><b>Obst schneiden.</b> Banane längs halbieren, dann quer in Scheiben von etwa 5 mm. Den halben Apfel vierteln, das Kerngehäuse rausschneiden, in Würfel von etwa 1 cm. Schale dranlassen, da sitzen die Ballaststoffe.</li>
-<li><b>Würzen.</b> ½ gestrichener Teelöffel Zimt unterrühren, dann das Obst dazu.</li>
+<li><b>Obst schneiden.</b> Banane in Scheiben, den halben Apfel mit Schale in Würfel von etwa 1 cm.</li>
+<li><b>Würzen.</b> ½ gestrichener Teelöffel Zimt unterrühren, Obst drauf. Wer mag, reibt ein paar Züge Zitronenschale darüber.
+        <span class="cue"><b>Zitronenschale ist der Geheimtipp:</b> Sie macht Quark und Apfel frisch, ohne sauer zu sein. Und je fleckiger die Banane, desto süßer das Ganze.</span>
+</li>
 </ol>
-<p class="tip"><b>Overnight-Variante:</b> Schritt 1 bis 2 abends machen, Deckel drauf, Kühlschrank. Morgens ist es cremig wie ein Dessert. Apfel erst morgens dazu, sonst wird er braun.</p>
-<p class="tip"><b>Für Omega-3:</b> 10 g geschrotete Leinsamen (1 gehäufter Esslöffel) mit einrühren. Kostet 4 Cent und 55 kcal, dafür deckst du den Tagesbedarf an pflanzlichem Omega-3. Dafür 15 g Haferflocken weniger.</p></div></div>
+<p class="tip"><b>Mit 2 Minuten mehr wie Müsli vom Bäcker:</b> Die Haferflocken vorher in einer trockenen Pfanne auf Stufe 5 rösten, bis sie nussig riechen. Dann schmeckt es nach Keks.</p>
+<p class="tip"><b>Overnight-Variante:</b> Schritt 1 und 2 abends machen, Deckel drauf, Kühlschrank. Morgens cremig wie ein Dessert. Apfel erst morgens dazu.</p></div></div>
     </div>
   </div>
 </details>
 <details class="recipe" id="f-spiegelei-brot" data-kind="pan">
   <summary>
     <span class="thumb t-pan"><span class="emo">🥪</span></span>
-    <span class="rmid"><span class="rname">Spiegeleier auf Vollkornbrot mit Kräuterquark und Tomate</span><span class="rmeta"><i class="d k-pan"></i>Pfanne · 10 Min</span></span>
-    <span class="rnums"><span class="rk"><b class="num">535</b> <small>kcal</small></span><span class="rp"><b class="num">39,9 g</b> <small>Protein</small></span></span>
+    <span class="rmid"><span class="rname">Knusprige Spiegeleier auf Vollkornbrot mit Knoblauch-Kräuterquark</span><span class="rmeta"><i class="d k-pan"></i>Pfanne · 10 Min</span></span>
+    <span class="rnums"><span class="rk"><b class="num">566</b> <small>kcal</small></span><span class="rp"><b class="num">37,3 g</b> <small>Protein</small></span></span>
     <span class="chev">▾</span>
   </summary>
   <div class="rbody">
-    <p class="rlead">Eine Pfanne, ohne Fett · 10 Minuten · ca. 1,45 €</p>
+    <p class="rlead">Eine Pfanne · 10 Minuten · knusprige Eiränder, frischer Knoblauch, Zitrone</p>
     <div class="rcols">
-      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Eier</span><span class="n">3 Stück</span></div><div class="ing-r"><span class="nm">Vollkornbrot</span><span class="n">2 Scheiben (100 g)</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">80 g</span></div><div class="ing-r"><span class="nm">Tomate</span><span class="n">1 Stück (100 g)</span></div><div class="ing-r"><span class="nm">Gurke</span><span class="n">100 g</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Oregano</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Paprikapulver</span><span class="n">1 Prise</span></div><div class="ing-r"><span class="nm">Knoblauchgranulat</span><span class="n">1 Messerspitze</span></div><div class="ing-r"><span class="nm">Pfeffer</span><span class="n">nach Geschmack</span></div></div></div>
-      <div class="rcol-how"><div class="colh">Zubereitung</div><div class="howto"><p class="mise"><b>Was du brauchst</b>Eine beschichtete Pfanne mit Deckel, eine kleine Schüssel, einen Toaster, falls vorhanden. Der Deckel ist der Trick: Er gart die Eier von oben, du musst sie nicht wenden.</p>
-<ol class="steps">
-<li><b>Pfanne aufheizen.</b> Die beschichtete Pfanne ohne Fett auf Stufe 5 von 9 stellen, 2 Minuten. In der Zeit die nächsten zwei Schritte machen.</li>
-<li><b>Kräuterquark anrühren.</b> 80 g Magerquark mit 1 Esslöffel Wasser, ½ Teelöffel Oregano, einer Messerspitze Knoblauchgranulat und Pfeffer glatt rühren.</li>
-<li><b>Brot toasten.</b> Die zwei Scheiben in den Toaster. Tomate und Gurke in Scheiben schneiden.</li>
-<li><b>Eier braten.</b> Hitze auf Stufe 4 runter. Die 3 Eier direkt nebeneinander in die Pfanne schlagen, Deckel drauf, 3 bis 4 Minuten.
-        <span class="cue"><b>Fertig, wenn:</b> das Eiweiß komplett weiß und fest ist, auch direkt am Eigelb. Das Eigelb glänzt noch und wackelt. Wer es fest mag: 1 Minute länger.</span>
+      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Eier</span><span class="n">3 Stück</span></div><div class="ing-r"><span class="nm">Vollkornbrot</span><span class="n">2 Scheiben (100 g)</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">60 g</span></div><div class="ing-r"><span class="nm">Tomate</span><span class="n">1 Stück (100 g)</span></div><div class="ing-r"><span class="nm">Gurke</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">1 TL</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Knoblauch, frisch</span><span class="n">½ Zehe</span></div><div class="ing-r"><span class="nm">TK-Kräuter</span><span class="n">1 EL</span></div><div class="ing-r"><span class="nm">Zitrone</span><span class="n">1 Spritzer</span></div><div class="ing-r"><span class="nm">Paprikapulver, geräuchert</span><span class="n">1 Prise</span></div><div class="ing-r"><span class="nm">Pfeffer, frisch gemahlen</span><span class="n">nach Geschmack</span></div></div></div>
+      <div class="rcol-how"><div class="colh">Zubereitung</div><div class="howto"><ol class="steps">
+<li><b>Pfanne mit Öl heiß machen.</b> 1 Teelöffel Rapsöl in die beschichtete Pfanne, Stufe 6 von 9, 1 Minute.</li>
+<li><b>Kräuterquark.</b> Währenddessen 60 g Magerquark mit 1 Esslöffel Wasser, einer halben fein geriebenen Knoblauchzehe, 1 Esslöffel TK-Kräutern, einem Spritzer Zitrone und Pfeffer verrühren.
+        <span class="cue"><b>Frischer Knoblauch statt Pulver</b> ist hier der ganze Unterschied. Fein reiben (Reibe oder Messerrücken), dann verteilt er sich und brennt nicht.</span>
 </li>
-<li><b>Belegen.</b> Kräuterquark auf die Brote streichen, Tomatenscheiben drauf, je ein bis zwei Spiegeleier obendrauf. Mit Pfeffer und einer Prise Paprikapulver bestreuen. Die Gurke daneben.
-        <span class="cue"><b>Ohne Salz trotzdem würzig:</b> Der Kräuterquark mit Knoblauch und die Tomate bringen genug Geschmack. Paprika auf dem Eigelb ist der kleine Unterschied.</span>
+<li><b>Eier braten.</b> Die 3 Eier ins heiße Öl schlagen und 1 Minute auf Stufe 6 brutzeln lassen. Dann Deckel drauf, Stufe 4, noch 2 bis 3 Minuten.
+        <span class="cue"><b>Fertig, wenn:</b> die Ränder goldbraun und knusprig sind, das Eiweiß fest und das Eigelb noch glänzt. Die knusprigen Ränder sind Röstaromen, und genau die fehlen, wenn man Eier ohne Fett brät.</span>
 </li>
+<li><b>Brot und Gemüse.</b> Brot toasten. Tomate in Scheiben, mit Pfeffer und ein paar Tropfen Zitrone beträufeln. Gurke in Scheiben.
+        <span class="cue"><b>Säure auf der Tomate</b> macht sie süßer und würziger. Das ist ohne Salz der einfachste Trick für Gemüse.</span>
+</li>
+<li><b>Belegen.</b> Kräuterquark aufs Brot, Tomate drauf, Spiegeleier obendrauf. Eine Prise geräuchertes Paprikapulver und Pfeffer aufs Eigelb.</li>
 </ol>
-<p class="tip"><b>Ohne Toaster:</b> Brot vor den Eiern 1 Minute pro Seite in die trockene, heiße Pfanne legen.</p>
-<p class="tip"><b>Rührei-Variante:</b> 3 Eier mit 2 Esslöffel Wasser und Pfeffer verquirlen, Stufe 4, langsam mit dem Pfannenwender schieben, 2 bis 3 Minuten. Vom Herd nehmen, solange es noch leicht feucht glänzt.</p>
-<p class="tip"><b>Brot einfrieren:</b> Der Rest vom Laib hält im Gefrierfach Wochen. Die Scheiben gefroren direkt in den Toaster.</p></div></div>
+<p class="tip"><b>Rührei-Variante:</b> 3 Eier mit 2 Esslöffel Wasser, Pfeffer und 1 Esslöffel TK-Kräutern verquirlen. Im heißen Öl auf Stufe 4 langsam schieben, vom Herd nehmen, solange es noch leicht feucht glänzt.</p></div></div>
     </div>
   </div>
 </details></div>
@@ -499,7 +522,7 @@ footer{margin:30px 6px 0;font-size:12.5px;color:var(--faint);line-height:1.6;max
   </details>
 
   <details class="card sec" id="mittagessen">
-    <summary><span class="sico s-mi">🍗</span><span class="shd"><span class="ctitle">Mittagessen</span><span class="csub">9 Varianten, 622 bis 715 kcal, fast alle in 15 bis 20 Minuten</span></span>
+    <summary><span class="sico s-mi">🍗</span><span class="shd"><span class="ctitle">Mittagessen</span><span class="csub">9 Varianten, 598 bis 755 kcal, fast alle in 15 bis 20 Minuten</span></span>
       <span class="snums"><b class="num">~650</b> kcal · <b class="num">~50 g</b></span><span class="chev">▾</span></summary>
     <div class="cbody">
       <p class="intro">Kartoffelmengen sind geschält gewogen, mit Schale nimmst du einfach dieselbe Menge. Kartoffeln kommen nur für Pommes in den Airfryer, sonst werden sie gekocht und gewürzt. Tippe auf ein Gericht für Zutaten und Anleitung.</p>
@@ -513,157 +536,151 @@ footer{margin:30px 6px 0;font-size:12.5px;color:var(--faint);line-height:1.6;max
 <details class="recipe" id="m-nuggets" data-kind="meat">
   <summary>
     <span class="thumb t-meat"><span class="emo">🍗</span></span>
-    <span class="rmid"><span class="rname">Schnelle Hähnchen-Nuggets mit Pommes</span><span class="rmeta"><i class="d k-meat"></i>Hähnchen · 30 Min</span></span>
-    <span class="rnums"><span class="rk"><b class="num">654</b> <small>kcal</small></span><span class="rp"><b class="num">50,8 g</b> <small>Protein</small></span></span>
+    <span class="rmid"><span class="rname">Rauchige Nuggets mit Pommes, Honig-Senf-Dip und Karottensalat</span><span class="rmeta"><i class="d k-meat"></i>Hähnchen · 30 Min</span></span>
+    <span class="rnums"><span class="rk"><b class="num">663</b> <small>kcal</small></span><span class="rp"><b class="num">51,9 g</b> <small>Protein</small></span></span>
     <span class="chev">▾</span>
   </summary>
   <div class="rbody">
-    <p class="rlead">Airfryer, paniert · ca. 30 Min, davon 15 Min Arbeit · das längste Rezept im Plan</p>
+    <p class="rlead">Airfryer · ca. 30 Min, davon 15 Min Arbeit · rauchig, süß-scharf, frisch</p>
     <div class="rcols">
-      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Hähnchenbrust</span><span class="n">130 g</span></div><div class="ing-r"><span class="nm">Kartoffeln, geschält</span><span class="n">420 g</span></div><div class="ing-r"><span class="nm">Paniermehl</span><span class="n">25 g</span></div><div class="ing-r"><span class="nm">Ei</span><span class="n">1 Stück</span></div><div class="ing-r"><span class="nm">TK-Gemüsemischung</span><span class="n">150 g</span></div><div class="ing-r"><span class="nm">Speisestärke</span><span class="n">1 EL + 1 TL</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Magerquark (für den Dip)</span><span class="n">2 EL</span></div><div class="ing-r"><span class="nm">Paprikapulver</span><span class="n">2½ TL</span></div><div class="ing-r"><span class="nm">Knoblauchgranulat</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Senf</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Essig</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Pfeffer</span><span class="n">nach Geschmack</span></div></div></div>
-      <div class="rcol-how"><div class="colh">Zubereitung</div><div class="howto"><p class="mise"><b>Zeitplan</b>Pommes zuerst, die brauchen am längsten. In den 15 Minuten, in denen sie im Airfryer sind, panierst du die Nuggets. Dann 10 Minuten Nuggets, die Pommes kommen am Ende kurz mit rein.</p>
+      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Hähnchenbrust</span><span class="n">130 g</span></div><div class="ing-r"><span class="nm">Kartoffeln, geschält</span><span class="n">280 g</span></div><div class="ing-r"><span class="nm">Karotten</span><span class="n">120 g</span></div><div class="ing-r"><span class="nm">Paniermehl</span><span class="n">20 g</span></div><div class="ing-r"><span class="nm">Ei</span><span class="n">1 Stück</span></div><div class="ing-r"><span class="nm">Magerquark (für den Dip)</span><span class="n">40 g</span></div><div class="ing-r"><span class="nm">Speisestärke</span><span class="n">1 EL</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">1 TL</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Paprikapulver, geräuchert</span><span class="n">2 TL</span></div><div class="ing-r"><span class="nm">Knoblauchgranulat</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Senf</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Honig</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Zitrone</span><span class="n">½ (Schale und Saft)</span></div><div class="ing-r"><span class="nm">Pfeffer, frisch gemahlen</span><span class="n">nach Geschmack</span></div></div></div>
+      <div class="rcol-how"><div class="colh">Zubereitung</div><div class="howto"><p class="mise"><b>Zeitplan</b>Pommes zuerst in den Airfryer. In den 15 Minuten panierst du, rührst den Dip und reibst den Karottensalat. Dann 10 Minuten Nuggets.</p>
 <ol class="steps">
-<li><b>Pommes schneiden.</b> Airfryer auf 200 °C vorheizen. 420 g Kartoffeln in dünne Stifte von etwa 7 mm schneiden.
-        <span class="cue"><b>Dünn ist schnell:</b> 7 mm brauchen 15 Minuten, 1 cm dicke Stifte fast 20.</span>
+<li><b>Pommes vorbereiten.</b> Airfryer auf 200 °C vorheizen. 280 g Kartoffeln in 7-mm-Stifte schneiden, 30 Sekunden kalt abspülen, im Küchentuch trocken rubbeln. Mit 1 Teelöffel Speisestärke und 1 Teelöffel Rapsöl durchschwenken.
+        <span class="cue"><b>Das Öl macht den Unterschied</b> zwischen trockenen Kartoffelstiften und echten Pommes. Es leitet die Hitze und hält später das Gewürz fest.</span>
 </li>
-<li><b>Abspülen und trocknen.</b> Stifte in einem Sieb 30 Sekunden kalt abspülen, dann in einem Küchentuch kräftig trocken rubbeln. 1 gestrichenen Teelöffel Speisestärke drüberstäuben und durchschwenken.
-        <span class="cue"><b>Ersetzt das lange Wässern:</b> Kurz abspülen nimmt die klebrige Stärke von der Oberfläche, die Speisestärke danach macht die Kruste. Ganz so knusprig wie nach 30 Minuten Wässern wird es nicht, aber fast, und du sparst eine halbe Stunde.</span>
+<li><b>Pommes garen.</b> Einlagig, 200 °C, 15 Minuten, nach 5 und 10 Minuten schütteln.</li>
+<li><b>Rauchige Panade.</b> 20 g Paniermehl in der trockenen Pfanne auf Stufe 5 rösten, 3 Minuten, bis es haselnussbraun ist. Die letzten 20 Sekunden 1 Teelöffel geräuchertes Paprikapulver und die abgeriebene Schale einer halben Zitrone mitrösten. Sofort auf einen kalten Teller.
+        <span class="cue"><b>Ohne Salz ist die Panade die Geschmacksquelle:</b> geröstet, rauchig und zitronig schmeckt sie nach Imbiss, nicht nach Brösel.</span>
 </li>
-<li><b>Pommes garen.</b> Einlagig in den Korb, 200 °C, 15 Minuten. Nach 5 und nach 10 Minuten kräftig schütteln.</li>
-<li><b>Paniermehl rösten.</b> Währenddessen 25 g Paniermehl (etwa 4 gehäufte Esslöffel) in eine trockene Pfanne, Stufe 5 von 9, 3 Minuten unter ständigem Rühren. Sofort auf einen kalten Teller kippen.
-        <span class="cue"><b>Fertig, wenn:</b> es haselnussbraun ist und nussig riecht. Das ist der Grund, warum die Panade ohne Öl braun wird.</span>
+<li><b>Panieren.</b> Hähnchen in 2-cm-Würfel, mit Pfeffer und ½ Teelöffel Knoblauchgranulat mischen. Drei Teller: 2 Teelöffel Speisestärke, dann das Ei verquirlt mit ½ Teelöffel geräuchertem Paprika und ½ Teelöffel Knoblauchgranulat, dann die Panade. Jeden Würfel durch alle drei, Panade fest andrücken.</li>
+<li><b>Honig-Senf-Dip.</b> 40 g Quark, 1 Teelöffel Senf, 1 Teelöffel Honig, ein Spritzer Zitrone und Pfeffer verrühren.
+        <span class="cue"><b>Süß, scharf und sauer auf einmal:</b> Bei drei Geschmäckern gleichzeitig vermisst die Zunge das Salz kaum.</span>
 </li>
-<li><b>Panieren.</b> Hähnchen in Würfel von etwa 2 cm schneiden. Drei Teller: 1 gestrichener Esslöffel Speisestärke, dann 1 Ei verquirlt mit 1 Teelöffel Paprikapulver und ½ Teelöffel Knoblauchgranulat, dann das geröstete Paniermehl. Jeden Würfel durch alle drei Teller, Paniermehl fest andrücken.
-        <span class="cue"><b>Trockene Hand, nasse Hand:</b> Eine Hand für Stärke und Paniermehl, die andere fürs Ei. 2 cm statt 3 cm, weil kleine Würfel schneller durch sind.</span>
+<li><b>Karottensalat.</b> 120 g Karotten grob reiben, mit 1 Esslöffel Zitronensaft und Pfeffer mischen.
+        <span class="cue"><b>Frisch, knackig, sauer:</b> der Gegenpol zu Paniertem und Pommes. Ohne ihn wird das Essen schnell eintönig.</span>
 </li>
-<li><b>Gemüse und Dip.</b> Wasser im Wasserkocher kochen, 150 g TK-Gemüse in einen kleinen Topf, mit dem kochenden Wasser bedecken, Stufe 6, 5 Minuten, abgießen. Dip: 2 Esslöffel Magerquark, ½ Teelöffel Senf, ½ Teelöffel Paprikapulver, ½ Teelöffel Essig, Pfeffer.</li>
-<li><b>Pommes würzen.</b> Pommes aus dem Korb in eine Schüssel, 1 Teelöffel Paprikapulver, ½ Teelöffel Knoblauchgranulat und Pfeffer drüber, schwenken. Einen Teller als Deckel drauf.
-        <span class="cue"><b>Warum erst nach dem Garen:</b> Gewürzpulver verbrennt bei 200 °C und wird bitter. Auf den heißen Pommes haftet es von allein.</span>
-</li>
-<li><b>Nuggets garen.</b> Temperatur auf 190 °C. Nuggets einlagig in den Korb, 10 Minuten, nach 5 Minuten einzeln wenden. Für die letzten 2 Minuten die Pommes obendrauf, dann sind sie wieder knusprig.
+<li><b>Pommes würzen.</b> Aus dem Korb in eine Schüssel, ½ Teelöffel geräuchertes Paprikapulver und Pfeffer drüber, schwenken. Das Öl hält das Gewürz fest. Teller als Deckel drauf.</li>
+<li><b>Nuggets garen.</b> 190 °C, einlagig, 10 Minuten, nach 5 Minuten wenden. Die letzten 2 Minuten die Pommes obendrauf.
         <span class="cue"><b>Fertig, wenn:</b> die Panade dunkelgolden ist. Einen Würfel halbieren: innen durchgehend weiß, Kerntemperatur 74 °C.</span>
 </li>
-</ol>
-<p class="tip"><b>Mit 20 Minuten mehr Zeit noch saftiger:</b> Das Hähnchen vorher in Natron-Lake legen, siehe Airfryer-Technik unter Wissen.</p></div></div>
+</ol></div></div>
     </div>
   </div>
 </details>
 <details class="recipe" id="m-schnitzel" data-kind="meat">
   <summary>
     <span class="thumb t-meat"><span class="emo">🥩</span></span>
-    <span class="rmid"><span class="rname">Hähnchen-Schnitzel mit Gewürzkartoffeln und Krautsalat</span><span class="rmeta"><i class="d k-meat"></i>Hähnchen · 20 Min</span></span>
-    <span class="rnums"><span class="rk"><b class="num">645</b> <small>kcal</small></span><span class="rp"><b class="num">50,3 g</b> <small>Protein</small></span></span>
+    <span class="rmid"><span class="rname">Zitronen-Schnitzel mit Kümmel-Röstkartoffeln und Honig-Senf-Krautsalat</span><span class="rmeta"><i class="d k-meat"></i>Hähnchen · 20 Min</span></span>
+    <span class="rnums"><span class="rk"><b class="num">631</b> <small>kcal</small></span><span class="rp"><b class="num">49,8 g</b> <small>Protein</small></span></span>
     <span class="chev">▾</span>
   </summary>
   <div class="rbody">
-    <p class="rlead">Topf und Pfanne · 20 Minuten · Krautsalat gleich für den Burger am Donnerstag mitmachen</p>
+    <p class="rlead">Topf und Pfanne · 20 Minuten · die Kartoffeln braten im Bratensatz vom Fleisch</p>
     <div class="rcols">
-      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Hähnchenbrust</span><span class="n">120 g</span></div><div class="ing-r"><span class="nm">Kartoffeln, geschält</span><span class="n">550 g</span></div><div class="ing-r"><span class="nm">Weißkohl</span><span class="n">200 g</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">70 g</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">1 TL</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Essig</span><span class="n">2 EL</span></div><div class="ing-r"><span class="nm">Paprikapulver</span><span class="n">2 TL</span></div><div class="ing-r"><span class="nm">Knoblauchgranulat</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Senf</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Oregano</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Pfeffer</span><span class="n">nach Geschmack</span></div></div></div>
-      <div class="rcol-how"><div class="colh">Zubereitung</div><div class="howto"><p class="mise"><b>Zeitplan</b>Kartoffeln zuerst aufsetzen, die brauchen 12 Minuten. In der Zeit Krautsalat machen und das Schnitzel braten. Alles ist gleichzeitig fertig.</p>
+      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Hähnchenbrust</span><span class="n">120 g</span></div><div class="ing-r"><span class="nm">Kartoffeln, geschält</span><span class="n">400 g</span></div><div class="ing-r"><span class="nm">Weißkohl</span><span class="n">200 g</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">80 g</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">2 TL</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Essig</span><span class="n">2 EL</span></div><div class="ing-r"><span class="nm">Kümmel, ganz</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Senf</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Honig</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Paprikapulver, geräuchert</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Knoblauch, frisch</span><span class="n">2 Zehen</span></div><div class="ing-r"><span class="nm">Zitrone</span><span class="n">½ (Schale und Saft)</span></div><div class="ing-r"><span class="nm">TK-Kräuter</span><span class="n">1 EL</span></div><div class="ing-r"><span class="nm">Pfeffer, frisch gemahlen</span><span class="n">nach Geschmack</span></div></div></div>
+      <div class="rcol-how"><div class="colh">Zubereitung</div><div class="howto"><p class="mise"><b>Zeitplan</b>Kartoffeln kochen 10 Minuten. In der Zeit Krautsalat, Quark und Schnitzel. Dann die Kartoffeln 4 Minuten in der Fleischpfanne rösten.</p>
 <ol class="steps">
-<li><b>Kartoffeln aufsetzen.</b> 1,5 Liter Wasser im Wasserkocher kochen. 550 g Kartoffeln in Würfel von etwa 2 cm schneiden, in einen Topf, mit dem kochenden Wasser bedecken. Deckel schräg drauf, Stufe 6 von 9, 10 bis 12 Minuten.
-        <span class="cue"><b>Schneller ohne Schälen:</b> Kartoffeln nur gründlich waschen und mit Schale schneiden. Die Menge bleibt gleich, du sparst 3 Minuten.</span>
+<li><b>Kartoffeln aufsetzen.</b> 1,5 Liter Wasser im Wasserkocher kochen. 400 g Kartoffeln mit Schale in 2-cm-Würfel, in einen Topf, mit kochendem Wasser bedecken, ½ Teelöffel Kümmel dazu. Stufe 6 von 9, 10 Minuten, sie dürfen noch leicht fest sein.
+        <span class="cue"><b>Kümmel im Kochwasser</b> ist der klassische deutsche Kartoffel-Trick. Er gibt Aroma ab, das sonst das Salz liefern würde.</span>
 </li>
-<li><b>Krautsalat.</b> 200 g Weißkohl in feine Streifen schneiden, in eine Schüssel, 1 Esslöffel Essig drüber und 1 Minute kräftig mit den Händen kneten. Dann 70 g Magerquark, 1 Esslöffel Essig, 1 Teelöffel Senf und Pfeffer unterheben.
-        <span class="cue"><b>Kneten statt ziehen lassen:</b> Durch das Quetschen wird der Kohl in einer Minute weich, sonst bräuchte er eine Stunde Ziehzeit.</span>
+<li><b>Krautsalat.</b> 200 g Weißkohl fein schneiden, mit 1 Esslöffel Essig 1 Minute kräftig kneten. Dann 1 Esslöffel Essig, 1 Teelöffel Senf, 1 Teelöffel Honig, ½ Teelöffel Kümmel und Pfeffer unterheben.
+        <span class="cue"><b>Honig gleicht die Säure aus, Kümmel macht den Krautsalat.</b> Am besten gleich die doppelte Menge machen, der Rest ist am Donnerstag für den Burger fertig.</span>
 </li>
-<li><b>Schnitzel schneiden.</b> Das Filet waagerecht halbieren, sodass zwei dünne Schnitzel von etwa 1 cm entstehen. Beidseitig mit 1 Teelöffel Paprikapulver, ½ Teelöffel Knoblauchgranulat und Pfeffer einreiben.
-        <span class="cue"><b>Dünn ist schnell und saftig:</b> 1 cm braucht 3 Minuten pro Seite. Ein ganzes Filet bräuchte doppelt so lange und wird außen trocken, bevor es innen gar ist.</span>
+<li><b>Knoblauch-Quark.</b> 80 g Magerquark mit 2 Esslöffel Wasser, 1 fein geriebenen Knoblauchzehe, 1 Esslöffel TK-Kräutern, einem Spritzer Zitrone und Pfeffer glatt rühren.</li>
+<li><b>Schnitzel würzen.</b> Filet waagerecht halbieren, zwei dünne Schnitzel. Mit der abgeriebenen Schale einer halben Zitrone, 1 Teelöffel geräuchertem Paprikapulver und Pfeffer einreiben.</li>
+<li><b>Schnitzel braten.</b> 1 Teelöffel Rapsöl in die Pfanne, Stufe 7 von 9. Schnitzel 3 Minuten pro Seite, nicht bewegen. Auf einen Teller, Zitronensaft drüber.
+        <span class="cue"><b>Fertig, wenn:</b> beide Seiten goldbraun und innen weiß, Saft klar. Nicht bewegen ist wichtig, nur dann entsteht die Kruste.</span>
 </li>
-<li><b>Braten.</b> 1 Teelöffel Rapsöl in die Pfanne, Stufe 7 von 9. Wenn das Öl leicht schimmert, Schnitzel rein und 3 Minuten nicht bewegen. Wenden, noch 3 Minuten.
-        <span class="cue"><b>Fertig, wenn:</b> beide Seiten goldbraun sind und es an der dicksten Stelle innen weiß ist, Saft klar. Kerntemperatur 74 °C.</span>
+<li><b>Röstkartoffeln.</b> Kartoffeln abgießen und 1 Minute im Sieb abdampfen lassen. In die Fleischpfanne, ungespült, mit 1 Teelöffel Rapsöl, Stufe 7, 4 Minuten braten, bis die Kanten goldbraun sind. In der letzten Minute die zweite Knoblauchzehe fein gehackt dazu.
+        <span class="cue"><b>Der braune Bratensatz vom Fleisch ist pures Aroma.</b> Die Kartoffeln nehmen ihn auf. Deshalb die Pfanne nicht spülen.</span>
 </li>
-<li><b>Kartoffeln würzen.</b> Wenn ein Messer ohne Widerstand reingeht, abgießen. Zurück in den heißen Topf, 1 Teelöffel Paprikapulver, ½ Teelöffel Knoblauchgranulat, ½ Teelöffel Oregano und Pfeffer drüber, Deckel drauf und kräftig schütteln.
-        <span class="cue"><b>Warum schütteln:</b> Die Ränder rauen leicht auf und die Gewürze bleiben daran hängen, statt am Topfboden zu landen.</span>
-</li>
-</ol>
-<p class="tip"><b>Krautsalat doppelt machen:</b> Mit 400 g Kohl, 4 Esslöffel Essig, 2 Teelöffel Senf und 120 g Quark hast du den Salat für den Burger am Donnerstag schon fertig. Hält 3 Tage im Kühlschrank und wird jeden Tag besser.</p></div></div>
+</ol></div></div>
     </div>
   </div>
 </details>
 <details class="recipe" id="m-curry" data-kind="meat">
   <summary>
     <span class="thumb t-meat"><span class="emo">🍛</span></span>
-    <span class="rmid"><span class="rname">Hähnchen-Curry mit Reis</span><span class="rmeta"><i class="d k-meat"></i>Hähnchen · 20 Min</span></span>
-    <span class="rnums"><span class="rk"><b class="num">715</b> <small>kcal</small></span><span class="rp"><b class="num">47,5 g</b> <small>Protein</small></span></span>
+    <span class="rmid"><span class="rname">Hähnchen-Curry mit Ingwer, Knoblauch und Gewürzreis</span><span class="rmeta"><i class="d k-meat"></i>Hähnchen · 20 Min</span></span>
+    <span class="rnums"><span class="rk"><b class="num">755</b> <small>kcal</small></span><span class="rp"><b class="num">45,7 g</b> <small>Protein</small></span></span>
     <span class="chev">▾</span>
   </summary>
   <div class="rbody">
-    <p class="rlead">Eine Pfanne plus Reistopf · 20 Minuten</p>
+    <p class="rlead">Pfanne plus Reistopf · 20 Minuten · Ingwer, Knoblauch und Tomatenmark machen den Geschmack</p>
     <div class="rcols">
-      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Hähnchenbrust</span><span class="n">150 g</span></div><div class="ing-r"><span class="nm">Reis, roh</span><span class="n">125 g</span></div><div class="ing-r"><span class="nm">TK-Gemüsemischung</span><span class="n">150 g</span></div><div class="ing-r"><span class="nm">Passierte Tomaten</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Zwiebel</span><span class="n">½ Stück (50 g)</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">1 TL</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Currypulver</span><span class="n">1 gehäufter TL</span></div><div class="ing-r"><span class="nm">Kreuzkümmel</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Essig</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Magerquark (optional, zum Schluss)</span><span class="n">2 EL</span></div><div class="ing-r"><span class="nm">Pfeffer</span><span class="n">nach Geschmack</span></div></div></div>
-      <div class="rcol-how"><div class="colh">Zubereitung</div><div class="howto"><p class="mise"><b>Zeitplan</b>Reis zuerst, er braucht 17 Minuten und läuft komplett von allein. Das Curry ist in derselben Zeit fertig.</p>
-<ol class="steps">
-<li><b>Reis aufsetzen.</b> 250 ml Wasser im Wasserkocher kochen. 125 g Reis in einen kleinen Topf, das kochende Wasser drüber, Deckel drauf und sofort auf Stufe 2 von 9. 12 Minuten, dann Herd aus und 5 Minuten mit Deckel stehen lassen.
-        <span class="cue"><b>Nicht umrühren, Deckel zu lassen.</b> Der Reis gart im Dampf. Jedes Mal Deckel heben kostet Dampf und der Reis wird unten hart.</span>
+      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Hähnchenbrust</span><span class="n">130 g</span></div><div class="ing-r"><span class="nm">Reis, roh</span><span class="n">125 g</span></div><div class="ing-r"><span class="nm">TK-Gemüsemischung</span><span class="n">150 g</span></div><div class="ing-r"><span class="nm">Passierte Tomaten</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Tomatenmark</span><span class="n">1 EL</span></div><div class="ing-r"><span class="nm">Zwiebel</span><span class="n">½ Stück (50 g)</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">1 TL</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Currypulver</span><span class="n">1 gehäufter TL</span></div><div class="ing-r"><span class="nm">Kreuzkümmel</span><span class="n">½ TL + 1 Prise</span></div><div class="ing-r"><span class="nm">Knoblauch, frisch</span><span class="n">2 Zehen</span></div><div class="ing-r"><span class="nm">Ingwer, frisch</span><span class="n">1 cm</span></div><div class="ing-r"><span class="nm">Honig</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Zitrone</span><span class="n">1 EL Saft</span></div><div class="ing-r"><span class="nm">TK-Kräuter (optional)</span><span class="n">1 EL</span></div><div class="ing-r"><span class="nm">Pfeffer, frisch gemahlen</span><span class="n">nach Geschmack</span></div></div></div>
+      <div class="rcol-how"><div class="colh">Zubereitung</div><div class="howto"><ol class="steps">
+<li><b>Gewürzreis aufsetzen.</b> 250 ml Wasser im Wasserkocher kochen. 125 g Reis mit einer Prise Kreuzkümmel in einen kleinen Topf, das kochende Wasser drüber, Deckel drauf, sofort Stufe 2 von 9. 12 Minuten, dann Herd aus und 5 Minuten mit Deckel stehen lassen.
+        <span class="cue"><b>Reis ohne Salz schmeckt nach nichts.</b> Die Prise Kreuzkümmel im Wasser gibt ihm ein leichtes, warmes Aroma.</span>
 </li>
-<li><b>Schneiden.</b> ½ Zwiebel fein würfeln. Hähnchenbrust in Würfel von etwa 2 cm.</li>
-<li><b>Anbraten.</b> 1 Teelöffel Rapsöl in die Pfanne, Stufe 6 von 9, Zwiebel 3 Minuten braten. Hitze auf Stufe 7, Hähnchen dazu, 3 Minuten unter Rühren.</li>
-<li><b>Gewürze mitrösten.</b> 1 gehäufter Teelöffel Currypulver und ½ Teelöffel Kreuzkümmel dazu, 30 Sekunden rühren.
-        <span class="cue"><b>Fertig, wenn:</b> es kräftig duftet. Geröstetes Curry schmeckt doppelt so intensiv wie rohes.</span>
+<li><b>Schneiden.</b> ½ Zwiebel fein würfeln. 2 Knoblauchzehen und 1 cm Ingwer fein reiben, Ingwer vorher mit einem Löffelrand schälen. Hähnchen in 2-cm-Würfel.</li>
+<li><b>Anbraten.</b> 1 Teelöffel Rapsöl, Stufe 6 von 9, Zwiebel 3 Minuten, bis die Ränder braun werden. Hitze auf Stufe 7, Hähnchen dazu und 3 Minuten braten. Nur ab und zu wenden, damit es Farbe bekommt.</li>
+<li><b>Aroma-Basis rösten.</b> Knoblauch, Ingwer, 1 Esslöffel Tomatenmark, 1 gehäuften Teelöffel Currypulver und ½ Teelöffel Kreuzkümmel dazu und 1 Minute rühren.
+        <span class="cue"><b>Fertig, wenn:</b> das Tomatenmark von hellrot zu dunkelrot wechselt und es stark duftet. Angeröstetes Tomatenmark ist eine Umami-Bombe, und Gewürze entfalten sich erst im heißen Fett.</span>
 </li>
-<li><b>Schmoren.</b> 100 g passierte Tomaten, 150 ml Wasser und 150 g TK-Gemüse direkt gefroren dazu. Deckel drauf, Stufe 4 von 9, 8 Minuten.
-        <span class="cue"><b>Fertig, wenn:</b> das Gemüse heiß ist, die Sauce leicht eingedickt und das Hähnchen innen durchgehend weiß.</span>
+<li><b>Schmoren.</b> 100 g passierte Tomaten, 150 ml Wasser, ½ Teelöffel Honig und 150 g TK-Gemüse dazu. Deckel drauf, Stufe 4 von 9, 8 Minuten.</li>
+<li><b>Zitrone zum Schluss.</b> Herd aus, 1 Esslöffel Zitronensaft und Pfeffer einrühren. Mit Kräutern bestreuen.
+        <span class="cue"><b>Probier einen Löffel vor und einen nach der Zitrone.</b> Der Unterschied ist das, was man sonst mit Salz erreicht.</span>
 </li>
-<li><b>Abschmecken.</b> Pfeffer und 1 Teelöffel Essig. Herd aus. Wer es cremig mag: 2 Esslöffel Magerquark einrühren, erst wenn es nicht mehr blubbert.</li>
-</ol></div></div>
+</ol>
+<p class="tip"><b>Ingwer einfrieren:</b> Das Stück im Gefrierfach aufbewahren und gefroren reiben, das geht sogar leichter als frisch.</p></div></div>
     </div>
   </div>
 </details>
 <details class="recipe" id="m-burger" data-kind="meat">
   <summary>
     <span class="thumb t-meat"><span class="emo">🍔</span></span>
-    <span class="rmid"><span class="rname">Hähnchen-Burger mit Krautsalat</span><span class="rmeta"><i class="d k-meat"></i>Hähnchen · 15 Min</span></span>
-    <span class="rnums"><span class="rk"><b class="num">622</b> <small>kcal</small></span><span class="rp"><b class="num">51,2 g</b> <small>Protein</small></span></span>
+    <span class="rmid"><span class="rname">Rauchiger Hähnchen-Burger mit Burgersauce und Krautsalat</span><span class="rmeta"><i class="d k-meat"></i>Hähnchen · 15 Min</span></span>
+    <span class="rnums"><span class="rk"><b class="num">656</b> <small>kcal</small></span><span class="rp"><b class="num">52,3 g</b> <small>Protein</small></span></span>
     <span class="chev">▾</span>
   </summary>
   <div class="rbody">
     <p class="rlead">Eine Pfanne · 15 Minuten, mit Krautsalat vom Dienstag 10 Minuten · 2 Burger</p>
     <div class="rcols">
-      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Vollkornbrötchen</span><span class="n">2 Stück</span></div><div class="ing-r"><span class="nm">Hähnchenbrust</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Weißkohl</span><span class="n">200 g</span></div><div class="ing-r"><span class="nm">Tomate</span><span class="n">1 Stück (100 g)</span></div><div class="ing-r"><span class="nm">Zwiebel</span><span class="n">20 g</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">2 TL</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Paprikapulver</span><span class="n">1½ TL</span></div><div class="ing-r"><span class="nm">Senf</span><span class="n">1½ TL</span></div><div class="ing-r"><span class="nm">Essig</span><span class="n">1 EL + ½ TL</span></div><div class="ing-r"><span class="nm">Knoblauchgranulat</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Chiliflocken (optional)</span><span class="n">1 Prise</span></div><div class="ing-r"><span class="nm">Pfeffer</span><span class="n">nach Geschmack</span></div></div></div>
+      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Vollkornbrötchen</span><span class="n">2 Stück</span></div><div class="ing-r"><span class="nm">Hähnchenbrust</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Weißkohl</span><span class="n">200 g</span></div><div class="ing-r"><span class="nm">Tomate</span><span class="n">1 Stück (100 g)</span></div><div class="ing-r"><span class="nm">Gurke</span><span class="n">30 g</span></div><div class="ing-r"><span class="nm">Zwiebel</span><span class="n">20 g</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">2 TL</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Tomatenmark</span><span class="n">½ EL</span></div><div class="ing-r"><span class="nm">Senf</span><span class="n">1½ TL</span></div><div class="ing-r"><span class="nm">Honig</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Essig</span><span class="n">1 EL + 1 TL</span></div><div class="ing-r"><span class="nm">Paprikapulver, geräuchert</span><span class="n">1½ TL</span></div><div class="ing-r"><span class="nm">Knoblauchgranulat</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Kümmel, ganz</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Chiliflocken (optional)</span><span class="n">1 Prise</span></div><div class="ing-r"><span class="nm">Pfeffer, frisch gemahlen</span><span class="n">nach Geschmack</span></div></div></div>
       <div class="rcol-how"><div class="colh">Zubereitung</div><div class="howto"><ol class="steps">
-<li><b>Krautsalat.</b> 200 g Weißkohl in feine Streifen, mit 1 Esslöffel Essig 1 Minute kräftig kneten. 50 g Magerquark, 1 Teelöffel Senf, 1 Teelöffel Rapsöl und Pfeffer unterheben.
+<li><b>Krautsalat.</b> 200 g Weißkohl fein schneiden, mit 1 Esslöffel Essig 1 Minute kneten. ½ Teelöffel Senf, ½ Teelöffel Honig, ½ Teelöffel Kümmel, 1 Teelöffel Rapsöl und Pfeffer unterheben.
         <span class="cue"><b>Krautsalat vom Dienstag übrig?</b> Dann diesen Schritt überspringen.</span>
 </li>
-<li><b>Schnitzel schneiden und würzen.</b> Hähnchenbrust waagerecht halbieren, zwei dünne Schnitzel in Brötchengröße. Mit 1 Teelöffel Paprikapulver, ½ Teelöffel Knoblauchgranulat und Pfeffer einreiben.</li>
-<li><b>Braten.</b> 1 Teelöffel Rapsöl in die Pfanne, Stufe 7 von 9. Schnitzel 3 Minuten pro Seite, nicht zwischendurch bewegen.
+<li><b>Schnitzel würzen.</b> Hähnchenbrust waagerecht halbieren. Mit 1 Teelöffel geräuchertem Paprikapulver, ½ Teelöffel Knoblauchgranulat und Pfeffer einreiben.
+        <span class="cue"><b>Geräuchertes Paprikapulver</b> schmeckt nach Grill. Bei einem Burger ist das ohne Salz die halbe Miete.</span>
+</li>
+<li><b>Braten.</b> 1 Teelöffel Rapsöl, Stufe 7 von 9, Schnitzel 3 Minuten pro Seite, nicht bewegen.
         <span class="cue"><b>Fertig, wenn:</b> beide Seiten goldbraun und innen weiß, Saft klar.</span>
 </li>
-<li><b>Brötchen rösten.</b> Brötchen aufschneiden und mit der Schnittfläche nach unten 1 Minute in die heiße Pfanne legen, direkt nach dem Fleisch.
-        <span class="cue"><b>Warum in der Pfanne:</b> Die Schnittfläche nimmt den Bratensaft auf und wird knusprig, dann weicht die Sauce sie nicht durch.</span>
+<li><b>Brötchen rösten.</b> Brötchen aufschneiden und mit der Schnittfläche 1 Minute in die heiße Pfanne legen. Sie saugen den Bratensaft auf.</li>
+<li><b>Burgersauce.</b> 100 g Magerquark, ½ Esslöffel Tomatenmark, 1 Teelöffel Senf, ½ Teelöffel Honig, 1 Teelöffel Essig, ½ Teelöffel geräuchertes Paprikapulver und 30 g sehr fein gewürfelte Gurke verrühren. Pfeffer, wer mag Chili.
+        <span class="cue"><b>Tomatenmark, Senf, Honig und Gurke</b> sind genau das, was eine Burgersauce ausmacht: süß, sauer, würzig, knackig.</span>
 </li>
-<li><b>Burgersauce.</b> 50 g Magerquark mit ½ Teelöffel Senf, ½ Teelöffel Paprikapulver, ½ Teelöffel Essig und Pfeffer verrühren. Wer es schärfer mag: eine Prise Chiliflocken.</li>
-<li><b>Bauen.</b> Tomate in Scheiben, 20 g Zwiebel in dünne Ringe. Untere Hälfte, Sauce, Krautsalat, Schnitzel, Tomate, Zwiebel, nochmal Sauce, Deckel. Den restlichen Krautsalat als Beilage.</li>
-</ol>
-<p class="tip"><b>Übrige Brötchen einfrieren.</b> Aufgetaut 1 Minute in der Pfanne, dann sind sie wie frisch.</p></div></div>
+<li><b>Bauen.</b> Tomate in Scheiben, Zwiebel in dünne Ringe. Unten Sauce, Krautsalat, Schnitzel, Tomate, Zwiebel, nochmal Sauce, Deckel. Restlichen Krautsalat und Sauce dazu.</li>
+</ol></div></div>
     </div>
   </div>
 </details>
 <details class="recipe" id="m-gyros" data-kind="meat">
   <summary>
     <span class="thumb t-meat"><span class="emo">🥙</span></span>
-    <span class="rmid"><span class="rname">Gyros-Pfanne mit Gewürzkartoffeln und Tzatziki</span><span class="rmeta"><i class="d k-meat"></i>Hähnchen · 20 Min</span></span>
-    <span class="rnums"><span class="rk"><b class="num">628</b> <small>kcal</small></span><span class="rp"><b class="num">48,2 g</b> <small>Protein</small></span></span>
+    <span class="rmid"><span class="rname">Gyros-Pfanne mit Röstkartoffeln, Knoblauch-Tzatziki und Tomatensalat</span><span class="rmeta"><i class="d k-meat"></i>Hähnchen · 20 Min</span></span>
+    <span class="rnums"><span class="rk"><b class="num">598</b> <small>kcal</small></span><span class="rp"><b class="num">46,6 g</b> <small>Protein</small></span></span>
     <span class="chev">▾</span>
   </summary>
   <div class="rbody">
-    <p class="rlead">Topf und Pfanne · 20 Minuten, ohne Marinierzeit</p>
+    <p class="rlead">Topf und Pfanne · 20 Minuten · die Kartoffeln rösten im Gyros-Bratensatz</p>
     <div class="rcols">
-      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Hähnchenbrust</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Kartoffeln, geschält</span><span class="n">580 g</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Gurke</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">1 TL</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Oregano</span><span class="n">2 TL</span></div><div class="ing-r"><span class="nm">Paprikapulver</span><span class="n">1½ TL</span></div><div class="ing-r"><span class="nm">Knoblauchgranulat</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Kreuzkümmel</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Essig</span><span class="n">2 TL</span></div><div class="ing-r"><span class="nm">Pfeffer</span><span class="n">nach Geschmack</span></div></div></div>
-      <div class="rcol-how"><div class="colh">Zubereitung</div><div class="howto"><p class="mise"><b>Zeitplan</b>Kartoffeln kochen 12 Minuten nebenher. In der Zeit Fleisch würzen, Tzatziki rühren und Gyros braten.</p>
-<ol class="steps">
-<li><b>Kartoffeln aufsetzen.</b> 1,5 Liter Wasser im Wasserkocher kochen. 580 g Kartoffeln in Würfel von etwa 2 cm, in einen Topf, mit kochendem Wasser bedecken, Deckel schräg, Stufe 6 von 9, 10 bis 12 Minuten.</li>
-<li><b>Fleisch würzen.</b> Hähnchenbrust in dünne Streifen von etwa ½ cm schneiden. Mit 2 Esslöffel Magerquark, 1 Teelöffel Paprikapulver, 1 Teelöffel Oregano, ½ Teelöffel Kreuzkümmel, ½ Teelöffel Knoblauchgranulat, Pfeffer und 1 Teelöffel Essig vermengen.
-        <span class="cue"><b>Keine Marinierzeit nötig:</b> Der Quark lässt die Gewürze sofort haften, und so dünne Streifen schmecken auch ohne Ziehen nach Gyros.</span>
+      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Hähnchenbrust</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Kartoffeln, geschält</span><span class="n">400 g</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Gurke</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Tomate</span><span class="n">1 Stück (100 g)</span></div><div class="ing-r"><span class="nm">Zwiebel</span><span class="n">½ Stück (50 g)</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">2 TL</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Oregano</span><span class="n">2 TL</span></div><div class="ing-r"><span class="nm">Paprikapulver, edelsüß</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Kreuzkümmel</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Knoblauch, frisch</span><span class="n">2 Zehen</span></div><div class="ing-r"><span class="nm">Zitrone</span><span class="n">½ (Schale und Saft)</span></div><div class="ing-r"><span class="nm">TK-Kräuter</span><span class="n">1 EL</span></div><div class="ing-r"><span class="nm">Pfeffer, frisch gemahlen</span><span class="n">nach Geschmack</span></div></div></div>
+      <div class="rcol-how"><div class="colh">Zubereitung</div><div class="howto"><ol class="steps">
+<li><b>Kartoffeln aufsetzen.</b> 1,5 Liter Wasser im Wasserkocher kochen. 400 g Kartoffeln mit Schale in 2-cm-Würfel, mit dem Wasser in einen Topf, Stufe 6 von 9, 10 Minuten.</li>
+<li><b>Fleisch würzen.</b> Hähnchen in ½ cm dünne Streifen. Mit 2 Esslöffel Quark, 1 Teelöffel Paprikapulver, 1 Teelöffel Oregano, ½ Teelöffel Kreuzkümmel, 1 fein geriebenen Knoblauchzehe, der Schale einer halben Zitrone und Pfeffer mischen.</li>
+<li><b>Tzatziki.</b> 100 g Gurke grob raspeln und im Küchentuch auswringen. Mit dem restlichen Quark (etwa 65 g), 1 fein geriebenen Knoblauchzehe, 1 Esslöffel TK-Kräutern, 1 Teelöffel Zitronensaft und Pfeffer verrühren.
+        <span class="cue"><b>Frischer Knoblauch ist im Tzatziki Pflicht.</b> Mit Pulver schmeckt es nur nach Quark mit Gurke.</span>
 </li>
-<li><b>Tzatziki.</b> 100 g Gurke grob raspeln (oder ganz fein würfeln), in einem Küchentuch über der Spüle kräftig auswringen. Mit dem restlichen Quark (etwa 65 g), ½ Teelöffel Knoblauchgranulat, 1 Teelöffel Essig und Pfeffer verrühren.
-        <span class="cue"><b>Nicht überspringen:</b> Ohne Auswringen wird das Tzatziki eine Suppe.</span>
+<li><b>Tomatensalat.</b> Tomate in Scheiben, die halbe Zwiebel in dünne Ringe, darüber ½ Teelöffel Oregano, einen Spritzer Zitrone und Pfeffer.</li>
+<li><b>Gyros braten.</b> 1 Teelöffel Rapsöl, Stufe 8 von 9, Streifen in einer Lage. 2 Minuten nicht bewegen, dann wenden und 3 Minuten weiterbraten. Auf einen Teller.
+        <span class="cue"><b>Fertig, wenn:</b> die Ränder dunkelbraun sind. Die dunklen Stellen sind der Gyros-Geschmack.</span>
 </li>
-<li><b>Gyros braten.</b> 1 Teelöffel Rapsöl in die Pfanne, Stufe 8 von 9. Streifen in einer Lage hinein, 2 Minuten nicht bewegen, dann wenden und weitere 3 bis 4 Minuten braten.
-        <span class="cue"><b>Fertig, wenn:</b> die Ränder dunkelbraun sind und das Fleisch innen weiß. Die dunklen Stellen sind gewollt, da sitzt der Gyros-Geschmack.</span>
-</li>
-<li><b>Kartoffeln würzen.</b> Abgießen, zurück in den Topf, 1 Teelöffel Oregano, ½ Teelöffel Paprikapulver und Pfeffer drüber, Deckel drauf, schütteln.
-        <span class="cue"><b>Extra-Röstaroma:</b> Die Kartoffeln 2 Minuten zu den Fleischresten in die heiße Gyros-Pfanne geben und schwenken.</span>
+<li><b>Röstkartoffeln.</b> Kartoffeln abgießen, kurz abdampfen lassen, in die ungespülte Gyros-Pfanne mit 1 Teelöffel Rapsöl. Stufe 7, 4 Minuten braten, mit ½ Teelöffel Oregano bestreuen.
+        <span class="cue"><b>Bratensatz und Gewürzreste</b> aus der Pfanne kleben jetzt an den Kartoffeln, statt im Spülbecken zu landen.</span>
 </li>
 </ol></div></div>
     </div>
@@ -672,79 +689,85 @@ footer{margin:30px 6px 0;font-size:12.5px;color:var(--faint);line-height:1.6;max
 <details class="recipe" id="m-pasta" data-kind="fish">
   <summary>
     <span class="thumb t-fish"><span class="emo">🍝</span></span>
-    <span class="rmid"><span class="rname">Thunfisch-Pasta Arrabbiata</span><span class="rmeta"><i class="d k-fish"></i>Thunfisch · 15 Min · leichter Snack</span></span>
-    <span class="rnums"><span class="rk"><b class="num">654</b> <small>kcal</small></span><span class="rp"><b class="num">56,1 g</b> <small>Protein</small></span></span>
+    <span class="rmid"><span class="rname">Thunfisch-Pasta Arrabbiata mit Zitrone</span><span class="rmeta"><i class="d k-fish"></i>Thunfisch · 15 Min</span></span>
+    <span class="rnums"><span class="rk"><b class="num">637</b> <small>kcal</small></span><span class="rp"><b class="num">53,9 g</b> <small>Protein</small></span></span>
     <span class="chev">▾</span>
   </summary>
   <div class="rbody">
-    <p class="rlead">Nudeltopf und Saucentopf · 15 Minuten · an diesem Tag den leichten Snack</p>
+    <p class="rlead">Nudeltopf und Saucentopf · 15 Minuten · Zitrone und Thunfisch, ein italienischer Klassiker</p>
     <div class="rcols">
-      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Thunfisch, abgetropft</span><span class="n">150 g</span></div><div class="ing-r"><span class="nm">Nudeln, roh</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Passierte Tomaten</span><span class="n">200 g</span></div><div class="ing-r"><span class="nm">TK-Gemüsemischung</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Zwiebel</span><span class="n">½ Stück</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">1 TL</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Oregano</span><span class="n">1 gehäufter TL</span></div><div class="ing-r"><span class="nm">Chiliflocken</span><span class="n">½ bis 1 gestr. TL</span></div><div class="ing-r"><span class="nm">Knoblauchgranulat</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Essig (falls die Tomaten zu süß sind)</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Pfeffer</span><span class="n">nach Geschmack</span></div></div></div>
+      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Thunfisch, abgetropft</span><span class="n">150 g</span></div><div class="ing-r"><span class="nm">Nudeln, roh</span><span class="n">80 g</span></div><div class="ing-r"><span class="nm">Passierte Tomaten</span><span class="n">200 g</span></div><div class="ing-r"><span class="nm">Tomatenmark</span><span class="n">1 EL</span></div><div class="ing-r"><span class="nm">TK-Gemüsemischung</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Zwiebel</span><span class="n">½ Stück</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">1 TL</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Knoblauch, frisch</span><span class="n">2 Zehen</span></div><div class="ing-r"><span class="nm">Chiliflocken</span><span class="n">½ bis 1 gestr. TL</span></div><div class="ing-r"><span class="nm">Oregano</span><span class="n">1 gehäufter TL</span></div><div class="ing-r"><span class="nm">Honig</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Zitrone</span><span class="n">½ (Schale und Saft)</span></div><div class="ing-r"><span class="nm">TK-Kräuter</span><span class="n">1 EL</span></div><div class="ing-r"><span class="nm">Pfeffer, frisch gemahlen</span><span class="n">nach Geschmack</span></div></div></div>
       <div class="rcol-how"><div class="colh">Zubereitung</div><div class="howto"><ol class="steps">
-<li><b>Nudelwasser.</b> 1 Liter Wasser im Wasserkocher kochen, in einen Topf, Stufe 9, Deckel drauf.
-        <span class="cue"><b>Wasserkocher spart Zeit:</b> Er bringt Wasser in 3 Minuten zum Kochen, der Herd braucht dafür fast 10.</span>
+<li><b>Nudelwasser.</b> 1 Liter Wasser im Wasserkocher kochen, in einen Topf, Stufe 9, Deckel drauf.</li>
+<li><b>Zwiebel braten.</b> ½ Zwiebel fein würfeln, 2 Knoblauchzehen in dünne Scheiben. 1 Teelöffel Rapsöl in einen zweiten Topf, Stufe 5 von 9, Zwiebel 3 Minuten.</li>
+<li><b>Tomatenmark rösten.</b> Knoblauch, Chiliflocken und 1 Esslöffel Tomatenmark dazu und 1 Minute rühren, bis das Tomatenmark dunkelrot ist.
+        <span class="cue"><b>Hier entsteht der Geschmack der ganzen Sauce.</b> Rohes Tomatenmark schmeckt metallisch, angeröstet tief und herzhaft.</span>
 </li>
-<li><b>Zwiebel anbraten.</b> ½ Zwiebel fein würfeln. 1 Teelöffel Rapsöl in einen zweiten Topf, Stufe 5 von 9, Zwiebel 3 Minuten braten, bis sie glasig ist.</li>
-<li><b>Schärfe.</b> ½ Teelöffel Knoblauchgranulat und ½ bis 1 Teelöffel Chiliflocken dazu, 30 Sekunden mitrösten.</li>
-<li><b>Sauce köcheln.</b> 200 g passierte Tomaten und 100 g TK-Gemüse dazu, Stufe 4 von 9. Köcheln lassen, während die Nudeln kochen.</li>
-<li><b>Nudeln kochen.</b> 100 g ins sprudelnde Wasser, einmal umrühren, Packungsangabe minus 1 Minute. Vor dem Abgießen eine Tasse Nudelwasser abschöpfen.</li>
-<li><b>Zusammenführen.</b> Nudeln mit 3 Esslöffel Nudelwasser in die Sauce, Stufe 6, 1 Minute kräftig schwenken.
-        <span class="cue"><b>Das Nudelwasser bindet die Sauce,</b> sie hängt danach an den Nudeln, statt unten im Teller zu liegen.</span>
+<li><b>Sauce köcheln.</b> 200 g passierte Tomaten, ½ Teelöffel Honig und 100 g TK-Gemüse dazu, Stufe 4 von 9, köcheln lassen.
+        <span class="cue"><b>Der halbe Teelöffel Honig</b> nimmt den Tomaten die Säurespitze. Schmecken soll man ihn nicht.</span>
 </li>
-<li><b>Thunfisch zum Schluss.</b> Herd aus. 150 g Thunfisch in groben Stücken unterheben, nur zweimal wenden. Mit Pfeffer und 1 gehäuftem Teelöffel Oregano abschmecken, bei sehr süßen Tomaten ½ Teelöffel Essig.</li>
-</ol>
-<p class="tip"><b>An diesem Tag der leichte Snack.</b> Thunfisch bringt viel Protein, mit einem Quark-Snack kämst du über 150 g. Nimm die Kichererbsen oder die Apfelchips.</p></div></div>
+<li><b>Nudeln kochen.</b> 80 g ins sprudelnde Wasser, Packungsangabe minus 1 Minute. Eine Tasse Nudelwasser aufheben.</li>
+<li><b>Zusammenführen.</b> Nudeln mit 3 Esslöffel Nudelwasser in die Sauce, Stufe 6, 1 Minute schwenken.</li>
+<li><b>Thunfisch und Zitrone.</b> Herd aus. 150 g Thunfisch in groben Stücken unterheben. Schale einer halben Zitrone, 1 Esslöffel Saft, 1 gehäuften Teelöffel Oregano, Kräuter und Pfeffer dazu.
+        <span class="cue"><b>Thunfisch mit Zitronenschale</b> ist ein italienischer Klassiker. Die Schale bringt mehr Aroma als der Saft und macht die Sauce frisch statt schwer.</span>
+</li>
+</ol></div></div>
     </div>
   </div>
 </details>
 <details class="recipe" id="m-kartoffelsalat" data-kind="fish">
   <summary>
     <span class="thumb t-fish"><span class="emo">🥗</span></span>
-    <span class="rmid"><span class="rname">Lauwarmer Thunfisch-Kartoffelsalat</span><span class="rmeta"><i class="d k-fish"></i>Thunfisch · 20 Min · leichter Snack</span></span>
-    <span class="rnums"><span class="rk"><b class="num">640</b> <small>kcal</small></span><span class="rp"><b class="num">52,6 g</b> <small>Protein</small></span></span>
+    <span class="rmid"><span class="rname">Lauwarmer Kartoffelsalat mit Thunfisch, Gurke und Zitrone</span><span class="rmeta"><i class="d k-fish"></i>Thunfisch · 20 Min</span></span>
+    <span class="rnums"><span class="rk"><b class="num">599</b> <small>kcal</small></span><span class="rp"><b class="num">47,4 g</b> <small>Protein</small></span></span>
     <span class="chev">▾</span>
   </summary>
   <div class="rbody">
-    <p class="rlead">Ein Topf · 20 Minuten · hält 3 Tage</p>
+    <p class="rlead">Ein Topf · 20 Minuten · Honig-Senf-Dressing auf heißen Kartoffeln · hält 3 Tage</p>
     <div class="rcols">
-      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Thunfisch, abgetropft</span><span class="n">150 g</span></div><div class="ing-r"><span class="nm">Kartoffeln, geschält</span><span class="n">550 g</span></div><div class="ing-r"><span class="nm">TK-Gemüsemischung</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Zwiebel</span><span class="n">50 g</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">1 TL</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Essig</span><span class="n">3 EL</span></div><div class="ing-r"><span class="nm">Senf</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Oregano</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Pfeffer</span><span class="n">nach Geschmack</span></div></div></div>
+      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Thunfisch, abgetropft</span><span class="n">150 g</span></div><div class="ing-r"><span class="nm">Kartoffeln, geschält</span><span class="n">400 g</span></div><div class="ing-r"><span class="nm">Gurke</span><span class="n">150 g</span></div><div class="ing-r"><span class="nm">Zwiebel</span><span class="n">50 g</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">2 TL</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Essig</span><span class="n">3 EL</span></div><div class="ing-r"><span class="nm">Senf</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Honig</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Zitrone</span><span class="n">½ (Schale und Saft)</span></div><div class="ing-r"><span class="nm">TK-Kräuter</span><span class="n">2 EL</span></div><div class="ing-r"><span class="nm">Pfeffer, frisch gemahlen</span><span class="n">reichlich</span></div></div></div>
       <div class="rcol-how"><div class="colh">Zubereitung</div><div class="howto"><ol class="steps">
-<li><b>Kartoffeln kochen.</b> 1,5 Liter Wasser im Wasserkocher kochen. 550 g Kartoffeln in Würfel von etwa 2 cm, in einen Topf, mit dem Wasser bedecken, Stufe 6 von 9, 10 Minuten.</li>
-<li><b>Gemüse mit in den Topf.</b> Nach 10 Minuten 100 g TK-Gemüse direkt zu den Kartoffeln geben, noch 3 Minuten.
-        <span class="cue"><b>Ein Topf für beides:</b> Das Gemüse braucht nur 3 Minuten, so sparst du Topf und Abwasch.</span>
+<li><b>Kartoffeln kochen.</b> 1,5 Liter Wasser im Wasserkocher kochen. 400 g Kartoffeln in 2-cm-Würfel, mit dem Wasser in einen Topf, Stufe 6 von 9, 10 bis 12 Minuten.</li>
+<li><b>Dressing.</b> In einer großen Schüssel 3 Esslöffel Essig, 4 Esslöffel heißes Kochwasser, 1 Teelöffel Senf, 1 Teelöffel Honig, 2 Teelöffel Rapsöl und reichlich Pfeffer verrühren. 50 g Zwiebel sehr fein würfeln und hineinlegen.
+        <span class="cue"><b>Honig, Senf und Öl machen das Dressing rund.</b> Ohne Salz braucht ein Kartoffelsalat genau diese Balance, sonst schmeckt er nur sauer.</span>
 </li>
-<li><b>Dressing.</b> Währenddessen in einer großen Schüssel 3 Esslöffel Essig, 1 Teelöffel Senf, 1 Teelöffel Rapsöl, Pfeffer und 4 Esslöffel heißes Wasser aus dem Topf verrühren. 50 g Zwiebel sehr fein würfeln und direkt ins Dressing legen.
-        <span class="cue"><b>Die Säure nimmt der Zwiebel die Schärfe,</b> nach ein paar Minuten ist sie mild.</span>
+<li><b>Gurke.</b> 150 g Gurke in dünne Scheiben schneiden.</li>
+<li><b>Heiß mischen.</b> Kartoffeln abgießen und sofort ins Dressing, vorsichtig wenden.
+        <span class="cue"><b>Der entscheidende Moment:</b> Heiße Kartoffeln saugen das Dressing auf und schmecken durch und durch.</span>
 </li>
-<li><b>Heiß mischen.</b> Kartoffeln und Gemüse abgießen und sofort in die Schüssel mit dem Dressing, vorsichtig wenden.
-        <span class="cue"><b>Der entscheidende Moment:</b> Heiße Kartoffeln saugen das Dressing auf und schmecken durch und durch. Kalt bleibt es außen dran.</span>
+<li><b>Fertig machen.</b> 5 Minuten ziehen lassen. Dann Gurke, 150 g Thunfisch in groben Stücken, Schale und Saft einer halben Zitrone und 2 Esslöffel TK-Kräuter unterheben.
+        <span class="cue"><b>Abschmecken:</b> Schmeckt es noch flach, hilft fast immer noch ein Spritzer Zitrone und ein paar Drehungen aus der Pfeffermühle.</span>
 </li>
-<li><b>Fertig machen.</b> 5 Minuten ziehen lassen, dann 150 g Thunfisch in groben Stücken unterheben, mit 1 Teelöffel Oregano und Pfeffer abschmecken.</li>
-</ol>
-<p class="tip"><b>Lauwarm schmeckt er am besten.</b> Aus dem Kühlschrank 20 Minuten vorher rausstellen. Und an diesem Tag den leichten Snack nehmen.</p></div></div>
+</ol></div></div>
     </div>
   </div>
 </details>
-<details class="recipe" id="m-kraeuterquark" data-kind="veg">
+<details class="recipe" id="m-gulasch" data-kind="veg">
   <summary>
-    <span class="thumb t-veg"><span class="emo">🥔</span></span>
-    <span class="rmid"><span class="rname">Gewürzkartoffeln mit Kräuterquark und Ei</span><span class="rmeta"><i class="d k-veg"></i>Vegetarisch · 15 Min</span></span>
-    <span class="rnums"><span class="rk"><b class="num">632</b> <small>kcal</small></span><span class="rp"><b class="num">46,4 g</b> <small>Protein</small></span></span>
+    <span class="thumb t-veg"><span class="emo">🫑</span></span>
+    <span class="rmid"><span class="rname">Paprika-Kartoffelgulasch mit Ei und Kräuterquark</span><span class="rmeta"><i class="d k-veg"></i>Vegetarisch · 25 Min</span></span>
+    <span class="rnums"><span class="rk"><b class="num">653</b> <small>kcal</small></span><span class="rp"><b class="num">43,2 g</b> <small>Protein</small></span></span>
     <span class="chev">▾</span>
   </summary>
   <div class="rbody">
-    <p class="rlead">Ein Topf für alles · 15 Minuten · der günstigste Tag, etwa 1,10 €</p>
+    <p class="rlead">Ein Topf · 25 Minuten · rauchig, deftig, ohne Fleisch</p>
     <div class="rcols">
-      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Kartoffeln, geschält</span><span class="n">450 g</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">180 g</span></div><div class="ing-r"><span class="nm">Eier</span><span class="n">2 Stück</span></div><div class="ing-r"><span class="nm">Zwiebel (für den Kräuterquark)</span><span class="n">½ Stück</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">1 TL</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Oregano</span><span class="n">1 gehäufter TL</span></div><div class="ing-r"><span class="nm">Knoblauchgranulat</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Paprikapulver</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Senf</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Essig</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Pfeffer</span><span class="n">nach Geschmack</span></div></div></div>
+      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Kartoffeln, geschält</span><span class="n">250 g</span></div><div class="ing-r"><span class="nm">Zwiebel</span><span class="n">1 große (100 g)</span></div><div class="ing-r"><span class="nm">Paprika, rot</span><span class="n">1 Stück (150 g)</span></div><div class="ing-r"><span class="nm">Passierte Tomaten</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Tomatenmark</span><span class="n">1 EL</span></div><div class="ing-r"><span class="nm">Eier</span><span class="n">2 Stück</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">150 g</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">2 TL</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Paprikapulver, geräuchert</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Paprikapulver, edelsüß</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Kümmel, ganz</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Knoblauch, frisch</span><span class="n">2 Zehen</span></div><div class="ing-r"><span class="nm">Oregano</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Essig</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Zitrone (für die Schale)</span><span class="n">ein paar Züge</span></div><div class="ing-r"><span class="nm">TK-Kräuter</span><span class="n">1 EL</span></div><div class="ing-r"><span class="nm">Pfeffer, frisch gemahlen</span><span class="n">nach Geschmack</span></div></div></div>
       <div class="rcol-how"><div class="colh">Zubereitung</div><div class="howto"><ol class="steps">
-<li><b>Kartoffeln aufsetzen.</b> 1,5 Liter Wasser im Wasserkocher kochen. 450 g Kartoffeln in Würfel von etwa 2 cm, in einen Topf, mit dem Wasser bedecken, Stufe 6 von 9.</li>
-<li><b>Eier gleich mit.</b> Sobald es wieder kocht, die 2 Eier mit einem Löffel vorsichtig zu den Kartoffeln legen. 8 Minuten für wachsweich, 10 Minuten für hart.
-        <span class="cue"><b>Ein Topf, zwei Sachen:</b> Die Eier garen im Kartoffelwasser mit. Kein zweiter Topf, kein Warten.</span>
+<li><b>Zwiebel bräunen.</b> 1 Liter Wasser im Wasserkocher aufkochen. Zwiebel würfeln, 2 Teelöffel Rapsöl in einen Topf, Stufe 6 von 9, Zwiebel 5 Minuten braten, bis sie goldbraun ist.
+        <span class="cue"><b>Gulasch lebt von gut gebräunter Zwiebel.</b> Sie bringt Süße und Tiefe, also genau das, was sonst Salz und Speck liefern.</span>
 </li>
-<li><b>Kräuterquark.</b> 180 g Magerquark mit 4 Esslöffel Wasser 30 Sekunden cremig rühren. 1 gehäufter Teelöffel Oregano, ½ Teelöffel Knoblauchgranulat, 1 Teelöffel Senf, 1 Teelöffel Essig und Pfeffer rein. Eine halbe Zwiebel sehr fein würfeln und unterrühren.</li>
-<li><b>Eier abschrecken.</b> Nach 8 bis 10 Minuten die Eier rausfischen, 1 Minute unter kaltes Wasser halten, schälen.</li>
-<li><b>Kartoffeln würzen.</b> Wenn ein Messer ohne Widerstand reingeht (nach 10 bis 12 Minuten), abgießen. Zurück in den Topf, 1 Teelöffel Paprikapulver, ½ Teelöffel Knoblauchgranulat und Pfeffer drüber, Deckel drauf, schütteln.</li>
-<li><b>Anrichten.</b> Kartoffeln, Kräuterquark und die halbierten Eier auf den Teller. Den Teelöffel Rapsöl über den Quark träufeln, nicht einrühren.</li>
+<li><b>Schneiden.</b> Währenddessen 250 g Kartoffeln und die Paprika in 1,5-cm-Würfel schneiden, 2 Knoblauchzehen fein hacken.</li>
+<li><b>Aroma rösten.</b> Hitze auf Stufe 5. Knoblauch, 1 Esslöffel Tomatenmark, je 1 Teelöffel geräuchertes und edelsüßes Paprikapulver und ½ Teelöffel Kümmel 1 Minute rühren.
+        <span class="cue"><b>Nicht zu heiß:</b> Paprikapulver wird bei zu viel Hitze schnell bitter. Sobald es duftet, geht es weiter.</span>
+</li>
+<li><b>Köcheln.</b> Kartoffeln, Paprika, 100 g passierte Tomaten und 300 ml heißes Wasser dazu. Deckel drauf, Stufe 4 von 9, 15 Minuten.
+        <span class="cue"><b>Fertig, wenn:</b> die Kartoffeln weich sind und die Sauce sämig. Ein paar Kartoffelwürfel am Topfrand zerdrücken, das bindet.</span>
+</li>
+<li><b>Eier im Topf garen.</b> In den letzten 5 Minuten zwei Mulden drücken, die Eier hineinschlagen, Deckel drauf.</li>
+<li><b>Abschmecken.</b> 1 Teelöffel Essig, ½ Teelöffel Oregano, ein paar Züge Zitronenschale und Pfeffer. Quark mit 2 Esslöffel Wasser, den TK-Kräutern und Pfeffer glatt rühren und als Klecks obendrauf.
+        <span class="cue"><b>Essig und Zitronenschale</b> am Ende sind der Wiener Gulasch-Trick. Sie machen das Deftige lebendig.</span>
+</li>
 </ol></div></div>
     </div>
   </div>
@@ -753,27 +776,23 @@ footer{margin:30px 6px 0;font-size:12.5px;color:var(--faint);line-height:1.6;max
   <summary>
     <span class="thumb t-meat"><span class="emo">🍲</span></span>
     <span class="rmid"><span class="rname">Linsen-Bolognese mit Hähnchen</span><span class="rmeta"><i class="d k-meat"></i>Hähnchen · 20 Min</span></span>
-    <span class="rnums"><span class="rk"><b class="num">652</b> <small>kcal</small></span><span class="rp"><b class="num">49,8 g</b> <small>Protein</small></span></span>
+    <span class="rnums"><span class="rk"><b class="num">663</b> <small>kcal</small></span><span class="rp"><b class="num">50,2 g</b> <small>Protein</small></span></span>
     <span class="chev">▾</span>
   </summary>
   <div class="rbody">
-    <p class="rlead">Ein Saucentopf plus Nudeltopf · 20 Minuten · einfrierbar</p>
+    <p class="rlead">Saucentopf plus Nudeltopf · 20 Minuten · einfrierbar</p>
     <div class="rcols">
-      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Hähnchenbrust</span><span class="n">120 g</span></div><div class="ing-r"><span class="nm">Nudeln, roh</span><span class="n">80 g</span></div><div class="ing-r"><span class="nm">Rote Linsen, roh</span><span class="n">40 g</span></div><div class="ing-r"><span class="nm">Passierte Tomaten</span><span class="n">150 g</span></div><div class="ing-r"><span class="nm">Zwiebel</span><span class="n">50 g</span></div><div class="ing-r"><span class="nm">Karotte</span><span class="n">50 g</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">1 TL</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Paprikapulver</span><span class="n">1 gestr. TL</span></div><div class="ing-r"><span class="nm">Oregano</span><span class="n">½ TL + zum Abschmecken</span></div><div class="ing-r"><span class="nm">Essig</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Pfeffer</span><span class="n">nach Geschmack</span></div></div></div>
+      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Hähnchenbrust</span><span class="n">120 g</span></div><div class="ing-r"><span class="nm">Nudeln, roh</span><span class="n">70 g</span></div><div class="ing-r"><span class="nm">Rote Linsen, roh</span><span class="n">40 g</span></div><div class="ing-r"><span class="nm">Passierte Tomaten</span><span class="n">150 g</span></div><div class="ing-r"><span class="nm">Tomatenmark</span><span class="n">1 EL</span></div><div class="ing-r"><span class="nm">Zwiebel</span><span class="n">50 g</span></div><div class="ing-r"><span class="nm">Karotte</span><span class="n">50 g</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">1 TL</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Knoblauch, frisch</span><span class="n">2 Zehen</span></div><div class="ing-r"><span class="nm">Paprikapulver, geräuchert</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Oregano</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Honig</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Essig</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">TK-Kräuter</span><span class="n">1 EL</span></div><div class="ing-r"><span class="nm">Pfeffer, frisch gemahlen</span><span class="n">nach Geschmack</span></div></div></div>
       <div class="rcol-how"><div class="colh">Zubereitung</div><div class="howto"><ol class="steps">
-<li><b>Wasser aufsetzen.</b> 1,25 Liter Wasser im Wasserkocher kochen: 1 Liter für die Nudeln in einen Topf, Stufe 9, Deckel drauf. Den Rest brauchst du für die Sauce.</li>
-<li><b>Klein schneiden.</b> 50 g Zwiebel fein würfeln, 50 g Karotte grob reiben. Hähnchenbrust in sehr kleine Würfel von etwa ½ cm.
-        <span class="cue"><b>Reiben statt würfeln:</b> Geriebene Karotte ist in 30 Sekunden fertig und gart in der halben Zeit. Kleine Hähnchenwürfel sind schneller als von Hand hacken und werden genauso hackfleischartig.</span>
-</li>
-<li><b>Anbraten.</b> 1 Teelöffel Rapsöl in einen Topf, Stufe 6 von 9, Zwiebel und Karotte 3 Minuten. Hitze auf Stufe 7, Hähnchen dazu, 3 Minuten braten und dabei auseinanderdrücken.</li>
-<li><b>Gewürze.</b> 1 gestrichener Teelöffel Paprikapulver und ½ Teelöffel Oregano dazu, 30 Sekunden mitrösten.</li>
-<li><b>Linsen und Tomaten.</b> 40 g rote Linsen kurz abspülen. Mit 150 g passierten Tomaten und 250 ml heißem Wasser in den Topf, Deckel halb drauf, Stufe 4 von 9, 12 Minuten, zweimal umrühren.
-        <span class="cue"><b>Fertig, wenn:</b> die Linsen zerfallen sind und die Sauce dick ist.</span>
-</li>
-<li><b>Nudeln kochen.</b> Nach 2 bis 3 Minuten Saucenzeit 80 g Nudeln ins sprudelnde Wasser, Packungsangabe minus 1 Minute. Eine Tasse Nudelwasser aufheben.</li>
-<li><b>Zusammenführen.</b> Nudeln mit 2 Esslöffel Nudelwasser in die Sauce, 1 Minute schwenken. Mit Pfeffer, Oregano und 1 Teelöffel Essig abschmecken.</li>
+<li><b>Wasser aufsetzen.</b> 1,25 Liter im Wasserkocher: 1 Liter für die Nudeln in einen Topf, Stufe 9, den Rest für die Sauce.</li>
+<li><b>Klein schneiden.</b> Zwiebel fein würfeln, Karotte grob reiben, Knoblauch fein hacken, Hähnchen in ½-cm-Würfel.</li>
+<li><b>Anbraten.</b> 1 Teelöffel Rapsöl, Stufe 6 von 9, Zwiebel und Karotte 3 Minuten. Hitze auf Stufe 7, Hähnchen dazu, 3 Minuten braten, bis es Farbe hat.</li>
+<li><b>Aroma rösten.</b> Knoblauch, 1 Esslöffel Tomatenmark, ½ Teelöffel geräuchertes Paprikapulver und ½ Teelöffel Oregano 1 Minute rühren, bis das Tomatenmark dunkelrot ist.</li>
+<li><b>Linsen und Tomaten.</b> 40 g rote Linsen kurz abspülen, mit 150 g passierten Tomaten, ½ Teelöffel Honig und 250 ml heißem Wasser dazu. Deckel halb drauf, Stufe 4, 12 Minuten.</li>
+<li><b>Nudeln kochen.</b> Nach 3 Minuten Saucenzeit 70 g Nudeln ins Wasser, Packungsangabe minus 1 Minute. Eine Tasse Nudelwasser aufheben.</li>
+<li><b>Zusammenführen.</b> Nudeln mit 2 Esslöffel Nudelwasser in die Sauce, 1 Minute schwenken. 1 Teelöffel Essig, ½ Teelöffel Oregano, Kräuter und Pfeffer.</li>
 </ol>
-<p class="tip"><b>Dreifache Menge Sauce kochen</b> und portionsweise einfrieren. Dann brauchst du an stressigen Tagen nur noch 10 Minuten für die Nudeln.</p></div></div>
+<p class="tip"><b>Dreifache Menge Sauce kochen</b> und portionsweise einfrieren. Dann dauert ein stressiger Tag nur noch 10 Minuten.</p></div></div>
     </div>
   </div>
 </details></div>
@@ -822,13 +841,13 @@ footer{margin:30px 6px 0;font-size:12.5px;color:var(--faint);line-height:1.6;max
   <div class="rbody">
     <p class="rlead">164 kcal · 17,2 g Protein · ca. 0,40 € · 10 Min plus Ziehzeit</p>
     <div class="rcols">
-      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Karotten</span><span class="n">200 g</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">120 g</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Senf</span><span class="n">1 gestr. TL</span></div><div class="ing-r"><span class="nm">Knoblauchgranulat</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Paprikapulver</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Essig</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Pfeffer</span><span class="n">nach Geschmack</span></div></div></div>
+      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Karotten</span><span class="n">200 g</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">120 g</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Senf</span><span class="n">1 gestr. TL</span></div><div class="ing-r"><span class="nm">Knoblauch, frisch</span><span class="n">½ Zehe</span></div><div class="ing-r"><span class="nm">Paprikapulver, geräuchert</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">TK-Kräuter</span><span class="n">1 EL</span></div><div class="ing-r"><span class="nm">Zitrone</span><span class="n">1 TL Saft</span></div><div class="ing-r"><span class="nm">Pfeffer</span><span class="n">nach Geschmack</span></div></div></div>
       <div class="rcol-how"><div class="colh">Zubereitung</div><div class="howto"><ol class="steps">
 <li><b>Karotten schneiden.</b> 200 g schälen, in etwa fingerdicke Stifte von 7 bis 8 cm Länge.</li>
 <li><b>In Eiswasser legen.</b> Stifte in eine Schüssel mit kaltem Wasser, 15 Minuten in den Kühlschrank.
             <span class="cue"><b>Warum:</b> Die Karotten ziehen Wasser und werden dadurch richtig knackig statt biegsam. Der Unterschied ist deutlich spürbar.</span>
 </li>
-<li><b>Dip anrühren.</b> 120 g Quark mit 3 Esslöffel Wasser cremig rühren. Dann 1 gestrichener Teelöffel Senf, ½ Teelöffel Knoblauchgranulat, ½ Teelöffel Paprikapulver, Pfeffer, 1 Teelöffel Essig.</li>
+<li><b>Dip anrühren.</b> 120 g Quark mit 3 Esslöffel Wasser cremig rühren. Dann 1 gestrichener Teelöffel Senf, eine halbe fein geriebene Knoblauchzehe, ½ Teelöffel geräuchertes Paprikapulver, 1 Esslöffel TK-Kräuter, 1 Teelöffel Zitronensaft und Pfeffer.</li>
 <li><b>20 Minuten ziehen lassen.</b>
 <span class="cue"><b>Nicht überspringen.</b> Frisch angerührt schmeckt der Dip nach Quark mit Gewürzen obendrauf. Nach 20 Minuten haben sich die Aromen verteilt und es schmeckt nach einem Dip.</span>
 </li>
@@ -846,15 +865,15 @@ footer{margin:30px 6px 0;font-size:12.5px;color:var(--faint);line-height:1.6;max
   <div class="rbody">
     <p class="rlead">168 kcal · 14,6 g Protein · ca. 0,55 € · 10 Min</p>
     <div class="rcols">
-      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Eier</span><span class="n">2 Stück</span></div><div class="ing-r"><span class="nm">Gurke</span><span class="n">100 g</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Essig</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Paprikapulver</span><span class="n">1 Prise</span></div><div class="ing-r"><span class="nm">Pfeffer</span><span class="n">nach Geschmack</span></div></div></div>
+      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Eier</span><span class="n">2 Stück</span></div><div class="ing-r"><span class="nm">Gurke</span><span class="n">100 g</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Zitrone</span><span class="n">1 TL Saft</span></div><div class="ing-r"><span class="nm">Paprikapulver, geräuchert</span><span class="n">1 Prise</span></div><div class="ing-r"><span class="nm">TK-Kräuter</span><span class="n">1 EL</span></div><div class="ing-r"><span class="nm">Pfeffer</span><span class="n">nach Geschmack</span></div></div></div>
       <div class="rcol-how"><div class="colh">Zubereitung</div><div class="howto"><ol class="steps">
 <li><b>Wasser aufkochen.</b> Kleiner Topf, so viel Wasser, dass die Eier bedeckt sind. Volle Hitze, bis es sprudelt.</li>
 <li><b>Eier einlegen.</b> Mit einem Löffel vorsichtig hineingleiten lassen, nicht fallen lassen. Hitze auf Stufe 4 von 9 runter, 8 Minuten.
             <span class="cue"><b>8 Minuten gibt wachsweich</b> mit cremigem Kern, 10 Minuten komplett hart. Wachsweich schmeckt deutlich besser und ist leichter zu schälen.</span>
 </li>
 <li><b>Abschrecken.</b> Sofort 1 Minute unter kaltes fließendes Wasser halten, dann schälen.</li>
-<li><b>Gurke anmachen.</b> 100 g in Scheiben von etwa 5 mm, mit Pfeffer und 1 Teelöffel Essig mischen.</li>
-<li><b>Anrichten.</b> Eier halbieren, mit Pfeffer und Paprikapulver bestreuen.</li>
+<li><b>Gurke anmachen.</b> 100 g in Scheiben von etwa 5 mm, mit Pfeffer, 1 Teelöffel Zitronensaft und den TK-Kräutern mischen.</li>
+<li><b>Anrichten.</b> Eier halbieren, mit Pfeffer und einer Prise geräuchertem Paprikapulver bestreuen. Das Rauchige macht aus einem gekochten Ei einen Snack.</li>
 </ol>
 <p class="tip"><b>Koch sechs Eier auf einmal.</b> Gekochte Eier halten ungeschält eine Woche im Kühlschrank und sind der schnellste Snack überhaupt.</p></div></div>
     </div>
@@ -891,7 +910,7 @@ footer{margin:30px 6px 0;font-size:12.5px;color:var(--faint);line-height:1.6;max
   <div class="rbody">
     <p class="rlead">164 kcal · 6,9 g Protein · ca. 0,25 € · Einweichen über Nacht</p>
     <div class="rcols">
-      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Kichererbsen, trocken</span><span class="n">35 g</span></div><div class="ing-r"><span class="nm">Apfel</span><span class="n">½ Stück</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Paprikapulver</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Kreuzkümmel</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Knoblauchgranulat</span><span class="n">½ TL</span></div></div></div>
+      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Kichererbsen, trocken</span><span class="n">35 g</span></div><div class="ing-r"><span class="nm">Apfel</span><span class="n">½ Stück</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Paprikapulver, geräuchert</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Kreuzkümmel</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Knoblauchgranulat</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Zitrone (für die Schale)</span><span class="n">ein paar Züge</span></div></div></div>
       <div class="rcol-how"><div class="colh">Zubereitung</div><div class="howto"><p class="mise"><b>Mach gleich die zehnfache Menge.</b>Gekochte Kichererbsen halten 4 Tage im Kühlschrank und lassen sich einfrieren. Der Aufwand ist bei 350 g derselbe wie bei 35 g.</p>
 <ol class="steps">
 <li><b>Über Nacht einweichen.</b> Kichererbsen in eine Schüssel, dreifache Menge kaltes Wasser drüber. Mindestens 8 Stunden, gern 12.
@@ -903,11 +922,11 @@ footer{margin:30px 6px 0;font-size:12.5px;color:var(--faint);line-height:1.6;max
 <li><b>Sehr gründlich trocknen.</b> Abgießen, auf ein Küchentuch kippen, ein zweites Tuch drüber und vorsichtig rollen. 10 Minuten offen liegen lassen.
             <span class="cue"><b>Der Schritt, an dem es scheitert.</b> Jeder Tropfen Restwasser verhindert, dass sie knusprig werden. Sie müssen sich trocken anfühlen.</span>
 </li>
-<li><b>Würzen.</b> ½ Teelöffel Paprikapulver, ½ Teelöffel Kreuzkümmel, ½ Teelöffel Knoblauchgranulat. Kein Öl nötig.</li>
+<li><b>Würzen.</b> ½ Teelöffel geräuchertes Paprikapulver, ½ Teelöffel Kreuzkümmel, ½ Teelöffel Knoblauchgranulat. Kein Öl nötig.</li>
 <li><b>Garen.</b> Airfryer 5 Minuten auf 200 °C vorheizen, Kichererbsen einlagig, 12 bis 15 Minuten, nach 5 und 10 Minuten schütteln.
             <span class="cue"><b>Fertig, wenn:</b> sie beim Draufbeißen hörbar knacken. Einzelne platzen auf, das ist normal und gewollt.</span>
 </li>
-<li><b>Sofort essen.</b>
+<li><b>Zitronenschale drüber und sofort essen.</b> Ein paar Züge Schale direkt auf die heißen Kichererbsen reiben, das gibt den Frische-Kick, den bei gekauften Snacks das Salz liefert.
 <span class="cue"><b>Sie halten die Knusprigkeit nur 2 bis 3 Stunden.</b> In einem geschlossenen Behälter werden sie schon nach einer Stunde zäh. Lieber kleine Portionen frisch machen.</span>
 </li>
 </ol>
@@ -948,107 +967,97 @@ footer{margin:30px 6px 0;font-size:12.5px;color:var(--faint);line-height:1.6;max
   </details>
 
   <details class="card sec" id="abendessen">
-    <summary><span class="sico s-ab">🍲</span><span class="shd"><span class="ctitle">Abendessen</span><span class="csub">3 Varianten in 15 bis 25 Minuten: Linseneintopf, Shakshuka, Spiegeleier mit Bratkartoffeln</span></span>
-      <span class="snums"><b class="num">~605</b> kcal · <b class="num">~45 g</b></span><span class="chev">▾</span></summary>
+    <summary><span class="sico s-ab">🍲</span><span class="shd"><span class="ctitle">Abendessen</span><span class="csub">3 Varianten in 15 bis 25 Minuten: Linseneintopf mit Gewürzöl, Shakshuka, Spiegeleier mit Salsa</span></span>
+      <span class="snums"><b class="num">~630</b> kcal · <b class="num">~43 g</b></span><span class="chev">▾</span></summary>
     <div class="cbody">
-      <p class="intro">Alle drei liegen bei 604 bis 617 kcal und sind ohne Fleisch. Der Linseneintopf ist der Anker, weil er sich gut für zwei Abende kochen lässt. Die beiden Eier-Gerichte sorgen für Abwechslung.</p>
+      <p class="intro">Alle drei liegen bei 628 bis 640 kcal und sind ohne Fleisch. Den Linseneintopf am Montag doppelt kochen, dann ist der Donnerstag schon fertig. Shakshuka und Spiegeleier mit Salsa gibt es je zweimal pro Woche.</p>
       <div class="rlist">
 <details class="recipe" id="a-linsen" data-kind="veg">
   <summary>
     <span class="thumb t-veg"><span class="emo">🍲</span></span>
-    <span class="rmid"><span class="rname">Linseneintopf in drei Würzrichtungen</span><span class="rmeta"><i class="d k-veg"></i>Ein Topf · 25 Min</span></span>
-    <span class="rnums"><span class="rk"><b class="num">604</b> <small>kcal</small></span><span class="rp"><b class="num">45,0 g</b> <small>Protein</small></span></span>
+    <span class="rmid"><span class="rname">Linseneintopf mit Gewürzöl in drei Würzrichtungen</span><span class="rmeta"><i class="d k-veg"></i>Ein Topf · 25 Min</span></span>
+    <span class="rnums"><span class="rk"><b class="num">630</b> <small>kcal</small></span><span class="rp"><b class="num">43,3 g</b> <small>Protein</small></span></span>
     <span class="chev">▾</span>
   </summary>
   <div class="rbody">
-    <p class="rlead">Ein Topf, auch fürs Ei · 25 Minuten, davon 8 Minuten Arbeit · gleiche Zutaten, drei Geschmäcker</p><div class="wzgrid"><div class="wz"><div class="wzh"><span class="wzt">Indisch</span><span class="wzs">Dal, cremig und warm</span></div><p>1 gehäufter TL Currypulver, ½ TL Kreuzkümmel, ½ TL Chiliflocken. Der Quark wird am Ende eingerührt statt als Nachtisch gegessen.</p></div>
-<div class="wz"><div class="wzh"><span class="wzt">Türkisch</span><span class="wzs">Mercimek, säuerlich und frisch</span></div><p>1 gestrichener TL Paprikapulver, ½ TL Kreuzkümmel. Am Ende die doppelte Menge Essig, also 2 gehäufte TL.</p></div>
-<div class="wz"><div class="wzh"><span class="wzt">Italienisch</span><span class="wzs">dicke Tomatensauce mit Linsen</span></div><p>1 gehäufter TL Oregano, ½ TL Knoblauchgranulat, ½ TL Chiliflocken. Dazu 250 g passierte Tomaten statt 150 g und nur 250 ml Wasser.</p></div></div>
+    <p class="rlead">Ein Topf und eine Pfanne fürs Gewürzöl · 25 Minuten, davon 8 Minuten Arbeit · gleich doppelt kochen</p><div class="wzgrid"><div class="wz"><div class="wzh"><span class="wzt">Indisch</span><span class="wzs">Dal, cremig und warm</span></div><p><b>In den Topf:</b> 1 gehäufter TL Currypulver, ½ TL Kreuzkümmel, 1 cm Ingwer gerieben. <b>Gewürzöl:</b> ½ TL Kreuzkümmel, ½ TL Chiliflocken, 1 Knoblauchzehe in Scheiben. Den Quark einrühren.</p></div>
+<div class="wz"><div class="wzh"><span class="wzt">Türkisch</span><span class="wzs">Mercimek, säuerlich und frisch</span></div><p><b>In den Topf:</b> 1 TL Paprikapulver edelsüß, ½ TL Kreuzkümmel. <b>Gewürzöl:</b> 1 TL geräuchertes Paprikapulver, ½ TL Chiliflocken, ½ TL Oregano, nur 20 Sekunden. Zitrone doppelt.</p></div>
+<div class="wz"><div class="wzh"><span class="wzt">Italienisch</span><span class="wzs">dicke Tomatensauce mit Linsen</span></div><p><b>In den Topf:</b> 1 gehäufter TL Oregano, 250 g passierte Tomaten statt 150 g und nur 250 ml Wasser. <b>Gewürzöl:</b> 1 Knoblauchzehe, ½ TL Chiliflocken, Schale einer halben Zitrone.</p></div></div>
     <div class="rcols">
-      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Rote Linsen, roh</span><span class="n">90 g</span></div><div class="ing-r"><span class="nm">Karotte</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Zwiebel</span><span class="n">50 g</span></div><div class="ing-r"><span class="nm">Passierte Tomaten</span><span class="n">150 g</span></div><div class="ing-r"><span class="nm">Ei</span><span class="n">1 Stück</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">1 TL</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Essig</span><span class="n">1 gehäufter TL</span></div><div class="ing-r"><span class="nm">Gewürze der Würzrichtung</span><span class="n">siehe Karten oben</span></div><div class="ing-r"><span class="nm">Pfeffer</span><span class="n">nach Geschmack</span></div></div></div>
+      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Rote Linsen, roh</span><span class="n">80 g</span></div><div class="ing-r"><span class="nm">Karotte</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Zwiebel</span><span class="n">50 g</span></div><div class="ing-r"><span class="nm">Passierte Tomaten</span><span class="n">150 g</span></div><div class="ing-r"><span class="nm">Tomatenmark</span><span class="n">1 EL</span></div><div class="ing-r"><span class="nm">Ei</span><span class="n">1 Stück</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">2 TL (1 zum Braten, 1 fürs Gewürzöl)</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Knoblauch, frisch</span><span class="n">2 Zehen</span></div><div class="ing-r"><span class="nm">Zitrone</span><span class="n">1 EL Saft</span></div><div class="ing-r"><span class="nm">Gewürze der Würzrichtung</span><span class="n">siehe Karten oben</span></div><div class="ing-r"><span class="nm">Pfeffer, frisch gemahlen</span><span class="n">nach Geschmack</span></div></div></div>
       <div class="rcol-how"><div class="colh">Zubereitung</div><div class="howto"><ol class="steps">
-<li><b>Wasser und Linsen.</b> 350 ml Wasser in den Wasserkocher. 90 g rote Linsen in einem Sieb unter kaltem Wasser abspülen, bis es klar abläuft, etwa 30 Sekunden.
-        <span class="cue"><b>Einweichen ist nicht nötig.</b> Rote Linsen sind geschält und garen in 12 Minuten.</span>
+<li><b>Wasser und Linsen.</b> 350 ml Wasser in den Wasserkocher. 80 g rote Linsen im Sieb abspülen, bis das Wasser klar abläuft.</li>
+<li><b>Gemüse.</b> 50 g Zwiebel fein würfeln, 100 g Karotte grob reiben, 1 Knoblauchzehe fein hacken.</li>
+<li><b>Anbraten.</b> 1 Teelöffel Rapsöl in den Topf, Stufe 5 von 9, Zwiebel und Karotte 5 Minuten, bis die Zwiebelränder goldbraun sind.
+        <span class="cue"><b>Hier nicht hetzen.</b> Gebräunte Zwiebel ist die Geschmacksbasis, blasse Zwiebel schmeckt nach nichts.</span>
 </li>
-<li><b>Gemüse vorbereiten.</b> 50 g Zwiebel fein würfeln, 100 g Karotte grob reiben.
-        <span class="cue"><b>Reiben statt würfeln</b> geht schneller und die Karotte zerfällt im Eintopf, das macht ihn sämig.</span>
+<li><b>Aroma rösten.</b> Knoblauch, 1 Esslöffel Tomatenmark und die Topf-Gewürze deiner Würzrichtung 1 Minute rühren, bis das Tomatenmark dunkelrot ist.</li>
+<li><b>Köcheln.</b> Linsen, passierte Tomaten und das heiße Wasser dazu. Stufe 3 von 9, Deckel halb drauf, 12 Minuten, alle 4 Minuten umrühren.
+        <span class="cue"><b>Fertig, wenn:</b> die Linsen zerfallen sind und der Eintopf am Löffel haften bleibt.</span>
 </li>
-<li><b>Anbraten.</b> 1 Teelöffel Rapsöl in einen Topf, Stufe 5 von 9, Zwiebel und Karotte 4 Minuten braten.
-        <span class="cue"><b>Fertig, wenn:</b> die Zwiebelränder goldbraun werden. Das ist die Geschmacksbasis, hier nicht hetzen.</span>
+<li><b>Ei im Topf garen.</b> In den letzten 5 Minuten eine Mulde drücken, das Ei hineinschlagen, Deckel ganz drauf.</li>
+<li><b>Gewürzöl.</b> Kurz vor Schluss 1 Teelöffel Rapsöl in einer kleinen Pfanne auf Stufe 6 erhitzen, die Gewürzöl-Zutaten deiner Richtung hinein, 30 bis 60 Sekunden, bis der Knoblauch hellgolden ist. Sofort über den Eintopf gießen.
+        <span class="cue"><b>Das ist der wichtigste Trick des ganzen Plans.</b> In der indischen Küche heißt er Tadka: Gewürze in heißem Öl entfalten ein Vielfaches an Aroma, und weil das Öl obendrauf liegt, schmeckst du es schon beim ersten Löffel.</span>
 </li>
-<li><b>Gewürze mitrösten.</b> Die Gewürze deiner Würzrichtung 30 Sekunden trocken mitrösten.
-        <span class="cue"><b>Fertig, wenn:</b> es kräftig duftet. Länger als 45 Sekunden wird bitter.</span>
-</li>
-<li><b>Köcheln.</b> Linsen, 150 g passierte Tomaten und das heiße Wasser dazu, einmal umrühren. Stufe 3 von 9, Deckel halb drauf, 12 Minuten, alle 4 Minuten umrühren.
-        <span class="cue"><b>Fertig, wenn:</b> die Linsen zerfallen sind und der Eintopf am Löffel haften bleibt. Zu dick: ein Schluck Wasser. Zu dünn: Deckel ab, 3 Minuten weiter.</span>
-</li>
-<li><b>Ei direkt im Topf garen.</b> In den letzten 5 Minuten mit dem Löffel eine Mulde in den Eintopf drücken, das Ei hineinschlagen, Deckel ganz drauf.
-        <span class="cue"><b>Fertig, wenn:</b> das Eiweiß weiß ist und das Eigelb noch weich. Spart die Pfanne, und das weiche Eigelb macht den Eintopf cremig.</span>
-</li>
-<li><b>Abschmecken.</b> Pfeffer und auf jeden Fall 1 gehäufter Teelöffel Essig.
-        <span class="cue"><b>Linsen ohne Säure schmecken stumpf.</b> Probier einen Löffel vor und einen nach dem Essig.</span>
-</li>
-<li><b>Quark dazu.</b> Als Nachtisch oder als Klecks obendrauf, dann aber erst, wenn der Eintopf auf Esstemperatur abgekühlt ist.
-        <span class="cue"><b>Magerquark flockt in heißer Flüssigkeit aus.</b> Schmeckt noch, sieht aber aus wie geronnene Milch.</span>
+<li><b>Zitrone und Quark.</b> 1 Esslöffel Zitronensaft und Pfeffer unterrühren. Quark als Klecks obendrauf, sobald der Eintopf Esstemperatur hat, beim indischen Dal einrühren.
+        <span class="cue"><b>Linsen ohne Säure schmecken stumpf.</b> Und Magerquark flockt in sehr heißer Flüssigkeit aus, deshalb erst etwas abkühlen lassen.</span>
 </li>
 </ol>
-<p class="tip"><b>Für zwei Abende kochen:</b> Doppelte Menge machen, die zweite Portion hält 3 Tage im Kühlschrank. Aufwärmen, Ei frisch reinschlagen, fertig in 8 Minuten.</p></div></div>
+<p class="tip"><b>Für zwei Abende kochen:</b> Doppelte Menge, die zweite Portion hält 3 Tage. Beim Aufwärmen Ei frisch reinschlagen und das Gewürzöl frisch machen, dann schmeckt es wie am ersten Tag.</p></div></div>
     </div>
   </div>
 </details>
 <details class="recipe" id="a-shakshuka" data-kind="veg">
   <summary>
     <span class="thumb t-veg"><span class="emo">🍅</span></span>
-    <span class="rmid"><span class="rname">Shakshuka mit Vollkornbrot</span><span class="rmeta"><i class="d k-veg"></i>Eine Pfanne · 15 Min</span></span>
-    <span class="rnums"><span class="rk"><b class="num">617</b> <small>kcal</small></span><span class="rp"><b class="num">48,7 g</b> <small>Protein</small></span></span>
+    <span class="rmid"><span class="rname">Shakshuka mit Zitronen-Knoblauch-Quark</span><span class="rmeta"><i class="d k-veg"></i>Eine Pfanne · 15 Min</span></span>
+    <span class="rnums"><span class="rk"><b class="num">640</b> <small>kcal</small></span><span class="rp"><b class="num">42,9 g</b> <small>Protein</small></span></span>
     <span class="chev">▾</span>
   </summary>
   <div class="rbody">
     <p class="rlead">Eier in würziger Tomaten-Paprika-Sauce · eine Pfanne · 15 Minuten</p>
     <div class="rcols">
-      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Eier</span><span class="n">3 Stück</span></div><div class="ing-r"><span class="nm">Passierte Tomaten</span><span class="n">200 g</span></div><div class="ing-r"><span class="nm">Paprika, rot</span><span class="n">1 Stück (150 g)</span></div><div class="ing-r"><span class="nm">Zwiebel</span><span class="n">½ Stück (50 g)</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">150 g</span></div><div class="ing-r"><span class="nm">Vollkornbrot</span><span class="n">1 Scheibe (50 g)</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">1 TL</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Paprikapulver</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Kreuzkümmel</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Knoblauchgranulat</span><span class="n">½ TL + 1 Prise</span></div><div class="ing-r"><span class="nm">Chiliflocken</span><span class="n">1 Prise</span></div><div class="ing-r"><span class="nm">Essig</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Pfeffer</span><span class="n">nach Geschmack</span></div></div></div>
-      <div class="rcol-how"><div class="colh">Zubereitung</div><div class="howto"><p class="mise"><b>Was du brauchst</b>Eine Pfanne mit Deckel. Shakshuka kommt aus Nordafrika und Israel und ist im Grunde ein Rezept für Leute ohne Zeit: Sauce in der Pfanne, Eier rein, Deckel drauf, Brot zum Tunken.</p>
-<ol class="steps">
-<li><b>Schneiden.</b> ½ Zwiebel fein würfeln, die Paprika entkernen und in Streifen von etwa 1 cm schneiden.</li>
-<li><b>Anbraten.</b> 1 Teelöffel Rapsöl in die Pfanne, Stufe 6 von 9, Zwiebel und Paprika 4 Minuten braten.
-        <span class="cue"><b>Fertig, wenn:</b> die Paprika weich wird und an den Rändern leicht bräunt.</span>
+      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Eier</span><span class="n">3 Stück</span></div><div class="ing-r"><span class="nm">Passierte Tomaten</span><span class="n">200 g</span></div><div class="ing-r"><span class="nm">Tomatenmark</span><span class="n">1 EL</span></div><div class="ing-r"><span class="nm">Paprika, rot</span><span class="n">1 Stück (150 g)</span></div><div class="ing-r"><span class="nm">Zwiebel</span><span class="n">½ Stück (50 g)</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Vollkornbrot</span><span class="n">1 Scheibe (50 g)</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">2 TL</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Knoblauch, frisch</span><span class="n">2 Zehen</span></div><div class="ing-r"><span class="nm">Kreuzkümmel</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Paprikapulver, edelsüß</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Paprikapulver, geräuchert</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Chiliflocken</span><span class="n">1 Prise</span></div><div class="ing-r"><span class="nm">Zitrone</span><span class="n">¼ (Schale und Saft)</span></div><div class="ing-r"><span class="nm">TK-Kräuter</span><span class="n">1 EL</span></div><div class="ing-r"><span class="nm">Pfeffer, frisch gemahlen</span><span class="n">nach Geschmack</span></div></div></div>
+      <div class="rcol-how"><div class="colh">Zubereitung</div><div class="howto"><ol class="steps">
+<li><b>Schneiden.</b> ½ Zwiebel fein würfeln, Paprika in 1-cm-Streifen, 1 Knoblauchzehe in Scheiben.</li>
+<li><b>Anbraten.</b> 2 Teelöffel Rapsöl in die Pfanne, Stufe 6 von 9, Zwiebel und Paprika 4 Minuten, bis die Paprika an den Rändern bräunt.</li>
+<li><b>Aroma rösten.</b> Knoblauch, 1 Esslöffel Tomatenmark, 1 Teelöffel Kreuzkümmel, beide Paprikapulver und Chili 1 Minute rühren.
+        <span class="cue"><b>Kreuzkümmel und geräuchertes Paprikapulver</b> sind der Geschmack von Shakshuka. Im Öl angeröstet riechen sie nach Markt in Tel Aviv, roh nach Gewürzregal.</span>
 </li>
-<li><b>Gewürze.</b> 1 Teelöffel Paprikapulver, ½ Teelöffel Kreuzkümmel, ½ Teelöffel Knoblauchgranulat und eine Prise Chiliflocken dazu, 30 Sekunden mitrösten.</li>
-<li><b>Sauce.</b> 200 g passierte Tomaten, ½ Teelöffel Essig und Pfeffer dazu, Stufe 4 von 9, 3 Minuten köcheln, bis sie leicht eindickt.</li>
-<li><b>Eier hinein.</b> Mit einem Löffel drei Mulden in die Sauce drücken, in jede ein Ei schlagen. Deckel drauf, Stufe 3 von 9, 5 bis 6 Minuten. Währenddessen das Brot toasten.
-        <span class="cue"><b>Fertig, wenn:</b> das Eiweiß weiß und fest ist, das Eigelb aber noch wackelt. Nach 4 Minuten einmal reinschauen.</span>
+<li><b>Sauce.</b> 200 g passierte Tomaten und Pfeffer dazu, Stufe 4 von 9, 3 Minuten köcheln, bis sie eindickt.</li>
+<li><b>Eier hinein.</b> Drei Mulden drücken, je ein Ei hineinschlagen. Deckel drauf, Stufe 3 von 9, 5 bis 6 Minuten. Brot toasten.
+        <span class="cue"><b>Fertig, wenn:</b> das Eiweiß fest ist und das Eigelb noch wackelt. Nach 4 Minuten einmal reinschauen.</span>
 </li>
-<li><b>Quark dazu.</b> 150 g Magerquark mit 2 Esslöffel Wasser, einer Prise Knoblauchgranulat und Pfeffer cremig rühren und in Klecksen neben die Eier setzen. Direkt aus der Pfanne essen, Brot zum Tunken.
-        <span class="cue"><b>Kalter Quark auf heißer Sauce</b> ist der Kontrast, der das Gericht ausmacht. Er übernimmt die Rolle, die sonst Joghurt oder Feta hat.</span>
+<li><b>Zitronen-Knoblauch-Quark.</b> 100 g Quark mit 2 Esslöffel Wasser, 1 fein geriebenen Knoblauchzehe, der Schale eines Zitronenviertels, einem Spritzer Saft und Pfeffer glatt rühren. In Klecksen neben die Eier, Kräuter über alles.
+        <span class="cue"><b>Kalter, frischer Quark auf heißer, würziger Sauce</b> ist der Kontrast, der das Gericht ausmacht.</span>
 </li>
 </ol></div></div>
     </div>
   </div>
 </details>
-<details class="recipe" id="a-bratkartoffeln" data-kind="veg">
+<details class="recipe" id="a-salsa" data-kind="veg">
   <summary>
     <span class="thumb t-veg"><span class="emo">🍳</span></span>
-    <span class="rmid"><span class="rname">Spiegeleier auf Bratkartoffeln mit Gurken-Quark</span><span class="rmeta"><i class="d k-veg"></i>Eine Pfanne · 20 Min</span></span>
-    <span class="rnums"><span class="rk"><b class="num">609</b> <small>kcal</small></span><span class="rp"><b class="num">43,9 g</b> <small>Protein</small></span></span>
+    <span class="rmid"><span class="rname">Spiegeleier auf Kreuzkümmel-Bratkartoffeln mit Tomatensalsa</span><span class="rmeta"><i class="d k-veg"></i>Eine Pfanne · 20 Min</span></span>
+    <span class="rnums"><span class="rk"><b class="num">628</b> <small>kcal</small></span><span class="rp"><b class="num">41,4 g</b> <small>Protein</small></span></span>
     <span class="chev">▾</span>
   </summary>
   <div class="rbody">
-    <p class="rlead">Eine Pfanne · 20 Minuten · Bratkartoffeln ohne Vorkochen</p>
+    <p class="rlead">Eine Pfanne · 20 Minuten · mexikanisch inspiriert: knusprig, frisch, scharf</p>
     <div class="rcols">
-      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Kartoffeln, geschält</span><span class="n">300 g</span></div><div class="ing-r"><span class="nm">Eier</span><span class="n">3 Stück</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">120 g</span></div><div class="ing-r"><span class="nm">Gurke</span><span class="n">150 g</span></div><div class="ing-r"><span class="nm">Zwiebel</span><span class="n">30 g</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">1 TL</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Paprikapulver</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Knoblauchgranulat</span><span class="n">½ TL + 1 Prise</span></div><div class="ing-r"><span class="nm">Essig</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Senf</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Pfeffer</span><span class="n">nach Geschmack</span></div></div></div>
-      <div class="rcol-how"><div class="colh">Zubereitung</div><div class="howto"><p class="mise"><b>Der Trick</b>Die Kartoffeln werden in der Pfanne erst mit etwas Wasser und Deckel gedämpft, dann knusprig gebraten. So brauchst du keine vorgekochten Kartoffeln und nur eine Pfanne.</p>
-<ol class="steps">
-<li><b>Kartoffeln schneiden.</b> 300 g Kartoffeln in Würfel von etwa 1,5 cm. Mit Schale geht es schneller, dann gründlich waschen.</li>
-<li><b>Dämpfen.</b> Würfel in eine beschichtete Pfanne, 100 ml Wasser dazu, Deckel drauf, Stufe 6 von 9, 8 Minuten.
-        <span class="cue"><b>Fertig, wenn:</b> ein Messer fast ohne Widerstand reingeht und das Wasser fast verkocht ist.</span>
+      <div class="rcol-ing"><div class="colh">Zutaten</div><div class="ing c2"><div class="ing-r"><span class="nm">Kartoffeln, geschält</span><span class="n">250 g</span></div><div class="ing-r"><span class="nm">Eier</span><span class="n">3 Stück</span></div><div class="ing-r"><span class="nm">Tomaten</span><span class="n">2 Stück (200 g)</span></div><div class="ing-r"><span class="nm">Magerquark</span><span class="n">100 g</span></div><div class="ing-r"><span class="nm">Zwiebel</span><span class="n">50 g</span></div><div class="ing-r"><span class="nm">Rapsöl</span><span class="n">2 TL</span></div><div class="ing-g">Gewürze &amp; Kleinkram</div><div class="ing-r"><span class="nm">Kreuzkümmel</span><span class="n">½ TL</span></div><div class="ing-r"><span class="nm">Paprikapulver, geräuchert</span><span class="n">1 TL</span></div><div class="ing-r"><span class="nm">Knoblauch, frisch</span><span class="n">1½ Zehen</span></div><div class="ing-r"><span class="nm">Zitrone</span><span class="n">½ (Saft)</span></div><div class="ing-r"><span class="nm">Chiliflocken</span><span class="n">1 Prise</span></div><div class="ing-r"><span class="nm">TK-Kräuter</span><span class="n">1 EL</span></div><div class="ing-r"><span class="nm">Pfeffer, frisch gemahlen</span><span class="n">nach Geschmack</span></div></div></div>
+      <div class="rcol-how"><div class="colh">Zubereitung</div><div class="howto"><ol class="steps">
+<li><b>Kartoffeln dämpfen.</b> 250 g Kartoffeln mit Schale in 1,5-cm-Würfel. In die beschichtete Pfanne, 100 ml Wasser dazu, Deckel drauf, Stufe 6 von 9, 8 Minuten.</li>
+<li><b>Salsa.</b> Währenddessen 2 Tomaten klein würfeln, 20 g Zwiebel sehr fein, eine halbe Knoblauchzehe fein gerieben, 1 Esslöffel Zitronensaft, eine Prise Chili, die TK-Kräuter und Pfeffer mischen.
+        <span class="cue"><b>Säure, rohe Zwiebel, Knoblauch und Kräuter:</b> Eine Salsa schmeckt auch ohne Salz knallig. Sie ist die Sauce für das ganze Gericht.</span>
 </li>
-<li><b>Gurken-Quark.</b> Währenddessen 150 g Gurke in dünne Scheiben schneiden. 120 g Magerquark mit 2 Esslöffel Wasser, ½ Teelöffel Senf, 1 Teelöffel Essig, einer Prise Knoblauchgranulat und Pfeffer glatt rühren, Gurke unterheben.</li>
-<li><b>Braten.</b> Deckel ab, restliches Wasser verdampfen lassen. 1 Teelöffel Rapsöl und 30 g fein gewürfelte Zwiebel dazu, Stufe 7 von 9, 5 Minuten braten, alle 1 bis 2 Minuten wenden.
-        <span class="cue"><b>Nicht ständig rühren:</b> Die Kruste entsteht nur, wenn die Würfel eine Weile liegen bleiben.</span>
+<li><b>Knoblauch-Quark.</b> 100 g Quark mit 2 Esslöffel Wasser, 1 fein geriebenen Knoblauchzehe, einem Spritzer Zitrone und Pfeffer glatt rühren.</li>
+<li><b>Braten.</b> Deckel ab, Restwasser verdampfen lassen. 2 Teelöffel Rapsöl und 30 g gewürfelte Zwiebel dazu, Stufe 7, 5 Minuten braten, alle 1 bis 2 Minuten wenden.
+        <span class="cue"><b>Nicht ständig rühren:</b> Die Kruste entsteht nur, wenn die Würfel liegen bleiben.</span>
 </li>
-<li><b>Würzen.</b> 1 Teelöffel Paprikapulver, ½ Teelöffel Knoblauchgranulat und Pfeffer drüber, 30 Sekunden schwenken.</li>
-<li><b>Eier obendrauf.</b> Hitze auf Stufe 4. Drei kleine Lücken zwischen die Kartoffeln schieben und die Eier hineinschlagen. Deckel drauf, 3 bis 4 Minuten.
-        <span class="cue"><b>Fertig, wenn:</b> das Eiweiß ganz weiß ist und das Eigelb noch glänzt. Das flüssige Eigelb ist die Sauce für die Kartoffeln.</span>
+<li><b>Gewürze ins Öl.</b> ½ Teelöffel Kreuzkümmel und 1 Teelöffel geräuchertes Paprikapulver über die Kartoffeln, 30 Sekunden schwenken. Das Öl in der Pfanne nimmt die Aromen auf.</li>
+<li><b>Eier obendrauf.</b> Hitze auf Stufe 4, drei Lücken schieben, Eier hinein, Deckel drauf, 3 bis 4 Minuten. Mit Salsa und Knoblauch-Quark direkt aus der Pfanne servieren.
+        <span class="cue"><b>Das flüssige Eigelb</b> vermischt sich mit Salsa und Kartoffeln zur Sauce.</span>
 </li>
 </ol></div></div>
     </div>
@@ -1321,29 +1330,34 @@ footer{margin:30px 6px 0;font-size:12.5px;color:var(--faint);line-height:1.6;max
     <div class="cbody">
       <div class="wkh"><span>Tag</span><span>Frühstück</span><span>Mittag</span><span>Snack</span><span>Abend</span><span>kcal</span><span>Protein</span></div>
       <div class="wklist"><div class="wk" data-day="0"><span class="wkd">Mo</span><div class="wkmeals"><a class="wkx" href="#f-hafer-quark" data-open="f-hafer-quark"><i>🥣</i><span>Hafer-Quark</span></a><a class="wkx" href="#m-nuggets" data-open="m-nuggets"><i>🍗</i><span>Nuggets mit Pommes</span></a><a class="wkx" href="#s-quark-mit-apfel-und-zimt" data-open="s-quark-mit-apfel-und-zimt"><i>🍎</i><span>Quark, Apfel, Zimt</span></a><a class="wkx" href="#a-linsen" data-open="a-linsen"><i>🍲</i><span>Linseneintopf</span></a></div>
-  <span class="wkn num">1.984</span><span class="wkn num wkp">147,8 g</span></div><div class="wk" data-day="1"><span class="wkd">Di</span><div class="wkmeals"><a class="wkx" href="#f-hafer-quark" data-open="f-hafer-quark"><i>🥣</i><span>Hafer-Quark</span></a><a class="wkx" href="#m-schnitzel" data-open="m-schnitzel"><i>🥩</i><span>Schnitzel mit Krautsalat</span></a><a class="wkx" href="#s-karottensticks-mit-quark-dip" data-open="s-karottensticks-mit-quark-dip"><i>🥕</i><span>Karotten mit Dip</span></a><a class="wkx" href="#a-bratkartoffeln" data-open="a-bratkartoffeln"><i>🍳</i><span>Spiegeleier mit Bratkartoffeln</span></a></div>
-  <span class="wkn num">1.964</span><span class="wkn num wkp">146,5 g</span></div><div class="wk" data-day="2"><span class="wkd">Mi</span><div class="wkmeals"><a class="wkx" href="#f-spiegelei-brot" data-open="f-spiegelei-brot"><i>🥪</i><span>Spiegelei-Brot</span></a><a class="wkx" href="#m-curry" data-open="m-curry"><i>🍛</i><span>Curry mit Reis</span></a><a class="wkx" href="#s-quark-mit-apfel-und-zimt" data-open="s-quark-mit-apfel-und-zimt"><i>🍎</i><span>Quark, Apfel, Zimt</span></a><a class="wkx" href="#a-linsen" data-open="a-linsen"><i>🍲</i><span>Linseneintopf</span></a></div>
-  <span class="wkn num">2.034</span><span class="wkn num wkp">149,3 g</span></div><div class="wk" data-day="3"><span class="wkd">Do</span><div class="wkmeals"><a class="wkx" href="#f-hafer-quark" data-open="f-hafer-quark"><i>🥣</i><span>Hafer-Quark</span></a><a class="wkx" href="#m-burger" data-open="m-burger"><i>🍔</i><span>Burger mit Krautsalat</span></a><a class="wkx" href="#s-karottensticks-mit-quark-dip" data-open="s-karottensticks-mit-quark-dip"><i>🥕</i><span>Karotten mit Dip</span></a><a class="wkx" href="#a-linsen" data-open="a-linsen"><i>🍲</i><span>Linseneintopf</span></a></div>
-  <span class="wkn num">1.936</span><span class="wkn num wkp">148,5 g</span></div><div class="wk" data-day="4"><span class="wkd">Fr</span><div class="wkmeals"><a class="wkx" href="#f-hafer-quark" data-open="f-hafer-quark"><i>🥣</i><span>Hafer-Quark</span></a><a class="wkx" href="#m-kartoffelsalat" data-open="m-kartoffelsalat"><i>🥗</i><span>Thunfisch-Kartoffelsalat</span></a><a class="wkx" href="#s-quark-mit-apfel-und-zimt" data-open="s-quark-mit-apfel-und-zimt"><i>🍎</i><span>Quark, Apfel, Zimt</span></a><a class="wkx" href="#a-linsen" data-open="a-linsen"><i>🍲</i><span>Linseneintopf</span></a></div>
-  <span class="wkn num">1.970</span><span class="wkn num wkp">149,6 g</span></div><div class="wk" data-day="5"><span class="wkd">Sa</span><div class="wkmeals"><a class="wkx" href="#f-spiegelei-brot" data-open="f-spiegelei-brot"><i>🥪</i><span>Spiegelei-Brot</span></a><a class="wkx" href="#m-gyros" data-open="m-gyros"><i>🥙</i><span>Gyros-Pfanne</span></a><a class="wkx" href="#s-banane-mit-quark" data-open="s-banane-mit-quark"><i>🍌</i><span>Banane mit Quark</span></a><a class="wkx" href="#a-linsen" data-open="a-linsen"><i>🍲</i><span>Linseneintopf</span></a></div>
-  <span class="wkn num">1.943</span><span class="wkn num wkp">147,4 g</span></div><div class="wk" data-day="6"><span class="wkd">So</span><div class="wkmeals"><a class="wkx" href="#f-hafer-quark" data-open="f-hafer-quark"><i>🥣</i><span>Hafer-Quark</span></a><a class="wkx" href="#m-pasta" data-open="m-pasta"><i>🍝</i><span>Thunfisch-Pasta</span></a><a class="wkx" href="#s-airfryer-kichererbsen" data-open="s-airfryer-kichererbsen"><i>🫘</i><span>Kichererbsen</span></a><a class="wkx" href="#a-shakshuka" data-open="a-shakshuka"><i>🍅</i><span>Shakshuka</span></a></div>
-  <span class="wkn num">1.981</span><span class="wkn num wkp">146,8 g</span></div></div>
-      <p class="note">Jeder Tag liegt zwischen 1.936 und 2.034 kcal und zwischen 146 und 150 g Protein, im Schnitt 1.973 kcal und 148 g. Nur der Curry-Tag liegt durch die 125 g Reis knapp über 2.000. Linsen-Bolognese und Kartoffeln mit Kräuterquark sind die Joker, wenn du einen Mittag tauschen willst. <strong>Zeitspar-Kombis:</strong> Den Krautsalat am Dienstag doppelt machen, dann ist er am Donnerstag fertig. Den Linseneintopf am Montag doppelt kochen, dann ist Mittwoch in 8 Minuten erledigt.</p>
+  <span class="wkn num">2.020</span><span class="wkn num wkp">147,2 g</span></div><div class="wk" data-day="1"><span class="wkd">Di</span><div class="wkmeals"><a class="wkx" href="#f-hafer-quark" data-open="f-hafer-quark"><i>🥣</i><span>Hafer-Quark</span></a><a class="wkx" href="#m-schnitzel" data-open="m-schnitzel"><i>🥩</i><span>Schnitzel mit Röstkartoffeln</span></a><a class="wkx" href="#s-karottensticks-mit-quark-dip" data-open="s-karottensticks-mit-quark-dip"><i>🥕</i><span>Karotten mit Dip</span></a><a class="wkx" href="#a-shakshuka" data-open="a-shakshuka"><i>🍅</i><span>Shakshuka</span></a></div>
+  <span class="wkn num">1.982</span><span class="wkn num wkp">145,0 g</span></div><div class="wk" data-day="2"><span class="wkd">Mi</span><div class="wkmeals"><a class="wkx" href="#f-hafer-quark" data-open="f-hafer-quark"><i>🥣</i><span>Hafer-Quark</span></a><a class="wkx" href="#m-curry" data-open="m-curry"><i>🍛</i><span>Curry mit Reis</span></a><a class="wkx" href="#s-karottensticks-mit-quark-dip" data-open="s-karottensticks-mit-quark-dip"><i>🥕</i><span>Karotten mit Dip</span></a><a class="wkx" href="#a-salsa" data-open="a-salsa"><i>🍳</i><span>Spiegeleier mit Salsa</span></a></div>
+  <span class="wkn num">2.094</span><span class="wkn num wkp">139,4 g</span></div><div class="wk" data-day="3"><span class="wkd">Do</span><div class="wkmeals"><a class="wkx" href="#f-hafer-quark" data-open="f-hafer-quark"><i>🥣</i><span>Hafer-Quark</span></a><a class="wkx" href="#m-burger" data-open="m-burger"><i>🍔</i><span>Burger mit Krautsalat</span></a><a class="wkx" href="#s-airfryer-kichererbsen" data-open="s-airfryer-kichererbsen"><i>🫘</i><span>Kichererbsen</span></a><a class="wkx" href="#a-linsen" data-open="a-linsen"><i>🍲</i><span>Linseneintopf</span></a></div>
+  <span class="wkn num">1.997</span><span class="wkn num wkp">137,6 g</span></div><div class="wk" data-day="4"><span class="wkd">Fr</span><div class="wkmeals"><a class="wkx" href="#f-hafer-quark" data-open="f-hafer-quark"><i>🥣</i><span>Hafer-Quark</span></a><a class="wkx" href="#m-kartoffelsalat" data-open="m-kartoffelsalat"><i>🥗</i><span>Kartoffelsalat mit Thunfisch</span></a><a class="wkx" href="#s-quark-mit-apfel-und-zimt" data-open="s-quark-mit-apfel-und-zimt"><i>🍎</i><span>Quark, Apfel, Zimt</span></a><a class="wkx" href="#a-shakshuka" data-open="a-shakshuka"><i>🍅</i><span>Shakshuka</span></a></div>
+  <span class="wkn num">1.966</span><span class="wkn num wkp">142,3 g</span></div><div class="wk" data-day="5"><span class="wkd">Sa</span><div class="wkmeals"><a class="wkx" href="#f-spiegelei-brot" data-open="f-spiegelei-brot"><i>🥪</i><span>Spiegelei-Brot</span></a><a class="wkx" href="#m-gyros" data-open="m-gyros"><i>🥙</i><span>Gyros-Pfanne</span></a><a class="wkx" href="#s-banane-mit-quark" data-open="s-banane-mit-quark"><i>🍌</i><span>Banane mit Quark</span></a><a class="wkx" href="#a-linsen" data-open="a-linsen"><i>🍲</i><span>Linseneintopf</span></a></div>
+  <span class="wkn num">1.970</span><span class="wkn num wkp">141,5 g</span></div><div class="wk" data-day="6"><span class="wkd">So</span><div class="wkmeals"><a class="wkx" href="#f-hafer-quark" data-open="f-hafer-quark"><i>🥣</i><span>Hafer-Quark</span></a><a class="wkx" href="#m-pasta" data-open="m-pasta"><i>🍝</i><span>Thunfisch-Pasta</span></a><a class="wkx" href="#s-quark-mit-apfel-und-zimt" data-open="s-quark-mit-apfel-und-zimt"><i>🍎</i><span>Quark, Apfel, Zimt</span></a><a class="wkx" href="#a-salsa" data-open="a-salsa"><i>🍳</i><span>Spiegeleier mit Salsa</span></a></div>
+  <span class="wkn num">1.992</span><span class="wkn num wkp">147,3 g</span></div></div>
+      <p class="note">Jeder Tag liegt zwischen 1.966 und 2.094 kcal und zwischen 138 und 147 g Protein, im Schnitt 2.003 kcal und 143 g. Der Curry-Tag liegt durch die 125 g Reis etwas höher. Linsen-Bolognese und Kartoffelgulasch sind die Joker, wenn du einen Mittag tauschen willst. <strong>Zeitspar-Kombis:</strong> Den Krautsalat am Dienstag doppelt machen, dann ist er am Donnerstag fertig. Den Linseneintopf am Montag doppelt kochen, dann ist der Donnerstag in 8 Minuten erledigt.</p>
     </div>
   </details>
 
   <details class="card sec" id="einkauf">
     <summary><span class="sico s-ek">🛒</span><span class="shd"><span class="ctitle">Einkaufsliste</span><span class="csub">Alles für den Wochenvorschlag, inklusive Gewürze, Senf und Essig. Kaufland-Eigenmarke, Preise sind Richtwerte.</span></span>
-      <span class="snums"><b class="num" id="shopCount">0/44</b></span><span class="chev">▾</span></summary>
+      <span class="snums"><b class="num" id="shopCount">0/51</b></span><span class="chev">▾</span></summary>
     <div class="cbody">
       <div class="prog"><i id="shopBar"></i></div>
-      <div class="cklist"><div class="ckgroup"><span><b>Jede Woche frisch</b><small>Genau die Mengen für den Wochenvorschlag</small></span><span class="num">35,77 €</span></div><label class="ck"><input type="checkbox" data-key="shop" data-i="0"><span class="box"></span><span class="cknm">K-Purland Hähnchenbrustfilet<small>600 g</small></span><span class="ckp num">6,79 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="1"><span class="box"></span><span class="cknm">K-Classic Speisequark Magerstufe<small>3 × 1 kg</small></span><span class="ckp num">6,87 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="2"><span class="box"></span><span class="cknm">K-Classic Eier, Bodenhaltung<small>2 × 10 Stück</small></span><span class="ckp num">3,98 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="3"><span class="box"></span><span class="cknm">K-Classic Thunfisch in eigenem Saft<small>2 Dosen</small></span><span class="ckp num">2,98 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="4"><span class="box"></span><span class="cknm">K-Classic Äpfel<small>1,5 kg</small></span><span class="ckp num">2,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="5"><span class="box"></span><span class="cknm">Bananen, lose<small>1,2 kg</small></span><span class="ckp num">1,95 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="6"><span class="box"></span><span class="cknm">K-Classic Passierte Tomaten<small>3 × 500 g</small></span><span class="ckp num">1,77 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="7"><span class="box"></span><span class="cknm">K-Classic TK-Gemüsemischung<small>750 g</small></span><span class="ckp num">1,39 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="8"><span class="box"></span><span class="cknm">Salatgurke<small>2 Stück</small></span><span class="ckp num">1,38 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="9"><span class="box"></span><span class="cknm">K-Classic Vollkornbrot<small>500 g</small></span><span class="ckp num">1,19 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="10"><span class="box"></span><span class="cknm">K-Classic Karotten<small>1 kg</small></span><span class="ckp num">0,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="11"><span class="box"></span><span class="cknm">Weißkohl<small>1 Kopf</small></span><span class="ckp num">0,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="12"><span class="box"></span><span class="cknm">K-Classic Vollkornbrötchen<small>4 Stück</small></span><span class="ckp num">0,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="13"><span class="box"></span><span class="cknm">Paprika, rot<small>1 Stück</small></span><span class="ckp num">0,79 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="14"><span class="box"></span><span class="cknm">Tomaten, lose<small>300 g</small></span><span class="ckp num">0,72 €</span></label><div class="ckgroup"><span><b>Vorrat</b><small>Hält Wochen, nur nachkaufen, wenn es leer ist</small></span><span class="num">17,34 €</span></div><label class="ck"><input type="checkbox" data-key="shop" data-i="15"><span class="box"></span><span class="cknm">K-Classic Speisekartoffeln, vorwiegend festkochend<small>5 kg</small></span><span class="ckp num">3,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="16"><span class="box"></span><span class="cknm">K-Classic Rote Linsen<small>1 kg</small></span><span class="ckp num">2,58 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="17"><span class="box"></span><span class="cknm">K-Classic Rapsöl<small>1 l</small></span><span class="ckp num">2,29 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="18"><span class="box"></span><span class="cknm">K-Classic Langkornreis<small>1 kg</small></span><span class="ckp num">1,79 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="19"><span class="box"></span><span class="cknm">K-Classic Haferflocken<small>1 kg</small></span><span class="ckp num">1,29 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="20"><span class="box"></span><span class="cknm">K-Classic Zwiebeln<small>1 kg</small></span><span class="ckp num">1,29 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="21"><span class="box"></span><span class="cknm">K-Classic Kichererbsen, getrocknet<small>500 g</small></span><span class="ckp num">1,19 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="22"><span class="box"></span><span class="cknm">K-Classic Leinsamen, geschrotet<small>250 g</small></span><span class="ckp num">0,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="23"><span class="box"></span><span class="cknm">K-Classic Speisestärke<small>400 g</small></span><span class="ckp num">0,79 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="24"><span class="box"></span><span class="cknm">K-Classic Nudeln<small>500 g</small></span><span class="ckp num">0,59 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="25"><span class="box"></span><span class="cknm">K-Classic Paniermehl<small>400 g</small></span><span class="ckp num">0,55 €</span></label><div class="ckgroup"><span><b>Gewürze &amp; Kleinkram</b><small>Einmal kaufen, hält Monate</small></span><span class="num">7,72 €</span></div><label class="ck"><input type="checkbox" data-key="shop" data-i="26"><span class="box"></span><span class="cknm">Knoblauchgranulat<small>überall: Dips, Kartoffeln, Fleisch</small></span><span class="ckp num">0,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="27"><span class="box"></span><span class="cknm">Paprikapulver edelsüß<small>Kartoffeln, Hähnchen, Eier, Shakshuka</small></span><span class="ckp num">0,89 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="28"><span class="box"></span><span class="cknm">Currypulver<small>Curry, indische Linsen</small></span><span class="ckp num">0,89 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="29"><span class="box"></span><span class="cknm">Kreuzkümmel, gemahlen<small>Gyros, Curry, Shakshuka, Linsen</small></span><span class="ckp num">0,89 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="30"><span class="box"></span><span class="cknm">Pfeffer, gemahlen<small>alles</small></span><span class="ckp num">0,89 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="31"><span class="box"></span><span class="cknm">Chiliflocken<small>Pasta, Shakshuka, Linsen</small></span><span class="ckp num">0,79 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="32"><span class="box"></span><span class="cknm">Oregano<small>Gyros, Pasta, Kräuterquark, Kartoffeln</small></span><span class="ckp num">0,69 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="33"><span class="box"></span><span class="cknm">Zimt<small>Frühstück, Snacks, Süßes</small></span><span class="ckp num">0,69 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="34"><span class="box"></span><span class="cknm">Branntweinessig<small>Dressings, Dips, Linsen</small></span><span class="ckp num">0,55 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="35"><span class="box"></span><span class="cknm">Senf, mittelscharf<small>Krautsalat, Dips, Burgersauce</small></span><span class="ckp num">0,45 €</span></label><div class="ckgroup"><span><b>Für Süßes</b><small>Nur wenn du aus „Süßes“ backst, plus 2 bis 3 extra reife Bananen</small></span><span class="num">11,02 €</span></div><label class="ck"><input type="checkbox" data-key="shop" data-i="36"><span class="box"></span><span class="cknm">K-Classic Weizenmehl Type 405<small>1 kg</small></span><span class="ckp num">0,79 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="37"><span class="box"></span><span class="cknm">K-Classic Blütenhonig<small>500 g</small></span><span class="ckp num">2,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="38"><span class="box"></span><span class="cknm">K-Classic TK-Beerenmischung<small>500 g</small></span><span class="ckp num">2,49 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="39"><span class="box"></span><span class="cknm">Backkakao, stark entölt, ungesüßt<small>125 g</small></span><span class="ckp num">1,49 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="40"><span class="box"></span><span class="cknm">Zartbitterschokolade, mind. 70 %<small>100 g</small></span><span class="ckp num">0,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="41"><span class="box"></span><span class="cknm">Backpapier<small>1 Rolle</small></span><span class="ckp num">0,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="42"><span class="box"></span><span class="cknm">Vanille-Backaroma<small>4 Fläschchen</small></span><span class="ckp num">0,79 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="43"><span class="box"></span><span class="cknm">Backpulver<small>5 Päckchen</small></span><span class="ckp num">0,49 €</span></label></div>
+      <div class="cklist"><div class="ckgroup"><span><b>Jede Woche frisch</b><small>Genau die Mengen für den Wochenvorschlag</small></span><span class="num">38,07 €</span></div><label class="ck"><input type="checkbox" data-key="shop" data-i="0"><span class="box"></span><span class="cknm">K-Purland Hähnchenbrustfilet<small>600 g</small></span><span class="ckp num">6,79 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="1"><span class="box"></span><span class="cknm">K-Classic Speisequark Magerstufe<small>3 × 1 kg</small></span><span class="ckp num">6,87 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="2"><span class="box"></span><span class="cknm">K-Classic Eier, Bodenhaltung<small>2 × 10 Stück</small></span><span class="ckp num">3,98 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="3"><span class="box"></span><span class="cknm">K-Classic Thunfisch in eigenem Saft<small>2 Dosen</small></span><span class="ckp num">2,98 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="4"><span class="box"></span><span class="cknm">K-Classic Äpfel<small>1,5 kg</small></span><span class="ckp num">2,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="5"><span class="box"></span><span class="cknm">Bananen, lose<small>7 Stück (ca. 1,3 kg)</small></span><span class="ckp num">2,10 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="6"><span class="box"></span><span class="cknm">K-Classic Passierte Tomaten<small>3 × 500 g</small></span><span class="ckp num">1,77 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="7"><span class="box"></span><span class="cknm">K-Classic Karotten<small>1 kg</small></span><span class="ckp num">0,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="8"><span class="box"></span><span class="cknm">Tomaten, lose<small>700 g</small></span><span class="ckp num">1,68 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="9"><span class="box"></span><span class="cknm">Salatgurke<small>1 Stück</small></span><span class="ckp num">0,69 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="10"><span class="box"></span><span class="cknm">Zitronen, unbehandelt<small>500-g-Netz, 4 bis 5 Stück</small></span><span class="ckp num">1,49 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="11"><span class="box"></span><span class="cknm">K-Classic Vollkornbrot<small>500 g</small></span><span class="ckp num">1,19 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="12"><span class="box"></span><span class="cknm">Knoblauch<small>3 Knollen im Netz</small></span><span class="ckp num">0,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="13"><span class="box"></span><span class="cknm">Weißkohl<small>1 Kopf</small></span><span class="ckp num">0,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="14"><span class="box"></span><span class="cknm">K-Classic Vollkornbrötchen<small>4 Stück</small></span><span class="ckp num">0,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="15"><span class="box"></span><span class="cknm">Paprika, rot<small>2 Stück</small></span><span class="ckp num">1,58 €</span></label><div class="ckgroup"><span><b>Vorrat</b><small>Hält Wochen, nur nachkaufen, wenn es leer ist</small></span><span class="num">21,31 €</span></div><label class="ck"><input type="checkbox" data-key="shop" data-i="16"><span class="box"></span><span class="cknm">K-Classic Speisekartoffeln, vorwiegend festkochend<small>5 kg</small></span><span class="ckp num">3,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="17"><span class="box"></span><span class="cknm">K-Classic Rote Linsen<small>1 kg</small></span><span class="ckp num">2,58 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="18"><span class="box"></span><span class="cknm">K-Classic Rapsöl<small>1 l</small></span><span class="ckp num">2,29 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="19"><span class="box"></span><span class="cknm">K-Classic Langkornreis<small>1 kg</small></span><span class="ckp num">1,79 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="20"><span class="box"></span><span class="cknm">K-Classic TK-Gemüsemischung<small>750 g</small></span><span class="ckp num">1,39 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="21"><span class="box"></span><span class="cknm">K-Classic Haferflocken<small>1 kg</small></span><span class="ckp num">1,29 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="22"><span class="box"></span><span class="cknm">K-Classic Zwiebeln<small>1 kg</small></span><span class="ckp num">1,29 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="23"><span class="box"></span><span class="cknm">TK-Kräuter, z. B. 8-Kräuter-Mischung<small>1 Beutel, ins Gefrierfach</small></span><span class="ckp num">1,29 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="24"><span class="box"></span><span class="cknm">K-Classic Kichererbsen, getrocknet<small>500 g</small></span><span class="ckp num">1,19 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="25"><span class="box"></span><span class="cknm">K-Classic Leinsamen, geschrotet<small>250 g</small></span><span class="ckp num">0,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="26"><span class="box"></span><span class="cknm">Tomatenmark, 2-fach konzentriert<small>Tube, 200 g</small></span><span class="ckp num">0,89 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="27"><span class="box"></span><span class="cknm">K-Classic Speisestärke<small>400 g</small></span><span class="ckp num">0,79 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="28"><span class="box"></span><span class="cknm">K-Classic Nudeln<small>500 g</small></span><span class="ckp num">0,59 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="29"><span class="box"></span><span class="cknm">K-Classic Paniermehl<small>400 g</small></span><span class="ckp num">0,55 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="30"><span class="box"></span><span class="cknm">Ingwer, frisch<small>1 kleines Stück, ins Gefrierfach</small></span><span class="ckp num">0,40 €</span></label><div class="ckgroup"><span><b>Gewürze &amp; Kleinkram</b><small>Einmal kaufen, hält Monate</small></span><span class="num">13,59 €</span></div><label class="ck"><input type="checkbox" data-key="shop" data-i="31"><span class="box"></span><span class="cknm">K-Classic Blütenhonig<small>Honig-Senf, Dressings, Tomatensaucen, Süßes</small></span><span class="ckp num">2,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="32"><span class="box"></span><span class="cknm">Paprikapulver, geräuchert<small>der Geschmacks-Booster: Kartoffeln, Eier, Burger, Gulasch</small></span><span class="ckp num">1,49 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="33"><span class="box"></span><span class="cknm">Schwarzer Pfeffer, mit Mühle<small>frisch gemahlen deutlich aromatischer</small></span><span class="ckp num">1,49 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="34"><span class="box"></span><span class="cknm">Knoblauchgranulat<small>Panade, Würzmischungen</small></span><span class="ckp num">0,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="35"><span class="box"></span><span class="cknm">Paprikapulver, edelsüß<small>Gyros, Gulasch, Shakshuka, Linsen</small></span><span class="ckp num">0,89 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="36"><span class="box"></span><span class="cknm">Currypulver<small>Curry, indische Linsen</small></span><span class="ckp num">0,89 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="37"><span class="box"></span><span class="cknm">Kreuzkümmel, gemahlen<small>Gyros, Curry, Shakshuka, Linsen, Salsa</small></span><span class="ckp num">0,89 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="38"><span class="box"></span><span class="cknm">Chiliflocken<small>Pasta, Shakshuka, Linsen, Salsa</small></span><span class="ckp num">0,79 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="39"><span class="box"></span><span class="cknm">Kümmel, ganz<small>Kartoffeln, Krautsalat, Gulasch</small></span><span class="ckp num">0,79 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="40"><span class="box"></span><span class="cknm">Oregano<small>Gyros, Pasta, Bolognese, Linsen</small></span><span class="ckp num">0,69 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="41"><span class="box"></span><span class="cknm">Zimt<small>Frühstück, Snacks, Süßes</small></span><span class="ckp num">0,69 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="42"><span class="box"></span><span class="cknm">Branntweinessig<small>Krautsalat, Dressings, Gulasch</small></span><span class="ckp num">0,55 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="43"><span class="box"></span><span class="cknm">Senf, mittelscharf<small>Honig-Senf, Krautsalat, Burgersauce</small></span><span class="ckp num">0,45 €</span></label><div class="ckgroup"><span><b>Für Süßes</b><small>Nur wenn du aus „Süßes“ backst, plus 2 bis 3 extra reife Bananen. Honig steht schon bei den Gewürzen</small></span><span class="num">8,03 €</span></div><label class="ck"><input type="checkbox" data-key="shop" data-i="44"><span class="box"></span><span class="cknm">K-Classic Weizenmehl Type 405<small>1 kg</small></span><span class="ckp num">0,79 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="45"><span class="box"></span><span class="cknm">K-Classic TK-Beerenmischung<small>500 g</small></span><span class="ckp num">2,49 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="46"><span class="box"></span><span class="cknm">Backkakao, stark entölt, ungesüßt<small>125 g</small></span><span class="ckp num">1,49 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="47"><span class="box"></span><span class="cknm">Zartbitterschokolade, mind. 70 %<small>100 g</small></span><span class="ckp num">0,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="48"><span class="box"></span><span class="cknm">Backpapier<small>1 Rolle</small></span><span class="ckp num">0,99 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="49"><span class="box"></span><span class="cknm">Vanille-Backaroma<small>4 Fläschchen</small></span><span class="ckp num">0,79 €</span></label><label class="ck"><input type="checkbox" data-key="shop" data-i="50"><span class="box"></span><span class="cknm">Backpulver<small>5 Päckchen</small></span><span class="ckp num">0,49 €</span></label></div>
       <div class="cfoot"><button class="mini" data-reset="shop">Häkchen zurücksetzen</button></div>
-      <p class="note"><strong>Beim ersten Einkauf rund 61 €,</strong> weil Vorrat und Gewürze dabei sind. Danach kaufst du jede Woche nur „Jede Woche frisch“ für etwa 36 € und vom Vorrat, was leer ist. <strong>Echte Kosten: etwa 35 € pro Woche, also rund 5,00 € am Tag.</strong></p><p class="note"><strong>Kartoffelsorte:</strong> vorwiegend festkochend ist der Allrounder für Pommes, Bratkartoffeln, gekochte Kartoffeln und Kartoffelsalat. Mehligkochende zerfallen beim Kochen in Würfeln.</p><p class="note"><strong>Zwei echte Sparhebel:</strong> Magerquark im 1-kg-Becher statt im 500-g-Becher spart rund 1,30 € pro Kilo, das ist der größte Einzelposten. Und Hähnchenbrust nur im Angebot kaufen, dann kostet sie etwa 8,30 € statt 11 € pro Kilo.</p>
+      <p class="note"><strong>Beim ersten Einkauf rund 73 €,</strong> weil Vorrat und Gewürze dabei sind. Danach kaufst du jede Woche nur „Jede Woche frisch“ für etwa 38 € und vom Vorrat, was leer ist. <strong>Echte Kosten: etwa 40 € pro Woche, also rund 5,70 € am Tag.</strong> Etwa 5 € davon sind neu: Zitronen, Knoblauch, mehr Tomaten, Paprika und Eier, also genau das, was jetzt den Geschmack macht.</p><p class="note"><strong>Kartoffelsorte:</strong> vorwiegend festkochend ist der Allrounder für Pommes, Bratkartoffeln, gekochte Kartoffeln und Kartoffelsalat. Mehligkochende zerfallen beim Kochen in Würfeln.</p><p class="note"><strong>Zwei echte Sparhebel:</strong> Magerquark im 1-kg-Becher statt im 500-g-Becher spart rund 1,30 € pro Kilo, das ist der größte Einzelposten. Und Hähnchenbrust nur im Angebot kaufen, dann kostet sie etwa 8,30 € statt 11 € pro Kilo.</p>
     </div>
   </details>
 
   <div class="grp" id="wissen">Wissen</div>
+  
+<details class="card sec" id="lecker-ohne-salz">
+  <summary><span class="sico">✨</span><span class="shd"><span class="ctitle">Lecker ohne Salz</span><span class="csub">Warum es lasch geschmeckt hat, die 7 Regeln für alle Rezepte und ein Abschmeck-Check</span></span><span class="chev">▾</span></summary>
+  <div class="cbody"><div class="prose"><p class="lead-p">Am deutlichsten hat man es bei den Gewürzkartoffeln mit Kräuterquark und Ei gemerkt. In dem Gericht kam alles zusammen, was Essen ohne Salz fad macht.</p><h3 class="subhead">Warum es lasch geschmeckt hat</h3><ul class="tricks"><li><b>Das Gericht baut auf Salz.</b> Kartoffeln, Quark und Eier haben wenig Eigengeschmack, Salz würde ihn verstärken. Gerichte mit vielen Gewürzen wie Curry, Shakshuka oder Gyros funktionieren ohne Salz deutlich besser als schlichte Klassiker wie Pellkartoffeln mit Quark. Deshalb ist dieses Gericht durch ein Paprika-Kartoffelgulasch ersetzt.</li><li><b>Gekocht statt gebraten.</b> In Wasser gegarte Kartoffeln haben keine Röstaromen. Die braune Kruste beim Braten erzeugt Hunderte Aromastoffe und ist ohne Salz der wichtigste Geschmacksträger.</li><li><b>Gewürze trocken drübergestreut.</b> Paprika und Knoblauchpulver auf gekochten Kartoffeln schmecken staubig und roh. Viele Aromen in Gewürzen sind fettlöslich und entfalten sich erst in heißem Öl.</li><li><b>Zu wenig Fett.</b> Ein Teelöffel Öl pro Mahlzeit war zu knapp. Fett trägt Aromen und macht Magerquark cremig statt kreidig. Nur etwa 16 % der Kalorien kamen aus Fett, empfohlen sind um 30 %. Jetzt sind es etwa 20 %, bei gleichen Kalorien.</li><li><b>Schwache Aromaten.</b> Getrockneter Oregano im Kräuterquark und Knoblauchgranulat statt frischem Knoblauch schmecken nach wenig. Zitrone, der wichtigste Ersatz für Salz, fehlte ganz.</li><li><b>Keine Kontraste.</b> Weiche Kartoffeln, weicher Quark, weiches Ei, alles lauwarm. Nichts Knuspriges, nichts Frisches, nichts Süß-Saures, deshalb wird das Essen schnell langweilig.</li></ul><h3 class="subhead">Die 7 Regeln, nach denen jetzt alle Rezepte gebaut sind</h3><ol class="rules"><li><b>Braten statt kochen.</b> Kartoffeln, Zwiebeln und Hähnchen braun anbraten: Pfanne heiß, Zutaten trocken, nicht ständig rühren. Gekochte Kartoffeln danach 4 Minuten in der Pfanne rösten, am besten im Bratensatz vom Fleisch.</li><li><b>Gewürze in Öl rösten.</b> 30 bis 60 Sekunden in heißem Öl, bevor Flüssigkeit dazukommt. Oder als Gewürzöl zum Schluss obendrauf. Das ist der stärkste Einzeltrick im Plan.</li><li><b>Umami einbauen.</b> 1 Esslöffel Tomatenmark anrösten, bis es dunkelrot ist. Zwiebeln goldbraun braten. Frischen Knoblauch und geräuchertes Paprikapulver verwenden. Das gibt Tiefe, die sonst Salz oder Brühe liefern.</li><li><b>Säure zum Schluss.</b> Zitronensaft, Zitronenschale oder ein Schuss Essig, und zwar erst am Ende. Säure lässt Essen würziger und frischer schmecken und gleicht das fehlende Salz am besten aus.</li><li><b>Frisches drauf.</b> TK-Kräuter, roher Knoblauch im Dip, rohe Zwiebel in der Salsa, Gurke, Tomate. Frisches gegen Gegartes macht jeden Teller lebendiger.</li><li><b>Fett gezielt.</b> 2 Teelöffel Rapsöl pro Hauptgericht statt einem. Rapsöl liefert gute Fette, Omega-3 und Vitamin E.</li><li><b>Kontraste.</b> Knusprig zu cremig, warm zu kalt, süß zu sauer wie bei Honig-Senf, dazu etwas Schärfe mit Chili. Jedes Gericht hat jetzt mindestens einen Kontrast.</li></ol><h3 class="subhead">Abschmeck-Check vor dem Servieren</h3><div class="tblwrap"><table class="tbl"><thead><tr><th>Schmeckt …</th><th>Dann …</th></tr></thead><tbody><tr><td><strong>fad, nach wenig</strong></td><td>Spritzer Zitrone oder Essig, frisch gemahlener Pfeffer, etwas fein geriebener Knoblauch</td></tr><tr><td><strong>flach, irgendwie leer</strong></td><td>Tomatenmark anrösten, Röstaromen, eine Prise geräuchertes Paprikapulver</td></tr><tr><td><strong>zu sauer</strong></td><td>½ Teelöffel Honig oder ein paar Tropfen Öl</td></tr><tr><td><strong>eintönig</strong></td><td>Chili, frische Kräuter, rohe Zwiebel, etwas Knuspriges</td></tr><tr><td><strong>schwer</strong></td><td>Zitrone und etwas Frisches wie Gurke, Tomate oder Kräuter</td></tr></tbody></table></div><h3 class="subhead">Die Geschmacks-Booster</h3><p class="note">Tomatenmark, frischer Knoblauch, unbehandelte Zitronen (für die Schale), TK-Kräuter, geräuchertes Paprikapulver, Kümmel, Ingwer, Honig und eine Pfeffermühle. Alles steht in der Einkaufsliste. Zitronen, Knoblauch, mehr Tomaten und Paprika machen den Plan etwa 5 € pro Woche teurer, das ist der Preis für den Geschmack.</p><h3 class="subhead">Und gesund bleibt es trotzdem</h3><p class="note">Rapsöl bringt ungesättigte Fette und Omega-3, Zitronen, Paprika und Tomaten liefern Vitamin C. Es gibt mehr frisches Gemüse als vorher, keine Fertigsaucen und weiterhin kein Salz. Die Kalorien bleiben bei rund 2.000 am Tag, weil dafür etwas Kartoffeln und Nudeln weggefallen sind.</p></div></div>
+</details>
   
 <details class="card sec" id="schneller-kochen">
   <summary><span class="sico">⚡</span><span class="shd"><span class="ctitle">Schneller kochen</span><span class="csub">Sieben Tricks, mit denen jedes Rezept in 15 bis 25 Minuten fertig ist</span></span><span class="chev">▾</span></summary>
@@ -1353,26 +1367,16 @@ footer{margin:30px 6px 0;font-size:12.5px;color:var(--faint);line-height:1.6;max
 <details class="card sec" id="ehrlich-gesagt">
   <summary><span class="sico">💬</span><span class="shd"><span class="ctitle">Ehrlich gesagt</span><span class="csub">Du hast nach einer realistischen Einschätzung gefragt, also hier die ungeschönte Version der alten Fassung.</span></span><span class="chev">▾</span></summary>
   <div class="cbody"><div class="callout"><p><strong>Sieben Mal derselbe Linseneintopf hält kein Mensch durch.</strong> Das war der größte Schwachpunkt. Abends gibt es jetzt drei Gerichte, und der Linseneintopf selbst hat drei Würzrichtungen, die komplett anders schmecken.</p>
-<p><strong>Der eigentliche Grund für fades Essen war nicht das Öl, sondern das fehlende Gewürzregal.</strong> Im alten Plan standen Salz und Pfeffer. Für 7,72 € einmalig bekommst du zehn Gewürze und Würzmittel, die Monate halten und jedes einzelne Gericht retten. Das ist der mit Abstand beste Euro in diesem ganzen Plan.</p>
-<p><strong>Komplett ohne Öl rate ich dir ab, und zwar aus einem konkreten Grund.</strong> Im Airfryer brauchst du kein Fett für die Kruste, das stimmt. Aber Rapsöl ist in diesem Plan deine einzige Quelle für Vitamin E und Omega-3. Ein Teelöffel am Tag, kalt über das fertige Essen, kostet 45 kcal und schließt zwei echte Lücken. Zum Braten brauchst du es nicht mehr.</p>
-<p><strong>Ohne Salz geht es, wenn Säure und Gewürze den Job übernehmen.</strong> In diesem Plan wird nirgends gesalzen. Natrium bekommst du trotzdem genug, über Quark, Eier, Brötchen und Thunfisch. Damit es nicht fad schmeckt, sind Essig, Senf, Knoblauch, Paprika und Pfeffer jetzt umso wichtiger. Lieber einen Spritzer Essig mehr als zu wenig.</p>
+<p><strong>Der eigentliche Grund für fades Essen war nicht das Öl, sondern das fehlende Gewürzregal.</strong> Im alten Plan standen Salz und Pfeffer. Für rund 13,60 € einmalig bekommst du Gewürze, Honig, Senf, Essig und eine Pfeffermühle, die Monate halten und jedes einzelne Gericht retten. Das ist der mit Abstand beste Euro in diesem ganzen Plan.</p>
+<p><strong>Zu wenig Öl war ein Fehler.</strong> Rapsöl ist in diesem Plan die wichtigste Quelle für Vitamin E und Omega-3, und ohne Fett schmeckt Essen ohne Salz noch fader, weil viele Aromen fettlöslich sind. Deshalb jetzt 2 Teelöffel pro Hauptgericht statt einem. Die Kalorien bleiben trotzdem bei rund 2.000 am Tag, weil an anderer Stelle etwas Kartoffeln und Nudeln weggefallen sind.</p>
+<p><strong>Ohne Salz geht es, aber nur, wenn alle anderen Hebel arbeiten.</strong> Die erste Fassung hat das unterschätzt: Gewürze trocken über gekochte Kartoffeln reichen nicht. Jetzt sind alle Rezepte auf Röstaromen, Gewürzöl, angeröstetes Tomatenmark, frischen Knoblauch, Zitrone und Kräuter gebaut. Natrium bekommst du trotzdem genug, über Quark, Eier, Brot und Thunfisch. Was genau anders ist, steht unter „Lecker ohne Salz“.</p>
 <p><strong>Nach der Uni hat niemand Lust auf eine Stunde Küche.</strong> Deshalb ist jedes Rezept auf 15 bis 25 Minuten gebaut, nur die Nuggets brauchen 30. Kartoffeln kommen nur noch für Pommes in den Airfryer, sonst werden sie gekocht oder in der Pfanne gebraten. Die Tricks dahinter stehen unter „Schneller kochen“.</p>
 <p><strong>Säure hat komplett gefehlt.</strong> Ein Spritzer Essig am Ende ist der Unterschied zwischen "irgendwie fertig" und "schmeckt". Kostet nichts und steht jetzt in fast jeder Anleitung.</p></div></div>
 </details>
   
 <details class="card sec" id="so-laeuft-der-tag">
-  <summary><span class="sico">⏱️</span><span class="shd"><span class="ctitle">So läuft der Tag</span><span class="csub">Vier Slots, jeder mit Auswahl. Die Varianten in einem Slot haben fast gleich viele Kalorien, deshalb kannst du tauschen, ohne nachzurechnen.</span></span><span class="chev">▾</span></summary>
-  <div class="cbody"><div class="prose"><div class="tblwrap"><table class="tbl">
-<thead><tr><th>Slot</th><th>Wann</th><th class="n">kcal</th><th class="n">Protein</th></tr></thead>
-<tbody>
-<tr><td><strong>Frühstück</strong>, zwei Varianten</td><td>morgens</td><td class="n">535–546</td><td class="n">35–40 g</td></tr>
-<tr><td><strong>Mittagessen</strong>, neun Varianten</td><td>mittags</td><td class="n">622–715</td><td class="n">46–56 g</td></tr>
-<tr><td><strong>Snack</strong>, sechs Varianten</td><td>nachmittags</td><td class="n">110–180</td><td class="n">2–17 g</td></tr>
-<tr><td><strong>Abendessen</strong>, drei Varianten</td><td>abends</td><td class="n">604–617</td><td class="n">44–49 g</td></tr>
-<tr class="total"><td>Tag im Wochenvorschlag</td><td></td><td class="n">1.936–2.034</td><td class="n">146–150 g</td></tr>
-</tbody>
-</table></div>
-<p class="note">Zwei Regeln: An Thunfisch-Tagen nimmst du einen leichten Snack, sonst landest du über 150 g Protein. Und das Spiegelei-Frühstück bringt 5 g mehr Protein als Hafer-Quark, deshalb steht es im Wochenvorschlag nur an Tagen, an denen das passt. Wer sich an den Wochenvorschlag hält, muss nichts rechnen.</p></div></div>
+  <summary><span class="sico">⏱️</span><span class="shd"><span class="ctitle">So läuft der Tag</span><span class="csub">Vier Slots, jeder mit Auswahl. Die Varianten in einem Slot haben ähnlich viele Kalorien, deshalb kannst du tauschen, ohne nachzurechnen.</span></span><span class="chev">▾</span></summary>
+  <div class="cbody"><div class="prose"><div class="tblwrap"><table class="tbl"><thead><tr><th>Slot</th><th>Wann</th><th class="n">kcal</th><th class="n">Protein</th></tr></thead><tbody><tr><td><strong>Frühstück</strong>, zwei Varianten</td><td>morgens</td><td class="n">547–566</td><td class="n">35–37 g</td></tr><tr><td><strong>Mittagessen</strong>, neun Varianten</td><td>mittags</td><td class="n">598–755</td><td class="n">43–54 g</td></tr><tr><td><strong>Snack</strong>, sechs Varianten</td><td>nachmittags</td><td class="n">110–180</td><td class="n">2–17 g</td></tr><tr><td><strong>Abendessen</strong>, drei Varianten</td><td>abends</td><td class="n">628–640</td><td class="n">41–43 g</td></tr><tr class="total"><td>Tag im Wochenvorschlag</td><td></td><td class="n">1.966–2.094</td><td class="n">138–147 g</td></tr></tbody></table></div><p class="note">Das Curry liegt wegen der 125 g Reis höher als die anderen Mittagessen. Wer sich an den Wochenvorschlag hält, muss nichts rechnen. Faustregel beim Tauschen: Gibt es mittags Thunfisch-Pasta, darf der Snack leicht sein.</p></div></div>
 </details>
   
 <details class="card sec" id="kuechen-grundlagen">
@@ -1448,7 +1452,7 @@ footer{margin:30px 6px 0;font-size:12.5px;color:var(--faint);line-height:1.6;max
   <div class="cbody"><div class="prose"><div class="tblwrap"><table class="tbl">
 <thead><tr><th>Nährstoff</th><th>Stand</th><th>Woher im Plan</th></tr></thead>
 <tbody>
-<tr><td>Vitamin C</td><td><span class="pill ok">gedeckt</span></td><td>Kartoffeln liefern überraschend viel, dazu Paprika, Tomaten, TK-Gemüse, Kohl und Obst</td></tr>
+<tr><td>Vitamin C</td><td><span class="pill ok">gedeckt</span></td><td>Kartoffeln liefern überraschend viel, dazu Zitronen, Paprika, Tomaten, Kohl und Obst</td></tr>
 <tr><td>Vitamin A</td><td><span class="pill ok">gedeckt</span></td><td>Karotten, täglich mindestens 100 g</td></tr>
 <tr><td>Vitamin B12</td><td><span class="pill ok">gedeckt</span></td><td>Quark, Eier, Fleisch und Fisch, deutlich über Bedarf</td></tr>
 <tr><td>B-Vitamine gesamt</td><td><span class="pill ok">gedeckt</span></td><td>Haferflocken, Linsen, Hähnchen</td></tr>
@@ -1458,7 +1462,7 @@ footer{margin:30px 6px 0;font-size:12.5px;color:var(--faint);line-height:1.6;max
 <tr><td><strong>Calcium</strong></td><td><span class="pill warn">knapp</span></td><td>Quark bringt etwa 500 mg, der Rest kommt aus Hafer und Gemüse. Du landest bei rund 800 von 1.000 mg. Fix: 150 g Quark mehr an Tagen ohne Quark-Snack</td></tr>
 <tr><td><strong>Jod</strong></td><td><span class="pill warn">Lücke</span></td><td>In Deutschland ohne Seefisch und ohne jodiertes Salz kritisch, und da du kein Salz verwendest, fällt Jodsalz als Quelle weg. Fix: einmal pro Woche Seefisch, zum Beispiel eine Dose Makrele oder Hering statt Thunfisch. Oder ein Jodpräparat, das vorher mit Ärztin oder Arzt absprechen</td></tr>
 <tr><td><strong>Omega-3</strong></td><td><span class="pill warn">Lücke</span></td><td>Thunfisch im eigenen Saft hat kaum welche. Fix: 10 g geschrotete Leinsamen ins Frühstück, 4 Cent am Tag. Oder einmal die Woche eine Dose Makrele statt Thunfisch</td></tr>
-<tr><td><strong>Vitamin E</strong></td><td><span class="pill warn">knapp</span></td><td>Hängt komplett am Rapsöl. Wenn du es ganz weglässt, kippt dieser Wert. Deshalb der eine Teelöffel am Tag</td></tr>
+<tr><td><strong>Vitamin E</strong></td><td><span class="pill warn">knapp</span></td><td>Hängt vor allem am Rapsöl. Jetzt 2 Teelöffel pro Hauptgericht statt einem, mit den Leinsamen im Frühstück wird es noch besser</td></tr>
 <tr><td><strong>Vitamin D</strong></td><td><span class="pill warn">Lücke</span></td><td>Nicht über Essen lösbar, gilt in Deutschland von Oktober bis März für fast alle. Ein Präparat mit 1.000 IE kostet unter 5 € für sechs Monate</td></tr>
 </tbody>
 </table></div>
@@ -1469,7 +1473,7 @@ footer{margin:30px 6px 0;font-size:12.5px;color:var(--faint);line-height:1.6;max
 </div>
 <div class="toTop" id="toTop" aria-hidden="true">↑</div>
 <script>
-const WEEK = [{"d": "Mo", "k": "1.984", "p": "147,8 g", "meals": [["Hafer-Quark", "f-hafer-quark", "🥣"], ["Nuggets mit Pommes", "m-nuggets", "🍗"], ["Quark, Apfel, Zimt", "s-quark-mit-apfel-und-zimt", "🍎"], ["Linseneintopf", "a-linsen", "🍲"]]}, {"d": "Di", "k": "1.964", "p": "146,5 g", "meals": [["Hafer-Quark", "f-hafer-quark", "🥣"], ["Schnitzel mit Krautsalat", "m-schnitzel", "🥩"], ["Karotten mit Dip", "s-karottensticks-mit-quark-dip", "🥕"], ["Spiegeleier mit Bratkartoffeln", "a-bratkartoffeln", "🍳"]]}, {"d": "Mi", "k": "2.034", "p": "149,3 g", "meals": [["Spiegelei-Brot", "f-spiegelei-brot", "🥪"], ["Curry mit Reis", "m-curry", "🍛"], ["Quark, Apfel, Zimt", "s-quark-mit-apfel-und-zimt", "🍎"], ["Linseneintopf", "a-linsen", "🍲"]]}, {"d": "Do", "k": "1.936", "p": "148,5 g", "meals": [["Hafer-Quark", "f-hafer-quark", "🥣"], ["Burger mit Krautsalat", "m-burger", "🍔"], ["Karotten mit Dip", "s-karottensticks-mit-quark-dip", "🥕"], ["Linseneintopf", "a-linsen", "🍲"]]}, {"d": "Fr", "k": "1.970", "p": "149,6 g", "meals": [["Hafer-Quark", "f-hafer-quark", "🥣"], ["Thunfisch-Kartoffelsalat", "m-kartoffelsalat", "🥗"], ["Quark, Apfel, Zimt", "s-quark-mit-apfel-und-zimt", "🍎"], ["Linseneintopf", "a-linsen", "🍲"]]}, {"d": "Sa", "k": "1.943", "p": "147,4 g", "meals": [["Spiegelei-Brot", "f-spiegelei-brot", "🥪"], ["Gyros-Pfanne", "m-gyros", "🥙"], ["Banane mit Quark", "s-banane-mit-quark", "🍌"], ["Linseneintopf", "a-linsen", "🍲"]]}, {"d": "So", "k": "1.981", "p": "146,8 g", "meals": [["Hafer-Quark", "f-hafer-quark", "🥣"], ["Thunfisch-Pasta", "m-pasta", "🍝"], ["Kichererbsen", "s-airfryer-kichererbsen", "🫘"], ["Shakshuka", "a-shakshuka", "🍅"]]}];
+const WEEK = [{"d": "Mo", "k": "2.020", "p": "147,2 g", "meals": [["Hafer-Quark", "f-hafer-quark", "🥣"], ["Nuggets mit Pommes", "m-nuggets", "🍗"], ["Quark, Apfel, Zimt", "s-quark-mit-apfel-und-zimt", "🍎"], ["Linseneintopf", "a-linsen", "🍲"]]}, {"d": "Di", "k": "1.982", "p": "145,0 g", "meals": [["Hafer-Quark", "f-hafer-quark", "🥣"], ["Schnitzel mit Röstkartoffeln", "m-schnitzel", "🥩"], ["Karotten mit Dip", "s-karottensticks-mit-quark-dip", "🥕"], ["Shakshuka", "a-shakshuka", "🍅"]]}, {"d": "Mi", "k": "2.094", "p": "139,4 g", "meals": [["Hafer-Quark", "f-hafer-quark", "🥣"], ["Curry mit Reis", "m-curry", "🍛"], ["Karotten mit Dip", "s-karottensticks-mit-quark-dip", "🥕"], ["Spiegeleier mit Salsa", "a-salsa", "🍳"]]}, {"d": "Do", "k": "1.997", "p": "137,6 g", "meals": [["Hafer-Quark", "f-hafer-quark", "🥣"], ["Burger mit Krautsalat", "m-burger", "🍔"], ["Kichererbsen", "s-airfryer-kichererbsen", "🫘"], ["Linseneintopf", "a-linsen", "🍲"]]}, {"d": "Fr", "k": "1.966", "p": "142,3 g", "meals": [["Hafer-Quark", "f-hafer-quark", "🥣"], ["Kartoffelsalat mit Thunfisch", "m-kartoffelsalat", "🥗"], ["Quark, Apfel, Zimt", "s-quark-mit-apfel-und-zimt", "🍎"], ["Shakshuka", "a-shakshuka", "🍅"]]}, {"d": "Sa", "k": "1.970", "p": "141,5 g", "meals": [["Spiegelei-Brot", "f-spiegelei-brot", "🥪"], ["Gyros-Pfanne", "m-gyros", "🥙"], ["Banane mit Quark", "s-banane-mit-quark", "🍌"], ["Linseneintopf", "a-linsen", "🍲"]]}, {"d": "So", "k": "1.992", "p": "147,3 g", "meals": [["Hafer-Quark", "f-hafer-quark", "🥣"], ["Thunfisch-Pasta", "m-pasta", "🍝"], ["Quark, Apfel, Zimt", "s-quark-mit-apfel-und-zimt", "🍎"], ["Spiegeleier mit Salsa", "a-salsa", "🍳"]]}];
 (function(){
   var $ = function(s, r){ return (r || document).querySelector(s); };
   var $$ = function(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
