@@ -17,12 +17,14 @@ Der Nutzer mag das Design von Wochenplan 5.0 (Commit `1a56677`) ausdrücklich. A
 - **Bewegung:** dezent (Seitenwechsel 0,2 bis 0,4 s), `prefers-reduced-motion` beachten.
 - **Referenz:** Das komplette CSS und JS steht in `index.html`. Für neue Seiten oder Projekte von dort übernehmen statt neu zu erfinden.
 
-## Inhalte – Wochenplan 6.0
+## Inhalte – Wochenplan 6.1
 
-Die Rezepte wurden auf ausdrücklichen Wunsch komplett neu gemacht, weil die alten ohne Salz „tot“ geschmeckt haben (vor allem die Erdnuss-Nudeln und das trockene Haferflocken-Frühstück). Der Nutzer isst gerne Nudeln, Reis, Käse und Burger und will einfache, schnelle, wirklich leckere Gerichte. Rezepte nur ändern, wenn der Nutzer darum bittet. Feste Vorgaben für jede Änderung:
+Die Rezepte wurden in 6.0 auf ausdrücklichen Wunsch komplett neu gemacht, weil die alten ohne Salz „tot“ geschmeckt haben (vor allem die Erdnuss-Nudeln und das trockene Haferflocken-Frühstück). In 6.1 wurde jedes Rezept auf Geschmack ohne Salz geprüft und nachgeschärft; die Caprese ist durch einen Feta-Dip ersetzt, die Joker-Pasta nimmt Feta statt Mozzarella light. Der Nutzer will nicht ständig ändern. Er isst gerne Nudeln, Reis, Käse und Burger und will einfache, schnelle, wirklich leckere Gerichte. Rezepte nur ändern, wenn der Nutzer darum bittet. Feste Vorgaben für jede Änderung:
 
 - kein Salz zum Würzen, nirgends. Käse, Brot, Wraps, Senf und Thunfisch mit ihrem natürlichen Salzgehalt sind erlaubt und der wichtigste Geschmacksträger
-- Geschmack zuerst: Käse (Parmesan, Feta, Gouda, Mozzarella), braun gebratenes Fleisch, geröstetes Tomatenmark und Gewürze, Säure zum Schluss. Nudeln und Reis in der Soße fertig garen
+- Geschmack zuerst: Käse (Parmesan, Feta, Gouda, Mozzarella), möglichst obendrauf; Feta als salzigsten Käse gezielt einsetzen. Senf als Würze (Rührei, Burger-Patty, Fisch-Panade). Fleisch und Pilze braun braten, Pilze nie roh auf die Pizza. Tomatenmark und Gewürze rösten, Säure zum Schluss
+- Nudeln in der Soße fertig garen; den Reisbeutel 2 Minuten früher herausnehmen und den Reis in der Soße fertig garen oder in der Pfanne mit den Bratresten schwenken, nie pur servieren
+- Cherry- oder Cocktailtomaten statt großer Tomaten, nicht in den Kühlschrank
 - keine Gerichte, die von Salz oder Sojasauce leben (asiatische Soßen, Dal, schlichte Kartoffeln mit Quark)
 - Frühstück cremig statt trocken: höchstens 50 g Haferflocken, mit Skyr und Milch
 - Reis immer 125 g (Kochbeutel)
@@ -30,7 +32,7 @@ Die Rezepte wurden auf ausdrücklichen Wunsch komplett neu gemacht, weil die alt
 - schnell nach der Uni: 10 bis 30 Minuten
 - vollständige Zutatenlisten inklusive Gewürze und Kleinkram; jede Zutat steht auf der Einkaufsliste, und die Mengen reichen für den Wochenvorschlag
 - gesund und fitnesstauglich: rund 2.000 bis 2.100 kcal und 140 g Protein am Tag; Kaufland, etwa 8 € pro Tag
-- Süßes (6 Rezepte) ist unverändert aus der vorigen Fassung
+- Süßes (6 Rezepte) stammt aus der vorigen Fassung; in 6.1 nur etwas mehr Honig in Schoko-Mousse und Zimtschnecken-Füllung, weil Kakao und Teig ohne Salz herber schmecken
 
 ## Technik
 

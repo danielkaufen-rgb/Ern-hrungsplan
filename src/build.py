@@ -1,4 +1,4 @@
-"""Ernährungsplan, Wochenplan 6.0 (Datenteil).
+"""Ernährungsplan, Wochenplan 6.1 (Datenteil).
 Quellen: plan_src (Küchen-Grundlagen, Airfryer-Technik), mahlzeiten6.html (Rezepte, Woche, Einkauf), suesses4.html."""
 import re, sys, html, json
 from bs4 import BeautifulSoup
@@ -182,10 +182,10 @@ wk_k = [num(w["k"]) for w in week]
 wk_p = [num(w["p"]) for w in week]
 avg_k, avg_p = sum(wk_k) / 7, sum(wk_p) / 7
 week_note = (f'Jeder Tag liegt zwischen {de(min(wk_k))} und {de(max(wk_k))} kcal und zwischen {de(min(wk_p))} und {de(max(wk_p))} g Protein, '
-             f'im Schnitt {de(avg_k)} kcal und {de(avg_p)} g. Die Tomaten-Mozzarella-Pasta ist der Joker, wenn du ein Mittagessen tauschen willst. '
+             f'im Schnitt {de(avg_k)} kcal und {de(avg_p)} g. Die Tomaten-Feta-Pasta ist der Joker, wenn du ein Mittagessen tauschen willst. '
              '<strong>Zeitspar-Kombis:</strong> Die Bolognese am Montag doppelt kochen, dann ist der Dienstag in 10 Minuten erledigt. '
              'Overnight Oats am Sonntagabend für Montag und Dienstag ansetzen, am Mittwochabend für Donnerstag und Freitag. '
-             'Champignons, Mozzarella, Bohnen und passierte Tomaten sind so verteilt, dass nichts schlecht wird. '
+             'Champignons, Feta, Bohnen und passierte Tomaten sind so verteilt, dass nichts schlecht wird. '
              '<strong>Wichtig:</strong> Hähnchen und Hack gleich nach dem Einkauf in Portionen einfrieren, was du nicht in den nächsten 1 bis 2 Tagen brauchst, '
              'und am Vorabend zum Auftauen in den Kühlschrank legen.')
 
@@ -267,14 +267,15 @@ LECKER = (
  '<li><b>Zu wenig Käse und Umami.</b> Käse, braun gebratenes Fleisch, geröstetes Tomatenmark und Pilze schmecken von sich aus herzhaft. Davon gab es zu wenig.</li>'
  '<li><b>Zu viel Wasser, zu wenig Fett.</b> Quark mit Wasser und Haferflocken mit Wasser schmecken trocken und leer. Jetzt gibt es Skyr, Milch, Butter und Olivenöl in vernünftigen Mengen.</li>'
  '</ul>'
- '<h3 class="subhead">Die 6 Regeln für jedes Rezept</h3>'
+ '<h3 class="subhead">Die 7 Regeln für jedes Rezept</h3>'
  '<ol class="rules">'
- '<li><b>Käse ist dein Salz.</b> Parmesan, Feta und Gouda bringen ihre Würze von Natur aus mit. Ein Esslöffel frisch geriebener Parmesan macht mehr aus einem Gericht als jedes Gewürz.</li>'
- '<li><b>Braun braten.</b> Hack und Hähnchen in die heiße Pfanne und 2 bis 3 Minuten nicht anfassen. Die braune Kruste ist der Geschmack.</li>'
- '<li><b>Nudeln und Reis in der Soße fertig machen.</b> Nudeln 2 Minuten früher abgießen und in der Soße fertig garen. Reis in die Pfanne zur Soße geben statt pur auf den Teller.</li>'
+ '<li><b>Käse ist dein Salz.</b> Parmesan, Feta und Gouda bringen ihre Würze von Natur aus mit, Feta am meisten. Ein Esslöffel frisch geriebener Parmesan macht mehr aus einem Gericht als jedes Gewürz. Am stärksten wirkt Käse obendrauf, weil er dort zuerst auf die Zunge trifft.</li>'
+ '<li><b>Braun braten.</b> Hack und Hähnchen in die heiße Pfanne und 2 bis 3 Minuten nicht anfassen. Die braune Kruste ist der Geschmack. Pilze genauso: erst braun braten, dann weiterkochen.</li>'
+ '<li><b>Nudeln und Reis in der Soße fertig machen.</b> Nudeln 2 Minuten früher abgießen und in der Soße fertig garen. Den Reisbeutel 2 Minuten früher herausnehmen und den Reis in der Soße fertig garen oder in der Pfanne mit den Bratresten schwenken, nie pur auf den Teller.</li>'
  '<li><b>Tomatenmark und Gewürze rösten.</b> 1 Minute in heißem Öl, bevor Flüssigkeit dazukommt. Kreuzkümmel, Rauchpaprika und Oregano schmecken dann voll statt staubig.</li>'
- '<li><b>Säure zum Schluss.</b> Zitrone, Balsamico oder schnelle Essiggurken. Säure macht Essen frisch und würzig, ohne dass es sauer schmeckt.</li>'
+ '<li><b>Säure zum Schluss.</b> Zitrone, Balsamico, Senf oder schnelle Essiggurken. Säure macht Essen frisch und würzig, ohne dass es sauer schmeckt.</li>'
  '<li><b>Cremig und knusprig.</b> Geschmolzener Käse, Skyr-Dips, knusprige Pommes, gerösteter Hafer: Jedes Gericht hat etwas Cremiges und etwas mit Biss.</li>'
+ '<li><b>Tomaten mit Geschmack.</b> Cherry- oder Cocktailtomaten statt großer Tomaten, und nie in den Kühlschrank. Große Tomaten schmecken im Herbst und Winter wässrig, und Kälte nimmt jeder Tomate Aroma. Ohne Salz merkst du das sofort.</li>'
  '</ol>'
  '<h3 class="subhead">Abschmeck-Check vor dem Servieren</h3>'
  '<div class="tblwrap"><table class="tbl"><thead><tr><th>Schmeckt …</th><th>Dann …</th></tr></thead><tbody>'
@@ -337,7 +338,7 @@ def slot_row(dot, name, kcal, prot, target):
             f'<span class="hv num">{kcal} <small>kcal</small></span><span class="hp num">{prot} Protein</span></a>')
 
 fk = [num(r["kcal"]) for r in meals["frueh"]]; ak = [num(r["kcal"]) for r in meals["abend"]]
-VORRAT_PRO_WOCHE = 10.94  # geschätzter Verbrauch aus Vorrat und Gewürzen pro Woche
+VORRAT_PRO_WOCHE = 11.42  # geschätzter Verbrauch aus Vorrat und Gewürzen pro Woche
 cost_week = weekly + VORRAT_PRO_WOCHE
 cost_day = round(cost_week / 7, 1)
 COST_WEEK_S, COST_DAY_S = de(cost_week), de(cost_day, 2)
@@ -350,11 +351,11 @@ shop_note = (f'<p class="note"><strong>Beim ersten Einkauf rund {de(first_buy)} 
              '<p class="note"><strong>Zwei echte Sparhebel:</strong> Hähnchen und Hack nur im Angebot kaufen und einfrieren. '
              'Und Skyr gibt es oft im Angebot, ungeöffnet hält er mehrere Wochen.</p>')
 
-# ======================= Oberfläche im Apple-Stil (Wochenplan 6.0) =======================
+# ======================= Oberfläche im Apple-Stil (Wochenplan 6.1) =======================
 # Wird an den Datenteil (build6_data.py) angehängt. Rezepte, Mengen und Texte kommen aus den Quellen.
 from collections import defaultdict
 
-VERSION = "Wochenplan 6.0"
+VERSION = "Wochenplan 6.1"
 ICON_B64 = open("icon180.b64").read().strip()
 kueche = (kueche[0].replace("jede Anleitung weiter unten", "jede Anleitung in den Rezepten"), kueche[1], kueche[2])
 
@@ -411,7 +412,7 @@ CATS = [
       intro=f'Overnight Oats für die Wochentage, Käse-Rührei fürs Wochenende und die Skyr-Bowl für Morgen ohne Vorbereitung. Alle liegen bei {de(min(fk))} bis {de(max(fk))} kcal, du kannst also jederzeit tauschen.',
       filters=[]),
  dict(id="mittagessen", name="Mittagessen", seg="Mittag", color="green", items=meals["mittag"], avg=SA[1],
-      intro="Nudeln, Reis und Burger: Jedes Gericht hat Käse oder kräftige Röstaromen, damit es ohne Salz schmeckt. Die Tomaten-Mozzarella-Pasta ist der Joker, wenn du ein Mittagessen tauschen willst. Kartoffeln gibt es nur als Pommes aus dem Airfryer, gewogen mit Schale.",
+      intro="Nudeln, Reis und Burger: Jedes Gericht hat Käse oder kräftige Röstaromen, damit es ohne Salz schmeckt. Die Tomaten-Feta-Pasta ist der Joker, wenn du ein Mittagessen tauschen willst. Kartoffeln gibt es nur als Pommes aus dem Airfryer, gewogen mit Schale.",
       filters=[("pasta", "Nudeln"), ("rice", "Reis"), ("fries", "Mit Pommes")]),
  dict(id="snacks", name="Snacks", seg="Snacks", color="teal", items=meals["snack"], avg=SA[2],
       intro=f'Zwei süße und zwei herzhafte Snacks mit {de(min(_sp))} bis {de(max(_sp))} g Protein. Alle sind in 3 bis 5 Minuten fertig.',
