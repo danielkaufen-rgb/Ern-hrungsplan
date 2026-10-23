@@ -498,7 +498,7 @@ html[data-theme="dark"] .t-l{display:none}
 /* ===== Ohne JavaScript =====
    Datei-Vorschauen (Dateien-App, Mail, Anhänge auf iPhone und iPad, Quick Look am Mac) führen kein JavaScript aus.
    Dann stehen alle Seiten untereinander, und ein Tipp auf einen Link zeigt nur noch die angetippte Seite (:target).
-   Mit JavaScript setzt der Kopf der Seite die Klasse "js" an <html>, und alles läuft wie gewohnt über app.js. */
+   Mit JavaScript setzt der Kopf der Seite die Klasse "js" am html-Element, und alles läuft wie gewohnt über app.js. */
 .anc{display:block;height:0}
 .dayblock + .dayblock{margin-top:26px}
 .dayblock .list{margin-top:12px}
