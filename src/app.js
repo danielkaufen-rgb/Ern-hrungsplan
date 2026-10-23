@@ -416,4 +416,6 @@
 
   // ---------- Start ----------
   onHash();
+  // Erfolgreich gestartet. Fehlt das Signal, schaltet die Seite in den Modus ohne JavaScript zurück.
+  window.EP_OK = true;
 })();

@@ -70,6 +70,8 @@ html[data-theme="dark"]{
   --blue: #0a84ff; --blue-t: #409cff; --blue-k: linear-gradient(150deg, #122f55, #0c2443);
   color-scheme: dark;
 }
+/* build.py spiegelt alle html[data-theme="dark"]-Regeln zusätzlich in @media (prefers-color-scheme: dark):
+   Solange kein Thema gesetzt ist (z. B. ohne JavaScript), folgt die Seite der Systemeinstellung. */
 
 /* ===== Grundlagen ===== */
 *{box-sizing:border-box}
@@ -492,3 +494,56 @@ html[data-theme="dark"] .t-l{display:none}
   .card,.list,.ing,ol.steps,.tip,.mise,.stat{box-shadow:none;border:1px solid #ddd}
 }
 .sum-side b .u{font-family:var(--font);font-size:14px;font-weight:600;color:var(--label2);letter-spacing:0}
+
+/* ===== Ohne JavaScript =====
+   Datei-Vorschauen (Dateien-App, Mail, Anhänge auf iPhone und iPad, Quick Look am Mac) führen kein JavaScript aus.
+   Dann stehen alle Seiten untereinander, und ein Tipp auf einen Link zeigt nur noch die angetippte Seite (:target).
+   Mit JavaScript setzt der Kopf der Seite die Klasse "js" an <html>, und alles läuft wie gewohnt über app.js. */
+.anc{display:block;height:0}
+.dayblock + .dayblock{margin-top:26px}
+.dayblock .list{margin-top:12px}
+html.js .nojs{display:none !important}
+html:not(.js) .jsonly,
+html:not(.js) [data-theme-toggle],
+html:not(.js) .search,
+html:not(.js) .seg,
+html:not(.js) .chips,
+html:not(.js) .pcard,
+html:not(.js) .stepbar,
+html:not(.js) .shint{display:none !important}
+html:not(.js) .page[hidden],
+html:not(.js) .cat[hidden]{display:block !important}
+html:not(.js) .page{min-height:0}
+html:not(.js):has(.page :target) .page:not(:has(:target)){display:none !important}
+html:not(.js) .stepck{pointer-events:none}
+html:not(.js) .ck:has(input:checked) .cbox{background:var(--green);box-shadow:inset 0 0 0 1.6px var(--green)}
+html:not(.js) .ck:has(input:checked) .cbox .ico-check{opacity:1;transform:none}
+html:not(.js) .ck:has(input:checked) .cname{color:var(--label3);text-decoration:line-through;text-decoration-color:var(--label3)}
+html:not(.js) .ck:has(input:checked) .cprice,
+html:not(.js) .ck:has(input:checked) .ctext small{color:var(--label3)}
+html:not(.js):not(:has(.page :target)) .tab[data-tab="heute"],
+html:not(.js):has(#pg-heute :target) .tab[data-tab="heute"],
+html:not(.js):has(#pg-rezepte :target) .tab[data-tab="rezepte"],
+html:not(.js):has(.page[data-kind="recipe"] :target) .tab[data-tab="rezepte"],
+html:not(.js):has(#pg-woche :target) .tab[data-tab="woche"],
+html:not(.js):has(#pg-einkauf :target) .tab[data-tab="einkauf"],
+html:not(.js):has(#pg-wissen :target) .tab[data-tab="wissen"],
+html:not(.js):has(.page[data-kind="article"] :target) .tab[data-tab="wissen"]{color:var(--tint);background:var(--tab-on)}
+@media (min-width:1080px){
+  html:not(.js):not(:has(.page :target)) .side-i[data-tab="heute"],
+  html:not(.js):has(#pg-heute :target) .side-i[data-tab="heute"],
+  html:not(.js):has(#pg-rezepte :target) .side-i[data-tab="rezepte"],
+  html:not(.js):has(.page[data-kind="recipe"] :target) .side-i[data-tab="rezepte"],
+  html:not(.js):has(#pg-woche :target) .side-i[data-tab="woche"],
+  html:not(.js):has(#pg-einkauf :target) .side-i[data-tab="einkauf"],
+  html:not(.js):has(#pg-wissen :target) .side-i[data-tab="wissen"],
+  html:not(.js):has(.page[data-kind="article"] :target) .side-i[data-tab="wissen"]{background:var(--tint);color:#fff}
+  html:not(.js):not(:has(.page :target)) .side-i[data-tab="heute"] svg,
+  html:not(.js):has(#pg-heute :target) .side-i[data-tab="heute"] svg,
+  html:not(.js):has(#pg-rezepte :target) .side-i[data-tab="rezepte"] svg,
+  html:not(.js):has(.page[data-kind="recipe"] :target) .side-i[data-tab="rezepte"] svg,
+  html:not(.js):has(#pg-woche :target) .side-i[data-tab="woche"] svg,
+  html:not(.js):has(#pg-einkauf :target) .side-i[data-tab="einkauf"] svg,
+  html:not(.js):has(#pg-wissen :target) .side-i[data-tab="wissen"] svg,
+  html:not(.js):has(.page[data-kind="article"] :target) .side-i[data-tab="wissen"] svg{color:#fff}
+}

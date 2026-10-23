@@ -108,7 +108,32 @@ function ok(cond, msg){ if(!cond) fails.push(msg); else console.log('  ✓ ' + m
     return [...document.querySelectorAll('a[href^="#r/"], a[href^="#w/"]')].map(a => a.getAttribute('href').slice(1)).filter(h => !routes.has(h));
   });
   ok(bad.length === 0, 'Alle internen Links gültig ' + bad.join(' '));
+  ok(await page.$$eval('.nojs', els => els.every(e => getComputedStyle(e).display === 'none')), 'Mit JavaScript: Ersatzinhalte ausgeblendet');
   ok(errs.length === 0, 'Keine JS-Fehler ' + errs.join(' | '));
+
+  // Ohne JavaScript (Datei-Vorschau auf iPhone, iPad und Mac): Navigation per :target
+  const nctx = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, javaScriptEnabled: false });
+  const np = await nctx.newPage();
+  await np.goto(FILE);
+  const shown = () => np.$$eval('.page', ps => ps.filter(p => getComputedStyle(p).display !== 'none').map(p => p.id));
+  ok(!(await np.evaluate(() => document.documentElement.classList.contains('js'))), 'Ohne JS: keine js-Klasse');
+  ok((await shown()).length === (await np.$$eval('.page', p => p.length)), 'Ohne JS: alle Seiten untereinander');
+  ok((await np.$$eval('#pg-heute .nojs .wrow', r => r.length)) === 7, 'Ohne JS: Heute zeigt die 7 Tage');
+  await np.click('.tabbar [data-tab="einkauf"]');
+  ok((await shown()).join() === 'pg-einkauf', 'Ohne JS: Tab Einkauf zeigt nur Einkauf');
+  await np.locator('#pg-einkauf label.ck').nth(2).click();
+  ok(await np.$eval('#pg-einkauf label.ck:nth-child(3) .cname', e => getComputedStyle(e).textDecorationLine.includes('line-through')), 'Ohne JS: Einkauf abhaken streicht durch');
+  await np.click('.tabbar [data-tab="rezepte"]');
+  ok((await np.$$eval('#pg-rezepte .cat', cs => cs.filter(c => getComputedStyle(c).display !== 'none').length)) === 5, 'Ohne JS: alle 5 Kategorien sichtbar');
+  await np.click('#pg-rezepte a[href="#r/m-burrito"]');
+  ok((await shown()).join() === 'pg-r-m-burrito', 'Ohne JS: Rezept öffnet als eigene Seite');
+  await np.click('#pg-r-m-burrito .back');
+  ok((await shown()).join() === 'pg-rezepte', 'Ohne JS: Zurück führt zu Rezepte');
+  await np.click('.tabbar [data-tab="heute"]');
+  await np.click('#pg-heute a[href="#tag-4"]');
+  ok((await shown()).join() === 'pg-woche' && (await np.$$eval('#tag-4 .row', r => r.length)) === 4, 'Ohne JS: Tag öffnet die Woche mit 4 Mahlzeiten');
+  ok(await np.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Ohne JS: kein horizontales Scrollen');
+  await nctx.close();
   await browser.close();
   console.log(fails.length ? 'FEHLER:\n' + fails.join('\n') : 'ALLE TESTS OK');
 })();

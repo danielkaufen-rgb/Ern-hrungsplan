@@ -8,6 +8,11 @@ soup = BeautifulSoup(open(src, encoding="utf-8").read(), "html.parser")
 msoup = BeautifulSoup(open(meals_path, encoding="utf-8").read(), "html.parser")
 ssoup = BeautifulSoup(open(sweet_path, encoding="utf-8").read(), "html.parser")
 CSS = open(css_path, encoding="utf-8").read()
+# Hell/Dunkel nach Systemeinstellung, solange kein Thema gesetzt ist (z. B. ohne JavaScript):
+# alle html[data-theme="dark"]-Regeln der obersten Ebene zusätzlich in prefers-color-scheme spiegeln
+_dark = re.findall(r'(?m)^html\[data-theme="dark"\]([^{]*)\{([^}]*)\}', CSS)
+CSS += ("\n@media (prefers-color-scheme: dark){\n"
+        + "".join(f':root:not([data-theme="light"]){sel}{{{body}}}\n' for sel, body in _dark) + "}\n")
 JS = open(js_path, encoding="utf-8").read()
 E = html.escape
 
@@ -387,14 +392,22 @@ def join_de(xs):
 def short_time(t):
     return t.split(",")[0].replace(" plus ", " + ")
 
-def nav(title, back=False, right=""):
-    left = (f'<a class="nbtn back" href="#" data-back aria-label="Zurück">{SVGS["back"]}<span class="back-t lbl">Zurück</span></a>' if back else "")
+BACK_TO = {"rezepte": "Rezepte", "wissen": "Wissen"}
+
+def nav(title, back=None, right=""):
+    # back: Tab, zu dem der Zurück-Knopf ohne JavaScript führt; app.js setzt Ziel und Text beim Anzeigen neu
+    left = (f'<a class="nbtn back" href="#{back}" data-back aria-label="Zurück zu {BACK_TO[back]}">{SVGS["back"]}'
+            f'<span class="back-t lbl">{BACK_TO[back]}</span></a>' if back else "")
     return (f'<header class="nav"><div class="nav-in"><div class="nav-l">{left}</div>'
             f'<div class="nav-t" aria-hidden="true">{E(title)}</div><div class="nav-r">{right}</div></div></header>')
 
 THEME_BTN = (f'<button class="nbtn round" type="button" data-theme-toggle aria-label="Hell oder Dunkel umschalten">'
              f'{SVGS["moon"]}{SVGS["sun"]}</button>')
 WAKE_BTN = (f'<button class="nbtn wake" type="button" aria-pressed="false" aria-label="Kochmodus: Bildschirm bleibt an" hidden>{SVGS["screen"]}<span class="lbl">Kochmodus</span></button>')
+
+def anc(route):
+    """Sprungziel mit der Route als id: Ohne JavaScript zeigt das CSS per :target die Seite, die es enthält."""
+    return f'<span class="anc" id="{route}"></span>'
 
 def tile(emo, color, cls=""):
     return f'<span class="tile t-{color} {cls}" aria-hidden="true">{emo}</span>'
@@ -521,7 +534,8 @@ def recipe_page(r):
     nav_title = r.get("short") or r["title"]
     return f'''
 <section class="page" id="pg-r-{rid}" data-route="r/{rid}" data-kind="recipe" data-title="{E(nav_title)}" hidden>
-  {nav(nav_title, back=True, right=WAKE_BTN)}
+  {anc("r/" + rid)}
+  {nav(nav_title, back="rezepte", right=WAKE_BTN)}
   <div class="pin wide">
     <div class="r-head">
       <div class="cover t-{c["color"]}" aria-hidden="true"><span>{r["emo"]}</span></div>
@@ -596,6 +610,34 @@ for i, w in enumerate(WEEK2):
     week_rows += (f'<button type="button" class="row wrow" data-day="{i}"><span class="wd">{w["n"]}</span><span class="wemo" aria-hidden="true">{emos}</span>'
                   f'<span class="wv"><b class="num">{w["k"]}</b><small class="num">{w["p"]}</small></span>{SVGS["chev"]}</button>')
 
+def knum(s):
+    return float(s.replace(".", "").replace(",", ".")) if s else 0.0
+
+def sum_card(w, label):
+    """Gleiches Markup wie sumCard() in app.js."""
+    bar = "".join(f'<i class="b-{SLOTS[i][1]}" style="flex:{knum(m_[3]):g}"></i>' for i, m_ in enumerate(w["meals"]))
+    aria = ", ".join(f'{SLOTS[i][0]} {m_[3]} kcal' for i, m_ in enumerate(w["meals"]))
+    legend = "".join(f'<span><i class="dot b-{SLOTS[i][1]}"></i>{SLOTS[i][0]} <b class="num">{m_[3]}</b></span>' for i, m_ in enumerate(w["meals"]))
+    return (f'<div class="sum-top"><div><div class="sum-l">{E(label)}</div><div class="sum-k num">{w["k"]}<small> kcal</small></div></div>'
+            f'<div class="sum-side"><div><b class="num">{w["p"].replace(" g", "")}<span class="u"> g</span></b><small>Protein</small></div></div></div>'
+            f'<div class="bar" role="img" aria-label="{E("Kalorien: " + aria)}">{bar}</div><div class="legend">{legend}</div>')
+
+def meal_rows(w):
+    """Gleiches Markup wie mealRows() in app.js."""
+    return "".join(
+        f'<a class="row" href="#r/{m_[1]}"><span class="tile t-{SLOTS[i][1]}" aria-hidden="true">{m_[2]}</span>'
+        f'<span class="rtx"><span class="rcap c-{SLOTS[i][1]}">{SLOTS[i][0]}</span><span class="rtt">{E(m_[0])}</span>'
+        f'<span class="rmeta">{E(m_[5])} · <span class="num">{m_[3]} kcal</span> · <span class="num">{m_[4]}</span> Protein</span></span>{SVGS["chev"]}</a>'
+        for i, m_ in enumerate(w["meals"]))
+
+day_blocks = "".join(f'<div class="dayblock" id="tag-{i}"><div class="card sum">{sum_card(w, w["n"])}</div><div class="list">{meal_rows(w)}</div></div>'
+                     for i, w in enumerate(WEEK2))
+week_links = ""
+for i, w in enumerate(WEEK2):
+    emos = "".join(f'<i class="t-{SLOTS[j][1]}">{m_[2]}</i>' for j, m_ in enumerate(w["meals"]))
+    week_links += (f'<a class="row wrow" href="#tag-{i}"><span class="wd">{w["n"]}</span><span class="wemo" aria-hidden="true">{emos}</span>'
+                   f'<span class="wv"><b class="num">{w["k"]}</b><small class="num">{w["p"]}</small></span>{SVGS["chev"]}</a>')
+
 # ---------- Einkauf ----------
 shop_groups_html, idx = "", 0
 for g in groups:
@@ -630,7 +672,7 @@ def mobile_tables(html_):
     return str(b)
 
 ARTICLES = [
- ("✨", "orange", "Lecker ohne Salz", "Warum es tot geschmeckt hat, die 6 Regeln für jedes Rezept und ein Abschmeck-Check", LECKER, "prose"),
+ ("✨", "orange", "Lecker ohne Salz", "Warum es tot geschmeckt hat, die 7 Regeln für jedes Rezept und ein Abschmeck-Check", LECKER, "prose"),
  ("⚡", "yellow", "Schneller kochen", "Sieben Tricks, damit es nach der Uni schnell geht", SCHNELL, "prose"),
  ("💬", "blue", "Ehrlich gesagt", ehrlich[0], ehrlich[1], "callout" if ehrlich[2] else "prose"),
  ("⏱️", "teal", "So läuft der Tag", tag_sub, tag_html, "prose"),
@@ -644,7 +686,8 @@ for icon, color, title, sub_, content, cls in ARTICLES:
     wissen_rows += row_link(f"#w/{sl}", icon, color, title, E(sub_)).replace('class="rmeta"', 'class="rmeta clamp2"')
     article_pages += f'''
 <section class="page" id="pg-w-{sl}" data-route="w/{sl}" data-kind="article" data-title="{E(title)}" hidden>
-  {nav(title, back=True)}
+  {anc("w/" + sl)}
+  {nav(title, back="wissen")}
   <div class="pin">
     <div class="lt a-head">{tile(icon, color, "big")}<h1 class="ltitle">{E(title)}</h1><p class="desc">{E(sub_)}</p></div>
     <div class="article {cls}">{mobile_tables(content)}</div>
@@ -669,6 +712,7 @@ page = f'''<!DOCTYPE html>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='88'%3E%F0%9F%A5%97%3C/text%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="data:image/png;base64,{ICON_B64}">
 <script>
+document.documentElement.classList.add("js");
 (function(){{var t=null;try{{t=localStorage.getItem("ep-theme");}}catch(e){{}}
 if(!t)t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
 document.documentElement.setAttribute("data-theme",t);
@@ -688,12 +732,15 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==="dar
 <main class="main" id="main">
 
 <section class="page" id="pg-heute" data-route="heute" data-title="Heute">
+  {anc("heute")}
   {nav("Heute", right=THEME_BTN)}
   <div class="pin">
     <div class="lt"><p class="eyebrow" id="todayDate">Heute</p><h1 class="ltitle">Heute</h1></div>
-    <div class="card sum" id="todaySum"></div>
-    <h2 class="gh">Mahlzeiten</h2>
-    <div class="list" id="todayList"></div>
+    <div class="card sum jsonly" id="todaySum"></div>
+    <h2 class="gh jsonly">Mahlzeiten</h2>
+    <div class="list jsonly" id="todayList"></div>
+    <h2 class="gh nojs">Deine Woche</h2>
+    <div class="list nojs">{week_links}</div>
     <p class="foot">Laut Wochenvorschlag. Im Schnitt sind es {de(avg_k)} kcal und {de(avg_p)} g Protein am Tag, die Woche kostet rund {COST_DAY_S} € pro Tag.</p>
     <h2 class="gh">Gut zu wissen</h2>
     <div class="list">
@@ -704,6 +751,7 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==="dar
 </section>
 
 <section class="page" id="pg-rezepte" data-route="rezepte" data-title="Rezepte" hidden>
+  {anc("rezepte")}
   {nav("Rezepte", right=THEME_BTN)}
   <div class="pin">
     <div class="lt"><p class="eyebrow">{n_recipes} Rezepte · ohne Salz</p><h1 class="ltitle">Rezepte</h1></div>
@@ -715,20 +763,23 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==="dar
 </section>
 
 <section class="page" id="pg-woche" data-route="woche" data-title="Woche" hidden>
+  {anc("woche")}
   {nav("Woche", right=THEME_BTN)}
   <div class="pin">
     <div class="lt"><p class="eyebrow">Wochenvorschlag</p><h1 class="ltitle">Woche</h1></div>
     <p class="desc">Alle vier Mahlzeiten pro Tag. Die Mengen in der Einkaufsliste gehen genau auf.</p>
-    <div class="days" id="days" role="tablist" aria-label="Wochentag">{days_html}</div>
-    <div class="card sum" id="daySum"></div>
-    <div class="list" id="dayList"></div>
-    <h2 class="gh">Alle Tage</h2>
-    <div class="list" id="weekList">{week_rows}</div>
+    <div class="days jsonly" id="days" role="tablist" aria-label="Wochentag">{days_html}</div>
+    <div class="card sum jsonly" id="daySum"></div>
+    <div class="list jsonly" id="dayList"></div>
+    <h2 class="gh jsonly">Alle Tage</h2>
+    <div class="list jsonly" id="weekList">{week_rows}</div>
+    <div class="nojs">{day_blocks}</div>
     <p class="foot">{week_note}</p>
   </div>
 </section>
 
 <section class="page" id="pg-einkauf" data-route="einkauf" data-title="Einkauf" hidden>
+  {anc("einkauf")}
   {nav("Einkauf", right=THEME_BTN)}
   <div class="pin">
     <div class="lt"><p class="eyebrow">Kaufland · Richtpreise</p><h1 class="ltitle">Einkauf</h1></div>
@@ -750,6 +801,7 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==="dar
 </section>
 
 <section class="page" id="pg-wissen" data-route="wissen" data-title="Wissen" hidden>
+  {anc("wissen")}
   {nav("Wissen", right=THEME_BTN)}
   <div class="pin">
     <div class="lt"><p class="eyebrow">Hintergrund</p><h1 class="ltitle">Wissen</h1></div>
@@ -768,6 +820,7 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==="dar
 const WEEK = {json.dumps(WEEK2, ensure_ascii=False)};
 {JS}
 </script>
+<script>if(!window.EP_OK)document.documentElement.classList.remove("js");</script>
 </body>
 </html>'''
 
