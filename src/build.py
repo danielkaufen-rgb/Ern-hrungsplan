@@ -1,4 +1,4 @@
-"""Ernährungsplan, Wochenplan 6.2 (Datenteil).
+"""Ernährungsplan, Wochenplan 6.3 (Datenteil).
 Quellen: plan_src (Küchen-Grundlagen, Airfryer-Technik), mahlzeiten6.html (Rezepte, Woche, Einkauf), suesses4.html."""
 import re, sys, html, json
 from bs4 import BeautifulSoup
@@ -159,7 +159,7 @@ n_pan = sum(x["kind"] == "pan" for x in sweets)
 n_air = sum(x["kind"] == "air" for x in sweets)
 n_cold = sum(x["kind"] == "cold" for x in sweets)
 sweet_shop = [[td.get_text(strip=True) for td in tr.find_all("td")] for tr in ssoup.find("table", class_="sweetshop").find_all("tr")
-              if "total" not in (tr.get("class") or []) and not any(w in tr.get_text().lower() for w in ("honig", "beeren", "kakao"))]
+              if "total" not in (tr.get("class") or []) and not any(w in tr.get_text().lower() for w in ("honig", "beeren", "kakao", "vanille"))]
 sweet_shopnote = inner(ssoup.find("p", class_="shopnote"))
 
 # ---------- Woche (Summen werden aus den Rezepten berechnet) ----------
@@ -189,7 +189,7 @@ avg_k, avg_p = sum(wk_k) / 7, sum(wk_p) / 7
 week_note = (f'Jeder Tag liegt zwischen {de(min(wk_k))} und {de(max(wk_k))} kcal und zwischen {de(min(wk_p))} und {de(max(wk_p))} g Protein, '
              f'im Schnitt {de(avg_k)} kcal und {de(avg_p)} g. Die Tomaten-Feta-Pasta ist der Joker, wenn du ein Mittagessen tauschen willst. '
              '<strong>Zeitspar-Kombis:</strong> Die Bolognese am Montag doppelt kochen, dann ist der Dienstag in 10 Minuten erledigt. '
-             'Overnight Oats am Sonntagabend für Montag und Dienstag ansetzen, am Mittwochabend für Donnerstag und Freitag. '
+             'Montag und Dienstag gibt es warmes Porridge, die Overnight Oats für Donnerstag und Freitag setzt du am Mittwochabend an. '
              'Champignons, Feta, Bohnen und passierte Tomaten sind so verteilt, dass nichts schlecht wird. '
              '<strong>Wichtig:</strong> Hähnchen und Hack gleich nach dem Einkauf in Portionen einfrieren, was du nicht in den nächsten 1 bis 2 Tagen brauchst, '
              'und am Vorabend zum Auftauen in den Kühlschrank legen.')
@@ -203,7 +203,7 @@ for tr in msoup.find("table", class_="shop").find_all("tr"):
         groups.append(cur)
     else:
         cur["items"].append(tds)
-groups.append(dict(name="Für Süßes", note="Nur wenn du aus „Süßes“ backst, plus 1 bis 2 extra reife Bananen und Äpfel. Honig, Beeren und Kakao stehen schon oben", items=sweet_shop, optional=True))
+groups.append(dict(name="Für Süßes", note="Nur wenn du aus „Süßes“ backst, plus 1 bis 2 extra reife Bananen, Äpfel und Eier. Honig, Beeren, Kakao und Vanille stehen schon oben", items=sweet_shop, optional=True))
 
 def price(s):
     return num(s)
@@ -246,7 +246,7 @@ ehrlich = ("Was an den alten Rezepten schiefging und was diese Fassung anders ma
  '<p><strong>Die alten Rezepte waren auf Nährwerte gebaut, nicht auf Geschmack.</strong> Quark mit Wasser, viele Haferflocken, Nudeln aus ungesalzenem Wasser. Das ist gesund, aber man isst es nicht gern, und dann hält man keinen Plan durch.</p>'
  '<p><strong>Ohne Salz wird es nur mit Käse und Röstaromen richtig lecker.</strong> Darum gibt es jetzt Bolognese mit Parmesan, Mac &amp; Cheese, Cheeseburger, eine Burrito-Reispfanne, Gyros mit Feta und Pizza aus dem Wrap. Das sind Gerichte, die von sich aus herzhaft sind.</p>'
  '<p><strong>Gerichte, die Salz brauchen, sind raus.</strong> Erdnuss-Nudeln leben von Sojasauce, Curry und Dal von viel Salz. Ohne das schmecken sie flach, egal wie viel Zitrone dran ist.</p>'
- '<p><strong>Das Frühstück war zu trocken.</strong> 75 g Haferflocken mit Quark und Wasser sind ein Klumpen. Jetzt sind es 50 g mit Skyr und Milch, über Nacht eingeweicht, oder ein Käse-Rührei.</p>'
+ '<p><strong>Das Frühstück war zu trocken.</strong> 75 g Haferflocken mit Quark und Wasser sind ein Klumpen. Jetzt sind es 50 g mit Skyr und Milch, über Nacht eingeweicht oder warm als Porridge, am Wochenende gibt es Eier.</p>'
  '<p><strong>Dafür kostet der Plan etwas mehr.</strong> Käse, Rinderhack, Skyr und Mozzarella machen ihn gut 2 € pro Tag teurer. Das ist der Preis für Essen, das man gerne isst.</p>'
  '<p><strong>Gib ihm zwei bis drei Wochen.</strong> Dein Geschmack gewöhnt sich an weniger Salz. Wenn ein Gericht dann immer noch nicht schmeckt, fliegt es raus.</p>',
  True)
@@ -343,7 +343,7 @@ def slot_row(dot, name, kcal, prot, target):
             f'<span class="hv num">{kcal} <small>kcal</small></span><span class="hp num">{prot} Protein</span></a>')
 
 fk = [num(r["kcal"]) for r in meals["frueh"]]; ak = [num(r["kcal"]) for r in meals["abend"]]
-VORRAT_PRO_WOCHE = 9.70  # geschätzter Verbrauch aus Vorrat und Gewürzen pro Woche
+VORRAT_PRO_WOCHE = 10.10  # geschätzter Verbrauch aus Vorrat und Gewürzen pro Woche
 cost_week = weekly + VORRAT_PRO_WOCHE
 cost_day = round(cost_week / 7, 1)
 COST_WEEK_S, COST_DAY_S = de(cost_week), de(cost_day, 2)
@@ -356,11 +356,11 @@ shop_note = (f'<p class="note"><strong>Beim ersten Einkauf rund {de(first_buy)} 
              '<p class="note"><strong>Zwei echte Sparhebel:</strong> Hähnchen und Hack nur im Angebot kaufen und einfrieren. '
              'Und Skyr gibt es oft im Angebot, ungeöffnet hält er mehrere Wochen.</p>')
 
-# ======================= Oberfläche im Apple-Stil (Wochenplan 6.2) =======================
+# ======================= Oberfläche im Apple-Stil (Wochenplan 6.3) =======================
 # Wird an den Datenteil (build6_data.py) angehängt. Rezepte, Mengen und Texte kommen aus den Quellen.
 from collections import defaultdict
 
-VERSION = "Wochenplan 6.2"
+VERSION = "Wochenplan 6.3"
 ICON_B64 = open("icon180.b64").read().strip()
 kueche = (kueche[0].replace("jede Anleitung weiter unten", "jede Anleitung in den Rezepten"), kueche[1], kueche[2])
 
@@ -422,7 +422,7 @@ def row_link(href, emo, color, title, sub="", cap="", cap_color=None, extra_attr
 _sp = [num(x["prot"]) for x in meals["snack"]]
 CATS = [
  dict(id="fruehstueck", name="Frühstück", seg="Frühstück", color="orange", items=meals["frueh"], avg=SA[0],
-      intro=f'Overnight Oats für die Wochentage, Käse-Rührei fürs Wochenende und die Skyr-Bowl für Morgen ohne Vorbereitung. Alle liegen bei {de(min(fk))} bis {de(max(fk))} kcal, du kannst also jederzeit tauschen.',
+      intro=f'Warmes Porridge und Overnight Oats für die Wochentage, Spiegelei und Rührei fürs Wochenende, die Skyr-Bowl für Morgen ohne Vorbereitung. Alle liegen bei {de(min(fk))} bis {de(max(fk))} kcal, du kannst also jederzeit tauschen.',
       filters=[]),
  dict(id="mittagessen", name="Mittagessen", seg="Mittag", color="green", items=meals["mittag"], avg=SA[1],
       intro="Nudeln, Reis, Burger und Burrito: Jedes Gericht hat Käse oder kräftige Röstaromen, damit es ohne Salz schmeckt. Die Tomaten-Feta-Pasta ist der Joker, wenn du ein Mittagessen tauschen willst. Kartoffeln gibt es nur als Pommes aus dem Airfryer, gewogen mit Schale.",
