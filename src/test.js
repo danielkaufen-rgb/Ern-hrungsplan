@@ -11,12 +11,12 @@ function ok(cond, msg){ if(!cond) fails.push(msg); else console.log('  ✓ ' + m
   page.on('pageerror', e => errs.push(e.message));
   await page.addInitScript(() => { if (!sessionStorage.getItem('seeded')) { localStorage.setItem('ep3-shop', JSON.stringify({'0': true, '5': true, '12': true})); sessionStorage.setItem('seeded', '1'); } });
   await page.goto(FILE);
-  ok((await page.textContent('#shopCount')) === '0 von 59', 'Alte Index-Häkchen werden ignoriert');
+  ok((await page.textContent('#shopCount')) === '0 von 65', 'Alte Index-Häkchen werden ignoriert');
   ok(await page.evaluate(() => Object.keys(JSON.parse(localStorage.getItem('ep3-shop'))).length) === 0, 'Alte Index-Häkchen werden aufgeräumt');
   const vis = async () => page.evaluate(() => { const p = [...document.querySelectorAll('.page')].filter(x => !x.hidden); return p.map(x => x.getAttribute('data-route')).join(','); });
   const cur = async () => page.evaluate(() => { const a = document.querySelector('.tabbar [aria-current="page"]'); return a && a.getAttribute('data-tab'); });
   ok(await vis() === 'heute', 'Start zeigt Heute');
-  ok((await page.$$eval('#todayList .row', r => r.length)) === 3, 'Heute hat 3 Mahlzeiten');
+  ok((await page.$$eval('#todayList .row', r => r.length)) === 4, 'Heute hat 4 Mahlzeiten');
   // Heute -> Rezept -> zurück
   await page.click('#todayList .row >> nth=1');
   await page.waitForTimeout(100);
@@ -65,7 +65,7 @@ function ok(cond, msg){ if(!cond) fails.push(msg); else console.log('  ✓ ' + m
   // Einkauf
   await page.click('.tabbar [data-tab="einkauf"]');
   for (const i of [0, 3, 7, 20]) await page.locator('label.ck').nth(i).click();
-  ok((await page.textContent('#shopCount')) === '4 von 59', 'Einkauf 4 von 59');
+  ok((await page.textContent('#shopCount')) === '4 von 65', 'Einkauf 4 von 65');
   ok((await page.$$eval('.ck.done', x => x.length)) === 4, '4 Einträge durchgestrichen');
   await page.click('#hideDone');
   ok((await page.$$eval('.ck.done', x => x.filter(e => e.offsetParent !== null).length)) === 0, 'Erledigte ausgeblendet');
@@ -76,12 +76,12 @@ function ok(cond, msg){ if(!cond) fails.push(msg); else console.log('  ✓ ' + m
   await page.reload();
   await page.waitForTimeout(150);
   ok(await vis() === 'einkauf', 'Reload bleibt auf Einkauf');
-  ok((await page.textContent('#shopCount')) === '4 von 59', 'Einkauf nach Reload gespeichert');
+  ok((await page.textContent('#shopCount')) === '4 von 65', 'Einkauf nach Reload gespeichert');
   ok(await page.evaluate(() => document.getElementById('shopLists').classList.contains('hide-done')), 'Ausblenden gespeichert');
   ok(await page.evaluate(() => document.documentElement.getAttribute('data-theme')) === th, 'Theme gespeichert (' + th + ')');
   await page.click('#hideDone');
   await page.click('[data-reset="shop"]');
-  ok((await page.textContent('#shopCount')) === '0 von 59', 'Zurücksetzen');
+  ok((await page.textContent('#shopCount')) === '0 von 65', 'Zurücksetzen');
   // Schritte nach Reload + Ablauf
   await page.evaluate(() => { location.hash = 'r/m-maccheese'; });
   await page.waitForTimeout(100);
@@ -91,7 +91,7 @@ function ok(cond, msg){ if(!cond) fails.push(msg); else console.log('  ✓ ' + m
   await page.waitForTimeout(100);
   ok((await page.textContent('[data-route="r/m-maccheese"] .sc')) === '1 von 5', 'Abgelaufener Schritt nach 2 Std weg');
   // Alte Links
-  for (const [h, want] of [['#m-cheeseburger', 'r/m-cheeseburger'], ['#lecker-ohne-salz', 'w/lecker-ohne-salz'], ['#einkauf', 'einkauf'], ['#snacks', 'rezepte'], ['#r/a-tuna-melt', 'heute'], ['#woche', 'woche'], ['#x-schoko-quark-mousse-mit-beeren', 'r/x-schoko-quark-mousse-mit-beeren']]) {
+  for (const [h, want] of [['#m-cheeseburger', 'r/m-cheeseburger'], ['#lecker-ohne-salz', 'w/lecker-ohne-salz'], ['#einkauf', 'einkauf'], ['#snacks', 'rezepte'], ['#shakes', 'rezepte'], ['#r/a-tuna-melt', 'heute'], ['#r/a-schoko-shake', 'r/a-schoko-shake'], ['#woche', 'woche'], ['#x-schoko-quark-mousse-mit-beeren', 'r/x-schoko-quark-mousse-mit-beeren']]) {
     await page.evaluate(h => { location.hash = h; }, h);
     await page.waitForTimeout(80);
     ok(await vis() === want, `Link ${h} -> ${want}`);
@@ -101,7 +101,7 @@ function ok(cond, msg){ if(!cond) fails.push(msg); else console.log('  ✓ ' + m
   await page.evaluate(() => { location.hash = 'woche'; });
   await page.click('#days .day[data-day="4"]');
   ok((await page.textContent('#daySum .sum-l')).includes('Freitag'), 'Woche: Freitag gewählt');
-  ok((await page.$$eval('#dayList .row', r => r.length)) === 3, 'Woche: 3 Mahlzeiten');
+  ok((await page.$$eval('#dayList .row', r => r.length)) === 4, 'Woche: 4 Mahlzeiten');
   // Alle Rezept-Links in Heute/Woche zeigen auf existierende Seiten
   const bad = await page.evaluate(() => {
     const routes = new Set([...document.querySelectorAll('.page')].map(p => p.dataset.route));
@@ -124,14 +124,14 @@ function ok(cond, msg){ if(!cond) fails.push(msg); else console.log('  ✓ ' + m
   await np.locator('#pg-einkauf label.ck').nth(2).click();
   ok(await np.$eval('#pg-einkauf label.ck:nth-child(3) .cname', e => getComputedStyle(e).textDecorationLine.includes('line-through')), 'Ohne JS: Einkauf abhaken streicht durch');
   await np.click('.tabbar [data-tab="rezepte"]');
-  ok((await np.$$eval('#pg-rezepte .cat', cs => cs.filter(c => getComputedStyle(c).display !== 'none').length)) === 4, 'Ohne JS: alle 4 Kategorien sichtbar');
+  ok((await np.$$eval('#pg-rezepte .cat', cs => cs.filter(c => getComputedStyle(c).display !== 'none').length)) === 5, 'Ohne JS: alle 5 Kategorien sichtbar');
   await np.click('#pg-rezepte a[href="#r/m-burrito"]');
   ok((await shown()).join() === 'pg-r-m-burrito', 'Ohne JS: Rezept öffnet als eigene Seite');
   await np.click('#pg-r-m-burrito .back');
   ok((await shown()).join() === 'pg-rezepte', 'Ohne JS: Zurück führt zu Rezepte');
   await np.click('.tabbar [data-tab="heute"]');
   await np.click('#pg-heute a[href="#tag-4"]');
-  ok((await shown()).join() === 'pg-woche' && (await np.$$eval('#tag-4 .row', r => r.length)) === 3, 'Ohne JS: Tag öffnet die Woche mit 3 Mahlzeiten');
+  ok((await shown()).join() === 'pg-woche' && (await np.$$eval('#tag-4 .row', r => r.length)) === 4, 'Ohne JS: Tag öffnet die Woche mit 4 Mahlzeiten');
   ok(await np.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Ohne JS: kein horizontales Scrollen');
   await nctx.close();
   await browser.close();

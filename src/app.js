@@ -40,8 +40,7 @@
   var CATS = segBtns.map(function(b){ return b.getAttribute('data-cat'); });
   var cat = (function(){
     var h = new Date().getHours() + new Date().getMinutes() / 60;
-    // abends ist die nächste Mahlzeit das Frühstück
-    return h < 10.5 ? 'fruehstueck' : h < 15 ? 'mittagessen' : h < 19 ? 'snacks' : 'fruehstueck';
+    return h < 10.5 ? 'fruehstueck' : h < 15 ? 'mittagessen' : h < 18 ? 'snacks' : 'shakes';
   })();
   var curRoute = null, curTab = 'heute', stack = [], scrolls = {}, ownerOf = {};
   var tabLast = {}; TABS.forEach(function(t){ tabLast[t] = t; });
@@ -237,7 +236,7 @@
   qx.addEventListener('click', function(){ q.value = ''; applySearch(); q.focus(); });
 
   // ---------- Heute und Woche ----------
-  var SLOTS = [['Frühstück', 'orange'], ['Mittag', 'green'], ['Snack', 'teal']];
+  var SLOTS = [['Frühstück', 'orange'], ['Mittag', 'green'], ['Snack', 'teal'], ['Abend', 'indigo']];
   var dow = (new Date().getDay() + 6) % 7;
   function kNum(s){ return parseFloat(String(s).replace(/\./g, '').replace(',', '.')) || 0; }
   function sumCard(w, label, isToday){
