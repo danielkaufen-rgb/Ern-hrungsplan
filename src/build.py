@@ -1,4 +1,4 @@
-"""Ernährungsplan, Wochenplan 6.3 (Datenteil).
+"""Ernährungsplan, Wochenplan 6.4 (Datenteil).
 Quellen: plan_src (Küchen-Grundlagen, Airfryer-Technik), mahlzeiten6.html (Rezepte, Woche, Einkauf), suesses4.html."""
 import re, sys, html, json
 from bs4 import BeautifulSoup
@@ -96,9 +96,9 @@ def recipe_item(r, kind_label, kind_cls, meta_chips, extra_attr=""):
   </div>
 </details>'''
 
-# ---------- Frühstück, Mittag, Abend ----------
+# ---------- Frühstück, Mittag, Snack ----------
 TYPE = {"meat": "Hähnchen", "fish": "Thunfisch", "veg": "Vegetarisch"}
-meals = {"frueh": [], "mittag": [], "abend": [], "snack": []}
+meals = {"frueh": [], "mittag": [], "snack": []}
 for v in msoup.select("div.v"):
     if v.get("data-from"):
         body = body_of_details(section(v["data-from"]).find("details"))
@@ -123,7 +123,7 @@ def meal_list(slot):
         out_ += recipe_item(r, r["kindlabel"], r["kind"], chips, f'data-kind="{r["kind"]}"')
     return out_
 
-lunch_html, frueh_html, abend_html = meal_list("mittag"), meal_list("frueh"), meal_list("abend")
+lunch_html, frueh_html = meal_list("mittag"), meal_list("frueh")
 lunches = meals["mittag"]
 n_meat = sum(l["kind"] == "meat" for l in lunches)
 n_fish = sum(l["kind"] == "fish" for l in lunches)
@@ -174,10 +174,8 @@ for tr in msoup.find("table", class_="week").find_all("tr"):
     links = "".join(f'<a class="wkx" href="#{x["id"]}" data-open="{x["id"]}"><i>{x["emo"]}</i><span>{E(x["short"])}</span></a>' for x in items)
     week_html += f'''<div class="wk" data-day="{DAYS.index(d)}"><span class="wkd">{d}</span><div class="wkmeals">{links}</div>
   <span class="wkn num">{de(k)}</span><span class="wkn num wkp">{de(p, 1)} g</span></div>'''
-_sl = [[], [], [], []]
-for tr in msoup.find("table", class_="week").find_all("tr"):
-    for j, i in enumerate([td.get_text(strip=True) for td in tr.find_all("td")][1:]):
-        _sl[j].append(byid[i])
+_sl = [[byid[i] for i in col] for col in zip(*[[td.get_text(strip=True) for td in tr.find_all("td")][1:]
+                                               for tr in msoup.find("table", class_="week").find_all("tr")])]
 slot_avg = [(sum(num(x["kcal"]) for x in L) / len(L), sum(num(x["prot"]) for x in L) / len(L)) for L in _sl]
 _tot = sum(k for k, _ in slot_avg)
 bar_w = [f"{k / _tot * 100:.1f}%" for k, _ in slot_avg]
@@ -186,11 +184,11 @@ SA = [(f"~{r10(k)}", f"~{de(p)} g") for k, p in slot_avg]
 wk_k = [num(w["k"]) for w in week]
 wk_p = [num(w["p"]) for w in week]
 avg_k, avg_p = sum(wk_k) / 7, sum(wk_p) / 7
-week_note = (f'Jeder Tag liegt zwischen {de(min(wk_k))} und {de(max(wk_k))} kcal und zwischen {de(min(wk_p))} und {de(max(wk_p))} g Protein, '
+week_note = (f'Ohne Abendessen liegt jeder Tag zwischen {de(min(wk_k))} und {de(max(wk_k))} kcal und zwischen {de(min(wk_p))} und {de(max(wk_p))} g Protein, '
              f'im Schnitt {de(avg_k)} kcal und {de(avg_p)} g. Die Tomaten-Feta-Pasta ist der Joker, wenn du ein Mittagessen tauschen willst. '
              '<strong>Zeitspar-Kombis:</strong> Die Bolognese am Montag doppelt kochen, dann ist der Dienstag in 10 Minuten erledigt. '
              'Montag und Dienstag gibt es warmes Porridge, die Overnight Oats für Donnerstag und Freitag setzt du am Mittwochabend an. '
-             'Champignons, Feta, Bohnen und passierte Tomaten sind so verteilt, dass nichts schlecht wird. '
+             'Was von Champignons, Feta, Gouda, Brot und Bohnen übrig bleibt, frierst du ein. Bei jedem Eintrag der Einkaufsliste steht, wie lange er reicht. '
              '<strong>Wichtig:</strong> Hähnchen und Hack gleich nach dem Einkauf in Portionen einfrieren, was du nicht in den nächsten 1 bis 2 Tagen brauchst, '
              'und am Vorabend zum Auftauen in den Kühlschrank legen.')
 
@@ -203,7 +201,7 @@ for tr in msoup.find("table", class_="shop").find_all("tr"):
         groups.append(cur)
     else:
         cur["items"].append(tds)
-groups.append(dict(name="Für Süßes", note="Nur wenn du aus „Süßes“ backst, plus 1 bis 2 extra reife Bananen, Äpfel und Eier. Honig, Beeren, Kakao und Vanille stehen schon oben", items=sweet_shop, optional=True))
+groups.append(dict(name="Für Süßes", note="Nur wenn du aus „Süßes“ backst, plus 1 bis 2 extra reife Bananen und Äpfel. Eier, Honig, Beeren, Kakao und Vanille stehen schon oben", items=sweet_shop, optional=True))
 
 def price(s):
     return num(s)
@@ -244,24 +242,24 @@ def info_section(title_start):
 
 ehrlich = ("Was an den alten Rezepten schiefging und was diese Fassung anders macht.",
  '<p><strong>Die alten Rezepte waren auf Nährwerte gebaut, nicht auf Geschmack.</strong> Quark mit Wasser, viele Haferflocken, Nudeln aus ungesalzenem Wasser. Das ist gesund, aber man isst es nicht gern, und dann hält man keinen Plan durch.</p>'
- '<p><strong>Ohne Salz wird es nur mit Käse und Röstaromen richtig lecker.</strong> Darum gibt es jetzt Bolognese mit Parmesan, Mac &amp; Cheese, Cheeseburger, eine Burrito-Reispfanne, Gyros mit Feta und Pizza aus dem Wrap. Das sind Gerichte, die von sich aus herzhaft sind.</p>'
+ '<p><strong>Ohne Salz wird es nur mit Käse und Röstaromen richtig lecker.</strong> Darum gibt es jetzt Bolognese mit Parmesan, Mac &amp; Cheese, Cheeseburger, zwei Burritos und Gyros mit Feta. Das sind Gerichte, die von sich aus herzhaft sind.</p>'
  '<p><strong>Gerichte, die Salz brauchen, sind raus.</strong> Erdnuss-Nudeln leben von Sojasauce, Curry und Dal von viel Salz. Ohne das schmecken sie flach, egal wie viel Zitrone dran ist.</p>'
  '<p><strong>Das Frühstück war zu trocken.</strong> 75 g Haferflocken mit Quark und Wasser sind ein Klumpen. Jetzt sind es 50 g mit Skyr und Milch, über Nacht eingeweicht oder warm als Porridge, am Wochenende gibt es Eier.</p>'
- '<p><strong>Dafür kostet der Plan etwas mehr.</strong> Käse, Rinderhack, Skyr und Mozzarella machen ihn gut 2 € pro Tag teurer. Das ist der Preis für Essen, das man gerne isst.</p>'
+ '<p><strong>Käse und Fleisch kosten etwas.</strong> Käse, Rinderhack, Hähnchen und Skyr sind die teuersten Posten im Einkauf. Das ist der Preis für Essen, das man gerne isst.</p>'
  '<p><strong>Gib ihm zwei bis drei Wochen.</strong> Dein Geschmack gewöhnt sich an weniger Salz. Wenn ein Gericht dann immer noch nicht schmeckt, fliegt es raus.</p>',
  True)
 def rng(vals, dec=0, unit=""):
     lo, hi = min(vals), max(vals)
     return f"{de(lo, dec)}–{de(hi, dec)}{unit}" if round(lo, dec) != round(hi, dec) else f"{de(lo, dec)}{unit}"
 _slots = [("Frühstück", f'{len(meals["frueh"])} Varianten', "morgens", meals["frueh"]), ("Mittagessen", f'{len(meals["mittag"])} Varianten', "mittags", meals["mittag"]),
-          ("Snack", f"{len(snacks)} Varianten", "nachmittags", snacks), ("Abendessen", f'{len(meals["abend"])} Varianten', "abends", meals["abend"])]
+          ("Snack", f"{len(snacks)} Varianten", "nachmittags", snacks)]
 _rows = "".join(f'<tr><td><strong>{n}</strong>, {v}</td><td>{w}</td><td class="n">{rng([num(x["kcal"]) for x in L])}</td>'
                 f'<td class="n">{rng([num(x["prot"]) for x in L], 0, " g")}</td></tr>' for n, v, w, L in _slots)
-tag_sub = "Vier Slots, jeder mit Auswahl. Die Varianten in einem Slot haben ähnlich viele Kalorien, deshalb kannst du tauschen, ohne nachzurechnen."
+tag_sub = "Drei Slots, jeder mit Auswahl. Die Varianten in einem Slot haben ähnlich viele Kalorien, deshalb kannst du tauschen, ohne nachzurechnen."
 tag_html = (f'<div class="tblwrap"><table class="tbl"><thead><tr><th>Slot</th><th>Wann</th><th class="n">kcal</th><th class="n">Protein</th></tr></thead>'
-            f'<tbody>{_rows}<tr class="total"><td>Tag im Wochenvorschlag</td><td></td><td class="n">{rng(wk_k)}</td><td class="n">{rng(wk_p, 0, " g")}</td></tr></tbody></table></div>'
+            f'<tbody>{_rows}<tr class="total"><td>Tag im Wochenvorschlag, ohne Abendessen</td><td></td><td class="n">{rng(wk_k)}</td><td class="n">{rng(wk_p, 0, " g")}</td></tr></tbody></table></div>'
             '<p class="note">Die beiden Reisgerichte liegen wegen der 125 g Reis höher als die anderen Mittagessen. Wer sich an den Wochenvorschlag hält, muss nichts rechnen. '
-            'Faustregel beim Tauschen: Nach einem Reisgericht mittags passt abends die Wrap-Pizza, sie ist das leichteste Abendessen.</p>')
+            f'<strong>Das Abendessen gehört nicht zum Plan.</strong> Frühstück, Mittag und Snack bringen im Schnitt {de(avg_k)} kcal und {de(avg_p)} g Protein, alles Weitere kommt mit dem Abendessen dazu.</p>')
 
 LECKER = (
  '<p class="lead-p">Die Erdnuss-Nudeln haben es gezeigt: Gesunde Zutaten allein schmecken ohne Salz tot. Jedes Rezept ist jetzt auf das gebaut, was Salz am besten ersetzt.</p>'
@@ -293,28 +291,29 @@ LECKER = (
  '<h3 class="subhead">Dein Geschmack gewöhnt sich um</h3>'
  '<p class="note">Wer lange gesalzen gegessen hat, empfindet Essen ohne Salz die ersten Wochen als fad. Das liegt nicht an dir. Studien zu salzarmer Ernährung zeigen, dass sich der Geschmack nach etwa 2 bis 3 Monaten verschiebt. Dann schmeckt dir weniger Salz schon würzig, und stark gesalzenes Essen kommt dir zu salzig vor.</p>'
  '<h3 class="subhead">Ehrlich zu Käse und Salz</h3>'
- '<p class="note">Du gibst nirgends Salz dazu. Käse, Brot, Wraps, Senf und Thunfisch enthalten aber von Natur aus oder vom Hersteller etwas Salz. Nach grober Rechnung landest du bei etwa 4 bis 6 g am Tag. '
- 'Das liegt im Bereich des Richtwerts von 6 g und deutlich unter dem, was die meisten in Deutschland essen. Falls du aus medizinischen Gründen auf Salz verzichtest, sprich die Käsemengen kurz mit deiner Ärztin oder deinem Arzt ab.</p>')
+ '<p class="note">Du gibst nirgends Salz dazu. Käse, Brot, Wraps und Senf enthalten aber von Natur aus oder vom Hersteller etwas Salz. Nach grober Rechnung bringen Frühstück, Mittag und Snack etwa 3 bis 4 g am Tag, dazu kommt dein Abendessen. '
+ 'Der Richtwert liegt bei 6 g, die meisten in Deutschland essen deutlich mehr. Falls du aus medizinischen Gründen auf Salz verzichtest, sprich die Käsemengen kurz mit deiner Ärztin oder deinem Arzt ab.</p>')
 
 kueche = info_section("Küchen")
 airfryer = info_section("Airfryer")
-vitamine = ("Ehrliche Bilanz für die neue Fassung. Fast alles ist gut gedeckt, bei Jod, Omega-3, Vitamin E und Vitamin D musst du nachhelfen.",
+vitamine = ("Ehrliche Bilanz für Frühstück, Mittag und Snack, also ohne dein Abendessen. Calcium, Vitamin C und B12 sind gedeckt, vieles andere zu etwa drei Vierteln, bei Jod und Vitamin D musst du nachhelfen.",
+ '<p class="note">Der Plan bringt etwa drei Viertel der Kalorien eines ganzen Tages, deshalb ist vieles nur zu etwa drei Vierteln gedeckt. Wo es knapp ist, steht dabei, was abends am meisten hilft.</p>'
  '<div class="tblwrap"><table class="tbl"><thead><tr><th>Nährstoff</th><th>Stand</th><th>Woher im Plan</th></tr></thead><tbody>'
  '<tr><td>Vitamin C</td><td><span class="pill ok">gedeckt</span></td><td>Paprika, Tomaten, Brokkoli, Zitronen, Beeren und Kartoffeln</td></tr>'
- '<tr><td>Vitamin A</td><td><span class="pill ok">gedeckt</span></td><td>Karotten, rote Paprika, Spinat und Brokkoli, dazu Käse, Eier und Butter</td></tr>'
- '<tr><td>Vitamin B12</td><td><span class="pill ok">gedeckt</span></td><td>Rindfleisch, Thunfisch, Eier, Käse, Skyr und Milch, deutlich über Bedarf</td></tr>'
- '<tr><td>B-Vitamine gesamt</td><td><span class="pill ok">gedeckt</span></td><td>Haferflocken, Vollkornbrot, Hähnchen, Rindfleisch und Milchprodukte</td></tr>'
- '<tr><td>Folat</td><td><span class="pill ok">gedeckt</span></td><td>Tomaten, Paprika, Vollkornbrot, Eier, Brokkoli, Spinat, Bohnen und Linsen, zusammen knapp über dem Bedarf</td></tr>'
- '<tr><td>Calcium</td><td><span class="pill ok">gedeckt</span></td><td>Käse, Skyr und Milch bringen an den meisten Tagen um 1.000 mg oder mehr. Im alten Plan war das noch knapp</td></tr>'
- '<tr><td>Eisen und Zink</td><td><span class="pill ok">gedeckt</span></td><td>Rindfleisch, Vollkornbrot, Haferflocken, Eier, Bohnen, Linsen und Spinat. Die Säure aus Tomaten und Zitrone verbessert die Aufnahme</td></tr>'
- '<tr><td>Kalium und Magnesium</td><td><span class="pill ok">gedeckt</span></td><td>Bananen, Kartoffeln, Haferflocken, Nüsse, Bohnen und Milchprodukte</td></tr>'
- '<tr><td>Ballaststoffe</td><td><span class="pill ok">gedeckt</span></td><td>rund 30 g am Tag aus Haferflocken, Vollkornbrot, Bohnen, Linsen, Gemüse und Obst</td></tr>'
- '<tr><td><strong>Vitamin E</strong></td><td><span class="pill warn">knapp</span></td><td>Rapsöl, Paprika, Tomaten, Eier und Erdnussmus bringen etwa zwei Drittel. Fix: 1 Esslöffel Sonnenblumenkerne oder gehackte Mandeln über die Oats</td></tr>'
- '<tr><td><strong>Jod</strong></td><td><span class="pill warn">Lücke</span></td><td>Ohne Jodsalz und ohne Seefisch die größte Lücke im Plan. Milch, Skyr, Käse, Eier und Thunfisch bringen grob ein Drittel bis die Hälfte des Bedarfs. Fix: ein Jodpräparat, vorher mit Ärztin oder Arzt absprechen, oder ab und zu eine Portion Seelachs</td></tr>'
- '<tr><td><strong>Omega-3</strong></td><td><span class="pill warn">knapp</span></td><td>Die Walnüsse im Frühstück liefern pflanzliches Omega-3, Thunfisch nur wenig. Fix: ab und zu eine Portion Lachs, zum Beispiel 12 Minuten bei 200 °C im Airfryer</td></tr>'
+ '<tr><td>Calcium</td><td><span class="pill ok">gedeckt</span></td><td>Käse, Skyr und Milch bringen im Schnitt rund 1.000 mg am Tag</td></tr>'
+ '<tr><td>Vitamin B12</td><td><span class="pill ok">gedeckt</span></td><td>Rindfleisch, Eier, Käse, Skyr und Milch, zusammen etwas über dem Bedarf</td></tr>'
+ '<tr><td>Vitamin A</td><td><span class="pill warn">knapp</span></td><td>Karotten, rote Paprika und Brokkoli, dazu Käse, Eier und Butter, zusammen knapp neun Zehntel. Fix: abends Gemüse wie Karotten, Paprika oder Spinat</td></tr>'
+ '<tr><td>B-Vitamine gesamt</td><td><span class="pill warn">knapp</span></td><td>Haferflocken, Vollkornbrot, Hähnchen, Rindfleisch und Milchprodukte bringen den Großteil, am knappsten ist Vitamin B1. Fix: abends Vollkorn, Hülsenfrüchte oder Fleisch</td></tr>'
+ '<tr><td>Folat</td><td><span class="pill warn">knapp</span></td><td>Tomaten, Paprika, Vollkornbrot, Eier, Brokkoli, Bohnen und Linsen bringen gut drei Viertel. Fix: abends grünes Gemüse oder Salat</td></tr>'
+ '<tr><td>Eisen und Zink</td><td><span class="pill warn">knapp</span></td><td>Rindfleisch, Haferflocken, Vollkornbrot, Eier, Käse, Bohnen und Linsen bringen grob drei Viertel bis den ganzen Bedarf. Die Säure aus Tomaten und Zitrone verbessert die Aufnahme. Fix: abends Fleisch, Hülsenfrüchte oder Vollkorn mit etwas Gemüse</td></tr>'
+ '<tr><td>Kalium und Magnesium</td><td><span class="pill warn">knapp</span></td><td>Bananen, Kartoffeln, Haferflocken, Nüsse, Bohnen und Milchprodukte: Magnesium ist fast gedeckt, Kalium zu etwa drei Vierteln. Fix: abends Gemüse, Kartoffeln oder Hülsenfrüchte</td></tr>'
+ '<tr><td>Ballaststoffe</td><td><span class="pill warn">knapp</span></td><td>rund 23 g am Tag aus Haferflocken, Vollkornbrot, Bohnen, Linsen, Gemüse und Obst, empfohlen sind 30 g. Fix: abends Vollkornbrot, Gemüse oder Hülsenfrüchte</td></tr>'
+ '<tr><td><strong>Vitamin E</strong></td><td><span class="pill warn">knapp</span></td><td>Rapsöl, Paprika, Tomaten, Eier und Erdnussmus bringen etwa die Hälfte. Fix: 1 Esslöffel Sonnenblumenkerne oder gehackte Mandeln über die Oats</td></tr>'
+ '<tr><td><strong>Jod</strong></td><td><span class="pill warn">Lücke</span></td><td>Ohne Jodsalz und ohne Seefisch die größte Lücke im Plan. Milch, Skyr, Käse und Eier bringen grob ein Drittel des Bedarfs. Fix: ein Jodpräparat, vorher mit Ärztin oder Arzt absprechen, oder ab und zu eine Portion Seelachs</td></tr>'
+ '<tr><td><strong>Omega-3</strong></td><td><span class="pill warn">knapp</span></td><td>Die Walnüsse im Frühstück liefern pflanzliches Omega-3. Fix: ab und zu eine Portion Lachs, zum Beispiel 12 Minuten bei 200 °C im Airfryer</td></tr>'
  '<tr><td><strong>Vitamin D</strong></td><td><span class="pill warn">Lücke</span></td><td>Nicht über Essen lösbar, gilt in Deutschland von Oktober bis März für fast alle. Ein Präparat mit 1.000 IE kostet unter 5 € für sechs Monate</td></tr>'
  '</tbody></table></div>'
- '<p class="note">Unterm Strich deckt der neue Plan mehr ab als der alte, vor allem bei Calcium. Wenn du Jod und Vitamin D im Blick behältst, bist du rundum gut versorgt.</p>')
+ '<p class="note">Unterm Strich: Ein Abendessen mit Gemüse, Vollkorn oder Hülsenfrüchten und etwas Fleisch oder Fisch schließt fast alle Lücken. Jod und Vitamin D behältst du trotzdem im Blick.</p>')
 footer = ("Nährwerte gerundet, berechnet auf Basis von Standardwerten für rohe Zutaten. Abweichungen von drei bis fünf Prozent sind normal und für deine Zielwerte ohne Bedeutung. "
           "Kartoffeln wiegst du mit Schale, sie kommen nur als Pommes in den Airfryer. Herdstufen beziehen sich auf eine 9er-Skala bei Ceran oder Gas, bei Induktion jeweils eine Stufe weniger. "
           "Der Plan ist auf einen gesunden Erwachsenen mit normalem Aktivitätsniveau ausgelegt. Wenn du länger als ein paar Monate so isst oder Vorerkrankungen hast, lohnt sich einmal der Blick "
@@ -324,8 +323,8 @@ SCHNELL = ('<ul class="tricks">'
   '<li><b>Wasserkocher statt Herd.</b> Wasser für Nudeln und Reis immer im Wasserkocher vorkochen. 3 statt 10 Minuten, bis es kocht.</li>'
   '<li><b>Einmal kochen, zweimal essen.</b> Die Bolognese am Montag doppelt kochen. Am Dienstag nur Nudeln kochen und die Soße 5 Minuten aufwärmen.</li>'
   '<li><b>Frühstück am Vorabend.</b> Overnight Oats für zwei Tage auf einmal ansetzen, das dauert 5 Minuten.</li>'
-  '<li><b>Tiefkühlgemüse ohne Schneiden.</b> Brokkoli kocht einfach mit den Nudeln mit, Spinat und Mais kommen gefroren in die Pfanne.</li>'
-  '<li><b>Eine Pfanne für alles.</b> Quesadilla, Wrap-Pizza und Shakshuka brauchen nur eine Pfanne, Mac &amp; Cheese nur Topf und Pfanne.</li>'
+  '<li><b>Tiefkühlgemüse ohne Schneiden.</b> Brokkoli kocht einfach mit den Nudeln mit, Mais kommt gefroren in die Pfanne.</li>'
+  '<li><b>Ein Topf, eine Pfanne.</b> Spiegelei, Rührei und der Hähnchen-Burrito brauchen nur eine Pfanne, das Porridge nur einen Topf, Mac &amp; Cheese Topf und Pfanne.</li>'
   '<li><b>Der Airfryer arbeitet nebenher.</b> Während die Pommes laufen, machst du Patty, Zwiebeln und Sauce. Dann ist alles gleichzeitig fertig.</li>'
   '<li><b>Fleisch portionsweise einfrieren.</b> Hähnchen und Hack gleich nach dem Einkauf in Portionen von 80 bis 125 g einfrieren und am Vorabend in den Kühlschrank legen. Dann musst du nur noch schneiden.</li>'
   '</ul>')
@@ -342,25 +341,25 @@ def slot_row(dot, name, kcal, prot, target):
     return (f'<a class="hl" href="#{target}" data-open="{target}"><span class="hn"><i class="{dot}"></i>{name}</span>'
             f'<span class="hv num">{kcal} <small>kcal</small></span><span class="hp num">{prot} Protein</span></a>')
 
-fk = [num(r["kcal"]) for r in meals["frueh"]]; ak = [num(r["kcal"]) for r in meals["abend"]]
-VORRAT_PRO_WOCHE = 10.10  # geschätzter Verbrauch aus Vorrat und Gewürzen pro Woche
+fk = [num(r["kcal"]) for r in meals["frueh"]]
+VORRAT_PRO_WOCHE = 13.50  # geschätzter Verbrauch aus Vorrat und Gewürzen pro Woche
 cost_week = weekly + VORRAT_PRO_WOCHE
 cost_day = round(cost_week / 7, 1)
 COST_WEEK_S, COST_DAY_S = de(cost_week), de(cost_day, 2)
 shop_note = (f'<p class="note"><strong>Beim ersten Einkauf rund {de(first_buy)} €,</strong> weil Vorrat und Gewürze dabei sind. '
              f'Danach kaufst du jede Woche nur „Jede Woche frisch“ für etwa {de(weekly)} € und vom Vorrat, was leer ist. '
-             f'<strong>Echte Kosten: etwa {COST_WEEK_S} € pro Woche, also rund {COST_DAY_S} € am Tag.</strong> Das sind gut 2 € pro Tag mehr als vorher. '
-             'Der Aufpreis steckt in Käse, Rinderhack, Skyr und Mozzarella, also genau in dem, was jetzt den Geschmack macht.</p>'
+             f'<strong>Echte Kosten: etwa {COST_WEEK_S} € pro Woche, also rund {COST_DAY_S} € am Tag,</strong> für Frühstück, Mittag und Snack. '
+             'Das meiste Geld steckt in Käse, Fleisch und Skyr, also genau in dem, was den Geschmack und das Protein bringt.</p>'
              '<p class="note"><strong>Frisch halten:</strong> Hähnchen und Hack gleich nach dem Einkauf in Portionen einfrieren, was du nicht in den nächsten 1 bis 2 Tagen brauchst. '
-             'Angebrochene Bohnen und passierte Tomaten in eine Dose umfüllen, so halten sie 4 Tage. Übrige Wraps und Brötchen lassen sich einfrieren.</p>'
+             'Was du nicht in 4 Tagen aufbrauchst, frierst du ein: Bohnen, passierte Tomaten, Champignons, Feta, Gouda, Brot, Wraps und Brötchen. Bei jedem Eintrag steht, wie lange er reicht.</p>'
              '<p class="note"><strong>Zwei echte Sparhebel:</strong> Hähnchen und Hack nur im Angebot kaufen und einfrieren. '
              'Und Skyr gibt es oft im Angebot, ungeöffnet hält er mehrere Wochen.</p>')
 
-# ======================= Oberfläche im Apple-Stil (Wochenplan 6.3) =======================
+# ======================= Oberfläche im Apple-Stil (Wochenplan 6.4) =======================
 # Wird an den Datenteil (build6_data.py) angehängt. Rezepte, Mengen und Texte kommen aus den Quellen.
 from collections import defaultdict
 
-VERSION = "Wochenplan 6.3"
+VERSION = "Wochenplan 6.4"
 ICON_B64 = open("icon180.b64").read().strip()
 kueche = (kueche[0].replace("jede Anleitung weiter unten", "jede Anleitung in den Rezepten"), kueche[1], kueche[2])
 
@@ -430,14 +429,10 @@ CATS = [
  dict(id="snacks", name="Snacks", seg="Snacks", color="teal", items=meals["snack"], avg=SA[2],
       intro=f'Zwei süße und zwei herzhafte Snacks mit {de(min(_sp))} bis {de(max(_sp))} g Protein. Alle sind in 3 bis 5 Minuten fertig.',
       filters=[("snack", "Süß"), ("light", "Herzhaft")]),
- dict(id="abendessen", name="Abendessen", seg="Abend", color="indigo", items=meals["abend"], avg=SA[3],
-      intro=f'Vier schnelle Gerichte für den Abend, alle in 10 bis 20 Minuten und mit {de(min(ak))} bis {de(max(ak))} kcal.',
-      filters=[]),
  dict(id="suesses", name="Süßes", seg="Süßes", color="pink", items=sweets, avg=None, intro=sweet_sub,
       filters=[("pan", "Pfanne"), ("air", "Airfryer"), ("cold", "Kalt")]),
 ]
 
-SLOT_CAT = {"frueh": CATS[0], "mittag": CATS[1], "snack": CATS[2], "abend": CATS[3]}
 for c in CATS:
     for r in c["items"]:
         r["cat"] = c
@@ -594,7 +589,7 @@ for c in CATS:
 seg_html = "".join(f'<button type="button" role="tab" data-cat="{c["id"]}" aria-selected="false">{E(c["seg"])}</button>' for c in CATS)
 
 # ---------- Woche ----------
-SLOTS = [("Frühstück", "orange"), ("Mittag", "green"), ("Snack", "teal"), ("Abend", "indigo")]
+SLOTS = [("Frühstück", "orange"), ("Mittag", "green"), ("Snack", "teal")]
 WEEK2 = []
 for w in week:
     ms = []
@@ -703,7 +698,7 @@ page = f'''<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ernährungsplan</title>
-<meta name="description" content="{VERSION} – schnell und lecker ohne Salz, rund {de(avg_k)} kcal und {de(avg_p)} g Protein am Tag">
+<meta name="description" content="{VERSION} – Frühstück, Mittag und Snack, schnell und lecker ohne Salz, rund {de(avg_k)} kcal und {de(avg_p)} g Protein am Tag">
 <meta name="theme-color" content="#f2f2f7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -741,7 +736,7 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==="dar
     <div class="list jsonly" id="todayList"></div>
     <h2 class="gh nojs">Deine Woche</h2>
     <div class="list nojs">{week_links}</div>
-    <p class="foot">Laut Wochenvorschlag. Im Schnitt sind es {de(avg_k)} kcal und {de(avg_p)} g Protein am Tag, die Woche kostet rund {COST_DAY_S} € pro Tag.</p>
+    <p class="foot">Laut Wochenvorschlag, ohne Abendessen. Im Schnitt sind es {de(avg_k)} kcal und {de(avg_p)} g Protein am Tag, die Woche kostet rund {COST_DAY_S} € pro Tag.</p>
     <h2 class="gh">Gut zu wissen</h2>
     <div class="list">
       {row_link("#w/lecker-ohne-salz", "✨", "orange", "Lecker ohne Salz", "Warum es tot geschmeckt hat und was jetzt in jedem Rezept anders ist")}
@@ -756,7 +751,7 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==="dar
   <div class="pin">
     <div class="lt"><p class="eyebrow">{n_recipes} Rezepte · ohne Salz</p><h1 class="ltitle">Rezepte</h1></div>
     <div class="search">{SVGS["search"]}<input type="search" id="q" placeholder="Rezepte und Zutaten suchen" autocomplete="off" enterkeyhint="search" aria-label="Rezepte und Zutaten suchen"><button type="button" class="sx" id="qx" aria-label="Suche löschen" hidden>×</button></div>
-    <div class="seg" id="seg" role="tablist" aria-label="Kategorie">{seg_html}<span class="seg-thumb" aria-hidden="true"></span></div>
+    <div class="seg" id="seg" role="tablist" aria-label="Kategorie" style="--n:{len(CATS)}">{seg_html}<span class="seg-thumb" aria-hidden="true"></span></div>
     {cat_html}
     <p class="empty" id="noRes" hidden>Kein Rezept gefunden. Versuch es mit einer Zutat wie „Käse“ oder „Reis“.</p>
   </div>
@@ -767,7 +762,7 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==="dar
   {nav("Woche", right=THEME_BTN)}
   <div class="pin">
     <div class="lt"><p class="eyebrow">Wochenvorschlag</p><h1 class="ltitle">Woche</h1></div>
-    <p class="desc">Alle vier Mahlzeiten pro Tag. Die Mengen in der Einkaufsliste gehen genau auf.</p>
+    <p class="desc">Frühstück, Mittag und Snack für jeden Tag, ohne Abendessen. Die Einkaufsliste ist genau darauf abgestimmt.</p>
     <div class="days jsonly" id="days" role="tablist" aria-label="Wochentag">{days_html}</div>
     <div class="card sum jsonly" id="daySum"></div>
     <div class="list jsonly" id="dayList"></div>
