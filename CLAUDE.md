@@ -17,15 +17,15 @@ Der Nutzer mag das Design von Wochenplan 5.0 (Commit `1a56677`) ausdrücklich. A
 - **Bewegung:** dezent (Seitenwechsel 0,2 bis 0,4 s), `prefers-reduced-motion` beachten.
 - **Referenz:** Das komplette CSS und JS steht in `index.html`. Für neue Seiten oder Projekte von dort übernehmen statt neu zu erfinden.
 
-## Inhalte – Wochenplan 6.1
+## Inhalte – Wochenplan 6.2
 
-Die Rezepte wurden in 6.0 auf ausdrücklichen Wunsch komplett neu gemacht, weil die alten ohne Salz „tot“ geschmeckt haben (vor allem die Erdnuss-Nudeln und das trockene Haferflocken-Frühstück). In 6.1 wurde jedes Rezept auf Geschmack ohne Salz geprüft und nachgeschärft; die Caprese ist durch einen Feta-Dip ersetzt, die Joker-Pasta nimmt Feta statt Mozzarella light. Der Nutzer will nicht ständig ändern. Er isst gerne Nudeln, Reis, Käse und Burger und will einfache, schnelle, wirklich leckere Gerichte. Rezepte nur ändern, wenn der Nutzer darum bittet. Feste Vorgaben für jede Änderung:
+Die Rezepte wurden in 6.0 auf ausdrücklichen Wunsch komplett neu gemacht, weil die alten ohne Salz „tot“ geschmeckt haben (vor allem die Erdnuss-Nudeln und das trockene Haferflocken-Frühstück). In 6.1 wurde jedes Rezept auf Geschmack ohne Salz geprüft und nachgeschärft; die Caprese ist durch einen Feta-Dip ersetzt, die Joker-Pasta nimmt Feta statt Mozzarella light. In 6.2 ersetzt ein Hähnchen-Linsen-Burrito den Parmesan-Fisch, den der Nutzer nicht mag; damit ist kein Seefisch mehr im Plan, und Jod ist die größte Lücke (steht im Vitamin-Check). Der Nutzer will nicht ständig ändern. Er isst gerne Nudeln, Reis, Käse und Burger und will einfache, schnelle, wirklich leckere Gerichte. Rezepte nur ändern, wenn der Nutzer darum bittet. Feste Vorgaben für jede Änderung:
 
 - kein Salz zum Würzen, nirgends. Käse, Brot, Wraps, Senf und Thunfisch mit ihrem natürlichen Salzgehalt sind erlaubt und der wichtigste Geschmacksträger
-- Geschmack zuerst: Käse (Parmesan, Feta, Gouda, Mozzarella), möglichst obendrauf; Feta als salzigsten Käse gezielt einsetzen. Senf als Würze (Rührei, Burger-Patty, Fisch-Panade). Fleisch und Pilze braun braten, Pilze nie roh auf die Pizza. Tomatenmark und Gewürze rösten, Säure zum Schluss
+- Geschmack zuerst: Käse (Parmesan, Feta, Gouda, Mozzarella), möglichst obendrauf; Feta als salzigsten Käse gezielt einsetzen. Senf als Würze (Rührei, Burger-Patty). Fleisch und Pilze braun braten, Pilze nie roh auf die Pizza. Tomatenmark und Gewürze rösten, Säure zum Schluss
 - Nudeln in der Soße fertig garen; den Reisbeutel 2 Minuten früher herausnehmen und den Reis in der Soße fertig garen oder in der Pfanne mit den Bratresten schwenken, nie pur servieren
 - Cherry- oder Cocktailtomaten statt großer Tomaten, nicht in den Kühlschrank
-- keine Gerichte, die von Salz oder Sojasauce leben (asiatische Soßen, Dal, schlichte Kartoffeln mit Quark)
+- keine Gerichte, die von Salz oder Sojasauce leben (asiatische Soßen, Dal, schlichte Kartoffeln mit Quark). Rote Linsen nur als Teil einer kräftig gewürzten Füllung, nie als Hauptsache
 - Frühstück cremig statt trocken: höchstens 50 g Haferflocken, mit Skyr und Milch
 - Reis immer 125 g (Kochbeutel)
 - Kartoffeln nur für Pommes in den Airfryer

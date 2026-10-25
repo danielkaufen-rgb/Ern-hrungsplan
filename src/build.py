@@ -1,4 +1,4 @@
-"""Ernährungsplan, Wochenplan 6.1 (Datenteil).
+"""Ernährungsplan, Wochenplan 6.2 (Datenteil).
 Quellen: plan_src (Küchen-Grundlagen, Airfryer-Technik), mahlzeiten6.html (Rezepte, Woche, Einkauf), suesses4.html."""
 import re, sys, html, json
 from bs4 import BeautifulSoup
@@ -302,16 +302,16 @@ vitamine = ("Ehrliche Bilanz für die neue Fassung. Fast alles ist gut gedeckt, 
  '<div class="tblwrap"><table class="tbl"><thead><tr><th>Nährstoff</th><th>Stand</th><th>Woher im Plan</th></tr></thead><tbody>'
  '<tr><td>Vitamin C</td><td><span class="pill ok">gedeckt</span></td><td>Paprika, Tomaten, Brokkoli, Zitronen, Beeren und Kartoffeln</td></tr>'
  '<tr><td>Vitamin A</td><td><span class="pill ok">gedeckt</span></td><td>Karotten, rote Paprika, Spinat und Brokkoli, dazu Käse, Eier und Butter</td></tr>'
- '<tr><td>Vitamin B12</td><td><span class="pill ok">gedeckt</span></td><td>Rindfleisch, Fisch, Eier, Käse, Skyr und Milch, deutlich über Bedarf</td></tr>'
+ '<tr><td>Vitamin B12</td><td><span class="pill ok">gedeckt</span></td><td>Rindfleisch, Thunfisch, Eier, Käse, Skyr und Milch, deutlich über Bedarf</td></tr>'
  '<tr><td>B-Vitamine gesamt</td><td><span class="pill ok">gedeckt</span></td><td>Haferflocken, Vollkornbrot, Hähnchen, Rindfleisch und Milchprodukte</td></tr>'
- '<tr><td>Folat</td><td><span class="pill ok">gedeckt</span></td><td>Tomaten, Paprika, Vollkornbrot, Eier, Brokkoli, Spinat und Bohnen, zusammen knapp über dem Bedarf</td></tr>'
+ '<tr><td>Folat</td><td><span class="pill ok">gedeckt</span></td><td>Tomaten, Paprika, Vollkornbrot, Eier, Brokkoli, Spinat, Bohnen und Linsen, zusammen knapp über dem Bedarf</td></tr>'
  '<tr><td>Calcium</td><td><span class="pill ok">gedeckt</span></td><td>Käse, Skyr und Milch bringen an den meisten Tagen um 1.000 mg oder mehr. Im alten Plan war das noch knapp</td></tr>'
- '<tr><td>Eisen und Zink</td><td><span class="pill ok">gedeckt</span></td><td>Rindfleisch, Vollkornbrot, Haferflocken, Eier, Bohnen und Spinat. Die Säure aus Tomaten und Zitrone verbessert die Aufnahme</td></tr>'
+ '<tr><td>Eisen und Zink</td><td><span class="pill ok">gedeckt</span></td><td>Rindfleisch, Vollkornbrot, Haferflocken, Eier, Bohnen, Linsen und Spinat. Die Säure aus Tomaten und Zitrone verbessert die Aufnahme</td></tr>'
  '<tr><td>Kalium und Magnesium</td><td><span class="pill ok">gedeckt</span></td><td>Bananen, Kartoffeln, Haferflocken, Nüsse, Bohnen und Milchprodukte</td></tr>'
- '<tr><td>Ballaststoffe</td><td><span class="pill ok">gedeckt</span></td><td>rund 30 g am Tag aus Haferflocken, Vollkornbrot, Bohnen, Gemüse und Obst</td></tr>'
+ '<tr><td>Ballaststoffe</td><td><span class="pill ok">gedeckt</span></td><td>rund 30 g am Tag aus Haferflocken, Vollkornbrot, Bohnen, Linsen, Gemüse und Obst</td></tr>'
  '<tr><td><strong>Vitamin E</strong></td><td><span class="pill warn">knapp</span></td><td>Rapsöl, Paprika, Tomaten, Eier und Erdnussmus bringen etwa zwei Drittel. Fix: 1 Esslöffel Sonnenblumenkerne oder gehackte Mandeln über die Oats</td></tr>'
- '<tr><td><strong>Jod</strong></td><td><span class="pill warn">knapp</span></td><td>Ohne Jodsalz in Deutschland kritisch. Seelachs, Milch, Skyr, Käse und Eier helfen, reichen aber wahrscheinlich nicht ganz. Fix: zweimal pro Woche Seefisch oder ein Jodpräparat, vorher mit Ärztin oder Arzt absprechen</td></tr>'
- '<tr><td><strong>Omega-3</strong></td><td><span class="pill warn">knapp</span></td><td>Die Walnüsse im Frühstück liefern pflanzliches Omega-3, Seelachs und Thunfisch haben wenig. Fix: ab und zu Lachs statt Seelachs, er passt genauso ins Fisch-Rezept</td></tr>'
+ '<tr><td><strong>Jod</strong></td><td><span class="pill warn">Lücke</span></td><td>Ohne Jodsalz und ohne Seefisch die größte Lücke im Plan. Milch, Skyr, Käse, Eier und Thunfisch bringen grob ein Drittel bis die Hälfte des Bedarfs. Fix: ein Jodpräparat, vorher mit Ärztin oder Arzt absprechen, oder ab und zu eine Portion Seelachs</td></tr>'
+ '<tr><td><strong>Omega-3</strong></td><td><span class="pill warn">knapp</span></td><td>Die Walnüsse im Frühstück liefern pflanzliches Omega-3, Thunfisch nur wenig. Fix: ab und zu eine Portion Lachs, zum Beispiel 12 Minuten bei 200 °C im Airfryer</td></tr>'
  '<tr><td><strong>Vitamin D</strong></td><td><span class="pill warn">Lücke</span></td><td>Nicht über Essen lösbar, gilt in Deutschland von Oktober bis März für fast alle. Ein Präparat mit 1.000 IE kostet unter 5 € für sechs Monate</td></tr>'
  '</tbody></table></div>'
  '<p class="note">Unterm Strich deckt der neue Plan mehr ab als der alte, vor allem bei Calcium. Wenn du Jod und Vitamin D im Blick behältst, bist du rundum gut versorgt.</p>')
@@ -326,8 +326,8 @@ SCHNELL = ('<ul class="tricks">'
   '<li><b>Frühstück am Vorabend.</b> Overnight Oats für zwei Tage auf einmal ansetzen, das dauert 5 Minuten.</li>'
   '<li><b>Tiefkühlgemüse ohne Schneiden.</b> Brokkoli kocht einfach mit den Nudeln mit, Spinat und Mais kommen gefroren in die Pfanne.</li>'
   '<li><b>Eine Pfanne für alles.</b> Quesadilla, Wrap-Pizza und Shakshuka brauchen nur eine Pfanne, Mac &amp; Cheese nur Topf und Pfanne.</li>'
-  '<li><b>Der Airfryer arbeitet nebenher.</b> Während die Pommes laufen, machst du Patty, Sauce oder Panade. Dann ist alles gleichzeitig fertig.</li>'
-  '<li><b>Fleisch portionsweise einfrieren.</b> Hähnchen und Hack gleich nach dem Einkauf in Portionen von 100 bis 125 g einfrieren und am Vorabend in den Kühlschrank legen. Dann musst du nur noch schneiden.</li>'
+  '<li><b>Der Airfryer arbeitet nebenher.</b> Während die Pommes laufen, machst du Patty, Zwiebeln und Sauce. Dann ist alles gleichzeitig fertig.</li>'
+  '<li><b>Fleisch portionsweise einfrieren.</b> Hähnchen und Hack gleich nach dem Einkauf in Portionen von 80 bis 125 g einfrieren und am Vorabend in den Kühlschrank legen. Dann musst du nur noch schneiden.</li>'
   '</ul>')
 
 def info_card(icon, title, sub_, content, is_callout=False):
@@ -343,7 +343,7 @@ def slot_row(dot, name, kcal, prot, target):
             f'<span class="hv num">{kcal} <small>kcal</small></span><span class="hp num">{prot} Protein</span></a>')
 
 fk = [num(r["kcal"]) for r in meals["frueh"]]; ak = [num(r["kcal"]) for r in meals["abend"]]
-VORRAT_PRO_WOCHE = 11.42  # geschätzter Verbrauch aus Vorrat und Gewürzen pro Woche
+VORRAT_PRO_WOCHE = 9.70  # geschätzter Verbrauch aus Vorrat und Gewürzen pro Woche
 cost_week = weekly + VORRAT_PRO_WOCHE
 cost_day = round(cost_week / 7, 1)
 COST_WEEK_S, COST_DAY_S = de(cost_week), de(cost_day, 2)
@@ -356,11 +356,11 @@ shop_note = (f'<p class="note"><strong>Beim ersten Einkauf rund {de(first_buy)} 
              '<p class="note"><strong>Zwei echte Sparhebel:</strong> Hähnchen und Hack nur im Angebot kaufen und einfrieren. '
              'Und Skyr gibt es oft im Angebot, ungeöffnet hält er mehrere Wochen.</p>')
 
-# ======================= Oberfläche im Apple-Stil (Wochenplan 6.1) =======================
+# ======================= Oberfläche im Apple-Stil (Wochenplan 6.2) =======================
 # Wird an den Datenteil (build6_data.py) angehängt. Rezepte, Mengen und Texte kommen aus den Quellen.
 from collections import defaultdict
 
-VERSION = "Wochenplan 6.1"
+VERSION = "Wochenplan 6.2"
 ICON_B64 = open("icon180.b64").read().strip()
 kueche = (kueche[0].replace("jede Anleitung weiter unten", "jede Anleitung in den Rezepten"), kueche[1], kueche[2])
 
@@ -425,8 +425,8 @@ CATS = [
       intro=f'Overnight Oats für die Wochentage, Käse-Rührei fürs Wochenende und die Skyr-Bowl für Morgen ohne Vorbereitung. Alle liegen bei {de(min(fk))} bis {de(max(fk))} kcal, du kannst also jederzeit tauschen.',
       filters=[]),
  dict(id="mittagessen", name="Mittagessen", seg="Mittag", color="green", items=meals["mittag"], avg=SA[1],
-      intro="Nudeln, Reis und Burger: Jedes Gericht hat Käse oder kräftige Röstaromen, damit es ohne Salz schmeckt. Die Tomaten-Feta-Pasta ist der Joker, wenn du ein Mittagessen tauschen willst. Kartoffeln gibt es nur als Pommes aus dem Airfryer, gewogen mit Schale.",
-      filters=[("pasta", "Nudeln"), ("rice", "Reis"), ("fries", "Mit Pommes")]),
+      intro="Nudeln, Reis, Burger und Burrito: Jedes Gericht hat Käse oder kräftige Röstaromen, damit es ohne Salz schmeckt. Die Tomaten-Feta-Pasta ist der Joker, wenn du ein Mittagessen tauschen willst. Kartoffeln gibt es nur als Pommes aus dem Airfryer, gewogen mit Schale.",
+      filters=[("pasta", "Nudeln"), ("rice", "Reis"), ("hand", "Burger & Wrap")]),
  dict(id="snacks", name="Snacks", seg="Snacks", color="teal", items=meals["snack"], avg=SA[2],
       intro=f'Zwei süße und zwei herzhafte Snacks mit {de(min(_sp))} bis {de(max(_sp))} g Protein. Alle sind in 3 bis 5 Minuten fertig.',
       filters=[("snack", "Süß"), ("light", "Herzhaft")]),

@@ -11,7 +11,7 @@ function ok(cond, msg){ if(!cond) fails.push(msg); else console.log('  ✓ ' + m
   page.on('pageerror', e => errs.push(e.message));
   await page.addInitScript(() => { if (!sessionStorage.getItem('seeded')) { localStorage.setItem('ep3-shop', JSON.stringify({'0': true, '5': true, '12': true})); sessionStorage.setItem('seeded', '1'); } });
   await page.goto(FILE);
-  ok((await page.textContent('#shopCount')) === '0 von 63', 'Alte Index-Häkchen werden ignoriert');
+  ok((await page.textContent('#shopCount')) === '0 von 62', 'Alte Index-Häkchen werden ignoriert');
   ok(await page.evaluate(() => Object.keys(JSON.parse(localStorage.getItem('ep3-shop'))).length) === 0, 'Alte Index-Häkchen werden aufgeräumt');
   const vis = async () => page.evaluate(() => { const p = [...document.querySelectorAll('.page')].filter(x => !x.hidden); return p.map(x => x.getAttribute('data-route')).join(','); });
   const cur = async () => page.evaluate(() => { const a = document.querySelector('.tabbar [aria-current="page"]'); return a && a.getAttribute('data-tab'); });
@@ -65,7 +65,7 @@ function ok(cond, msg){ if(!cond) fails.push(msg); else console.log('  ✓ ' + m
   // Einkauf
   await page.click('.tabbar [data-tab="einkauf"]');
   for (const i of [0, 3, 7, 20]) await page.locator('label.ck').nth(i).click();
-  ok((await page.textContent('#shopCount')) === '4 von 63', 'Einkauf 4 von 63');
+  ok((await page.textContent('#shopCount')) === '4 von 62', 'Einkauf 4 von 62');
   ok((await page.$$eval('.ck.done', x => x.length)) === 4, '4 Einträge durchgestrichen');
   await page.click('#hideDone');
   ok((await page.$$eval('.ck.done', x => x.filter(e => e.offsetParent !== null).length)) === 0, 'Erledigte ausgeblendet');
@@ -76,12 +76,12 @@ function ok(cond, msg){ if(!cond) fails.push(msg); else console.log('  ✓ ' + m
   await page.reload();
   await page.waitForTimeout(150);
   ok(await vis() === 'einkauf', 'Reload bleibt auf Einkauf');
-  ok((await page.textContent('#shopCount')) === '4 von 63', 'Einkauf nach Reload gespeichert');
+  ok((await page.textContent('#shopCount')) === '4 von 62', 'Einkauf nach Reload gespeichert');
   ok(await page.evaluate(() => document.getElementById('shopLists').classList.contains('hide-done')), 'Ausblenden gespeichert');
   ok(await page.evaluate(() => document.documentElement.getAttribute('data-theme')) === th, 'Theme gespeichert (' + th + ')');
   await page.click('#hideDone');
   await page.click('[data-reset="shop"]');
-  ok((await page.textContent('#shopCount')) === '0 von 63', 'Zurücksetzen');
+  ok((await page.textContent('#shopCount')) === '0 von 62', 'Zurücksetzen');
   // Schritte nach Reload + Ablauf
   await page.evaluate(() => { location.hash = 'r/m-maccheese'; });
   await page.waitForTimeout(100);
