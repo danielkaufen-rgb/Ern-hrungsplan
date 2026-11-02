@@ -1,4 +1,4 @@
-"""Ernährungsplan, Wochenplan 6.5 (Datenteil).
+"""Ernährungsplan, Wochenplan 6.6 (Datenteil).
 Quellen: plan_src (Küchen-Grundlagen, Airfryer-Technik), mahlzeiten6.html (Rezepte, Woche, Einkauf), suesses4.html."""
 import re, sys, html, json
 from bs4 import BeautifulSoup
@@ -96,9 +96,9 @@ def recipe_item(r, kind_label, kind_cls, meta_chips, extra_attr=""):
   </div>
 </details>'''
 
-# ---------- Frühstück, Mittag, Snack, Abend-Shake ----------
+# ---------- Frühstück, Mittag, Abend-Shake ----------
 TYPE = {"meat": "Hähnchen", "fish": "Thunfisch", "veg": "Vegetarisch"}
-meals = {"frueh": [], "mittag": [], "snack": [], "abend": []}
+meals = {"frueh": [], "mittag": [], "abend": []}
 for v in msoup.select("div.v"):
     if v.get("data-from"):
         body = body_of_details(section(v["data-from"]).find("details"))
@@ -129,12 +129,6 @@ n_meat = sum(l["kind"] == "meat" for l in lunches)
 n_fish = sum(l["kind"] == "fish" for l in lunches)
 n_veg = sum(l["kind"] == "veg" for l in lunches)
 lk = [num(l["kcal"]) for l in lunches]
-
-# ---------- Snacks ----------
-snacks = meals["snack"]
-snack_html = meal_list("snack")
-n_sweet_snacks = sum(x["kind"] == "snack" for x in snacks)
-sk = [num(x["kcal"]) for x in snacks]
 
 # ---------- Süßes (unverändert) ----------
 SWEET_KIND = {"pan": "Pfanne", "air": "Airfryer", "cold": "Kalt"}
@@ -253,14 +247,14 @@ def rng(vals, dec=0, unit=""):
     lo, hi = min(vals), max(vals)
     return f"{de(lo, dec)}–{de(hi, dec)}{unit}" if round(lo, dec) != round(hi, dec) else f"{de(lo, dec)}{unit}"
 _slots = [("Frühstück", f'{len(meals["frueh"])} Varianten', "morgens", meals["frueh"]), ("Mittagessen", f'{len(meals["mittag"])} Varianten', "mittags", meals["mittag"]),
-          ("Snack", f"{len(snacks)} Varianten", "nachmittags", snacks), ("Abend-Shake", f'{len(meals["abend"])} Shakes mit je 4 Sorten', "abends", meals["abend"])]
+          ("Abend-Shake", f'{len(meals["abend"])} Shakes mit je 4 Sorten', "abends", meals["abend"])]
 _rows = "".join(f'<tr><td><strong>{n}</strong>, {v}</td><td>{w}</td><td class="n">{rng([num(x["kcal"]) for x in L])}</td>'
                 f'<td class="n">{rng([num(x["prot"]) for x in L], 0, " g")}</td></tr>' for n, v, w, L in _slots)
-tag_sub = "Vier Slots, jeder mit Auswahl. Die Varianten in einem Slot haben ähnlich viele Kalorien, deshalb kannst du tauschen, ohne nachzurechnen."
+tag_sub = "Drei Slots, jeder mit Auswahl. Die Varianten in einem Slot haben ähnlich viele Kalorien, deshalb kannst du tauschen, ohne nachzurechnen."
 tag_html = (f'<div class="tblwrap"><table class="tbl"><thead><tr><th>Slot</th><th>Wann</th><th class="n">kcal</th><th class="n">Protein</th></tr></thead>'
             f'<tbody>{_rows}<tr class="total"><td>Tag im Wochenvorschlag</td><td></td><td class="n">{rng(wk_k)}</td><td class="n">{rng(wk_p, 0, " g")}</td></tr></tbody></table></div>'
             '<p class="note">Die beiden Reisgerichte liegen wegen der 125 g Reis höher als die anderen Mittagessen. Wer sich an den Wochenvorschlag hält, muss nichts rechnen. '
-            f'<strong>Der Abend-Shake</strong> bringt mit 500 g Magerquark allein rund {de(slot_avg[3][1])} g Protein. Damit kommst du im Schnitt auf {de(avg_p)} g am Tag. '
+            f'<strong>Der Abend-Shake</strong> bringt mit 500 g Magerquark allein rund {de(slot_avg[2][1])} g Protein. Damit kommst du im Schnitt auf {de(avg_p)} g am Tag. '
             'Das ist mehr als nötig, für gesunde Nieren aber kein Problem, wenn du über den Tag genug trinkst.</p>')
 
 LECKER = (
@@ -298,23 +292,23 @@ LECKER = (
 
 kueche = info_section("Küchen")
 airfryer = info_section("Airfryer")
-vitamine = ("Ehrliche Bilanz für den ganzen Tag mit Abend-Shake. Fast alles ist gedeckt, Calcium und B12 sogar reichlich. Bei Jod und Vitamin D musst du nachhelfen, Vitamin E, Omega-3 und Ballaststoffe sind knapp.",
+vitamine = ("Ehrliche Bilanz für Frühstück, Mittagessen und Abend-Shake. Calcium, B12, Folat und Zink sind gut gedeckt. Knapp sind Vitamin A, Ballaststoffe, Eisen, Kalium, Vitamin E und Omega-3, bei Jod und Vitamin D musst du nachhelfen.",
  '<div class="tblwrap"><table class="tbl"><thead><tr><th>Nährstoff</th><th>Stand</th><th>Woher im Plan</th></tr></thead><tbody>'
  '<tr><td>Vitamin C</td><td><span class="pill ok">gedeckt</span></td><td>Paprika, Tomaten, Brokkoli, Beeren, Zitronen und Kartoffeln</td></tr>'
- '<tr><td>Calcium</td><td><span class="pill ok">gedeckt</span></td><td>Quark, Skyr, Käse und Milch bringen rund 1.700 mg am Tag. Das ist viel, liegt aber deutlich unter der Obergrenze von 2.500 mg</td></tr>'
+ '<tr><td>Calcium</td><td><span class="pill ok">gedeckt</span></td><td>Quark, Skyr, Käse und Milch bringen rund 1.500 mg am Tag. Das ist viel, liegt aber deutlich unter der Obergrenze von 2.500 mg</td></tr>'
  '<tr><td>Vitamin B12</td><td><span class="pill ok">gedeckt</span></td><td>Quark, Skyr, Milch, Rindfleisch, Eier und Käse, mehr als das Doppelte des Bedarfs</td></tr>'
- '<tr><td>Vitamin A</td><td><span class="pill ok">gedeckt</span></td><td>Karotten, rote Paprika und Brokkoli, dazu Käse, Eier und Butter</td></tr>'
  '<tr><td>B-Vitamine gesamt</td><td><span class="pill ok">gedeckt</span></td><td>Haferflocken, Vollkornbrot, Quark, Milch, Hähnchen und Rindfleisch</td></tr>'
  '<tr><td>Folat</td><td><span class="pill ok">gedeckt</span></td><td>Quark, Tomaten, Paprika, Vollkornbrot, Eier, Brokkoli, Beeren, Bohnen und Linsen</td></tr>'
- '<tr><td>Eisen und Zink</td><td><span class="pill ok">gedeckt</span></td><td>Zink reichlich, Eisen gerade so: Rindfleisch, Haferflocken, Kakao, Vollkornbrot, Eier, Bohnen und Linsen. Die Säure aus Tomaten, Zitrone und Beeren verbessert die Aufnahme</td></tr>'
- '<tr><td>Kalium und Magnesium</td><td><span class="pill ok">gedeckt</span></td><td>Quark, Bananen, Kartoffeln, Haferflocken, Kakao, Nüsse und Bohnen</td></tr>'
- '<tr><td><strong>Ballaststoffe</strong></td><td><span class="pill warn">knapp</span></td><td>rund 27 g am Tag aus Haferflocken, Vollkornbrot, Bohnen, Linsen, Beeren, Gemüse und Obst, empfohlen sind 30 g. Fix: 1 Esslöffel geschroteter Leinsamen in den Shake</td></tr>'
- '<tr><td><strong>Vitamin E</strong></td><td><span class="pill warn">knapp</span></td><td>Rapsöl, Paprika, Tomaten, Eier und Erdnussmus bringen gut die Hälfte. Fix: 1 Esslöffel Sonnenblumenkerne oder gehackte Mandeln über die Oats</td></tr>'
- '<tr><td><strong>Jod</strong></td><td><span class="pill warn">Lücke</span></td><td>Ohne Jodsalz und ohne Seefisch die größte Lücke im Plan. Quark, Milch, Skyr, Käse und Eier bringen etwa die Hälfte des Bedarfs. Fix: ein Jodpräparat, vorher mit Ärztin oder Arzt absprechen, oder ab und zu eine Portion Seelachs</td></tr>'
+ '<tr><td><strong>Vitamin A</strong></td><td><span class="pill warn">knapp</span></td><td>Karotten, rote Paprika und Brokkoli, dazu Käse, Eier und Butter bringen knapp zwei Drittel. Fix: eine Karotte am Tag, roh oder gerieben ins Mittagessen</td></tr>'
+ '<tr><td><strong>Ballaststoffe</strong></td><td><span class="pill warn">knapp</span></td><td>rund 22 g am Tag aus Haferflocken, Vollkornbrot, Bohnen, Linsen, Beeren, Gemüse und Obst, empfohlen sind 30 g. Fix: 1 Esslöffel geschroteter Leinsamen in den Shake, dazu die Karotte</td></tr>'
+ '<tr><td><strong>Eisen und Zink</strong></td><td><span class="pill warn">knapp</span></td><td>Zink ist gedeckt, Eisen kommt auf knapp neun Zehntel: Rindfleisch, Haferflocken, Kakao, Vollkornbrot, Eier, Bohnen und Linsen. Fix: 1 Esslöffel Kürbiskerne über die Oats</td></tr>'
+ '<tr><td><strong>Kalium und Magnesium</strong></td><td><span class="pill warn">knapp</span></td><td>Magnesium ist gedeckt, Kalium kommt auf gut neun Zehntel: Quark, Bananen, Kartoffeln, Haferflocken, Kakao und Bohnen. Fix: der Bananen-Shake öfter, eine Banane bringt gut 400 mg</td></tr>'
+ '<tr><td><strong>Vitamin E</strong></td><td><span class="pill warn">knapp</span></td><td>Rapsöl, Paprika, Tomaten und Eier bringen knapp die Hälfte. Fix: 1 Esslöffel Sonnenblumenkerne oder gehackte Mandeln über die Oats</td></tr>'
+ '<tr><td><strong>Jod</strong></td><td><span class="pill warn">Lücke</span></td><td>Ohne Jodsalz und ohne Seefisch die größte Lücke im Plan. Quark, Milch, Skyr, Käse und Eier bringen gut ein Drittel des Bedarfs. Fix: ein Jodpräparat, vorher mit Ärztin oder Arzt absprechen, oder ab und zu eine Portion Seelachs</td></tr>'
  '<tr><td><strong>Omega-3</strong></td><td><span class="pill warn">knapp</span></td><td>Walnüsse und Rapsöl liefern genug pflanzliches Omega-3, es fehlen die Fischfette EPA und DHA. Fix: ab und zu eine Portion Lachs, zum Beispiel 12 Minuten bei 200 °C im Airfryer</td></tr>'
  '<tr><td><strong>Vitamin D</strong></td><td><span class="pill warn">Lücke</span></td><td>Nicht über Essen lösbar, gilt in Deutschland von Oktober bis März für fast alle. Ein Präparat mit 1.000 IE kostet unter 5 € für sechs Monate</td></tr>'
  '</tbody></table></div>'
- '<p class="note">Unterm Strich: Mit dem Abend-Shake ist der Plan fast rundum gedeckt. Jod und Vitamin D behältst du im Blick, für Ballaststoffe reicht ein Löffel Leinsamen im Shake.</p>')
+ '<p class="note">Unterm Strich: Seit die Snacks raus sind, fehlen vor allem Karotten und Vollkorn. Eine Karotte am Tag und ein Löffel Leinsamen im Shake schließen die größten Lücken, Jod und Vitamin D behältst du im Blick.</p>')
 footer = ("Nährwerte gerundet, berechnet auf Basis von Standardwerten für rohe Zutaten. Abweichungen von drei bis fünf Prozent sind normal und für deine Zielwerte ohne Bedeutung. "
           "Kartoffeln wiegst du mit Schale, sie kommen nur als Pommes in den Airfryer. Herdstufen beziehen sich auf eine 9er-Skala bei Ceran oder Gas, bei Induktion jeweils eine Stufe weniger. "
           "Der Plan ist auf einen gesunden Erwachsenen mit normalem Aktivitätsniveau ausgelegt. Wenn du länger als ein paar Monate so isst oder Vorerkrankungen hast, lohnt sich einmal der Blick "
@@ -343,7 +337,7 @@ def slot_row(dot, name, kcal, prot, target):
             f'<span class="hv num">{kcal} <small>kcal</small></span><span class="hp num">{prot} Protein</span></a>')
 
 fk = [num(r["kcal"]) for r in meals["frueh"]]
-VORRAT_PRO_WOCHE = 17.35  # geschätzter Verbrauch aus Vorrat und Gewürzen pro Woche
+VORRAT_PRO_WOCHE = 14.65  # geschätzter Verbrauch aus Vorrat und Gewürzen pro Woche
 cost_week = weekly + VORRAT_PRO_WOCHE
 cost_day = round(cost_week / 7, 1)
 COST_WEEK_S, COST_DAY_S = de(cost_week), de(cost_day, 2)
@@ -356,11 +350,11 @@ shop_note = (f'<p class="note"><strong>Beim ersten Einkauf rund {de(first_buy)} 
              '<p class="note"><strong>Zwei echte Sparhebel:</strong> Hähnchen und Hack nur im Angebot kaufen und einfrieren. '
              'Und Skyr und Quark gibt es oft im Angebot, ungeöffnet halten sie mehrere Wochen.</p>')
 
-# ======================= Oberfläche im Apple-Stil (Wochenplan 6.5) =======================
+# ======================= Oberfläche im Apple-Stil (Wochenplan 6.6) =======================
 # Wird an den Datenteil (build6_data.py) angehängt. Rezepte, Mengen und Texte kommen aus den Quellen.
 from collections import defaultdict
 
-VERSION = "Wochenplan 6.5"
+VERSION = "Wochenplan 6.6"
 ICON_B64 = open("icon180.b64").read().strip()
 kueche = (kueche[0].replace("jede Anleitung weiter unten", "jede Anleitung in den Rezepten"), kueche[1], kueche[2])
 
@@ -419,7 +413,6 @@ def row_link(href, emo, color, title, sub="", cap="", cap_color=None, extra_attr
             f'<span class="rtx">{cap_html}<span class="rtt">{E(title)}</span>{sub_html}</span>{SVGS["chev"]}</a>')
 
 # ---------- Kategorien ----------
-_sp = [num(x["prot"]) for x in meals["snack"]]
 CATS = [
  dict(id="fruehstueck", name="Frühstück", seg="Frühstück", color="orange", items=meals["frueh"], avg=SA[0],
       intro=f'Warmes Porridge und Overnight Oats für die Wochentage, Spiegelei und Rührei fürs Wochenende, die Skyr-Bowl für Morgen ohne Vorbereitung. Alle liegen bei {de(min(fk))} bis {de(max(fk))} kcal, du kannst also jederzeit tauschen.',
@@ -427,10 +420,7 @@ CATS = [
  dict(id="mittagessen", name="Mittagessen", seg="Mittag", color="green", items=meals["mittag"], avg=SA[1],
       intro="Nudeln, Reis, Burger und Burrito: Jedes Gericht hat Käse oder kräftige Röstaromen, damit es ohne Salz schmeckt. Die Tomaten-Feta-Pasta ist der Joker, wenn du ein Mittagessen tauschen willst. Kartoffeln gibt es nur als Pommes aus dem Airfryer, gewogen mit Schale.",
       filters=[("pasta", "Nudeln"), ("rice", "Reis"), ("hand", "Burger & Wrap")]),
- dict(id="snacks", name="Snacks", seg="Snacks", color="teal", items=meals["snack"], avg=SA[2],
-      intro=f'Zwei süße und zwei herzhafte Snacks mit {de(min(_sp))} bis {de(max(_sp))} g Protein. Alle sind in 3 bis 5 Minuten fertig.',
-      filters=[("snack", "Süß"), ("light", "Herzhaft")]),
- dict(id="shakes", name="Abend-Shakes", seg="Shakes", color="indigo", items=meals["abend"], avg=SA[3],
+ dict(id="shakes", name="Abend-Shakes", seg="Shakes", color="indigo", items=meals["abend"], avg=SA[2],
       intro='Jeden Abend 500 g Magerquark aus dem Shaker, das sind rund 70 g Protein. Vier Shakes mit je vier Sorten, jeder in 5 Minuten fertig. Du brauchst einen Shaker mit 1 Liter, in einen kleineren passt die halbe Menge zweimal hintereinander.',
       filters=[]),
  dict(id="suesses", name="Süßes", seg="Süßes", color="pink", items=sweets, avg=None, intro=sweet_sub,
@@ -597,7 +587,7 @@ for c in CATS:
 seg_html = "".join(f'<button type="button" role="tab" data-cat="{c["id"]}" aria-selected="false">{E(c["seg"])}</button>' for c in CATS)
 
 # ---------- Woche ----------
-SLOTS = [("Frühstück", "orange"), ("Mittag", "green"), ("Snack", "teal"), ("Abend", "indigo")]
+SLOTS = [("Frühstück", "orange"), ("Mittag", "green"), ("Abend", "indigo")]
 WEEK2 = []
 for w in week:
     ms = []
@@ -770,7 +760,7 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==="dar
   {nav("Woche", right=THEME_BTN)}
   <div class="pin">
     <div class="lt"><p class="eyebrow">Wochenvorschlag</p><h1 class="ltitle">Woche</h1></div>
-    <p class="desc">Alle vier Mahlzeiten pro Tag, abends ein Quark-Shake. Die Einkaufsliste ist genau darauf abgestimmt.</p>
+    <p class="desc">Frühstück, Mittagessen und abends ein Quark-Shake für jeden Tag. Die Einkaufsliste ist genau darauf abgestimmt.</p>
     <div class="days jsonly" id="days" role="tablist" aria-label="Wochentag">{days_html}</div>
     <div class="card sum jsonly" id="daySum"></div>
     <div class="list jsonly" id="dayList"></div>
