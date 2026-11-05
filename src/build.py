@@ -1,4 +1,4 @@
-"""Ernährungsplan, Wochenplan 6.8 (Datenteil).
+"""Ernährungsplan, Wochenplan 6.9 (Datenteil).
 Quellen: plan_src (Küchen-Grundlagen, Airfryer-Technik), mahlzeiten6.html (Rezepte, Woche, Einkauf), suesses4.html."""
 import re, sys, html, json
 from bs4 import BeautifulSoup
@@ -131,7 +131,7 @@ n_veg = sum(l["kind"] == "veg" for l in lunches)
 lk = [num(l["kcal"]) for l in lunches]
 
 # ---------- Süßes (unverändert) ----------
-SWEET_KIND = {"pan": "Pfanne", "air": "Airfryer", "cold": "Kalt"}
+SWEET_KIND = {"pan": "Herd", "air": "Airfryer", "cold": "Kalt"}
 sweet_sub = ssoup.find("p", class_="sub").get_text(" ", strip=True)
 sweet_rule = ssoup.find("p", class_="rule").get_text(" ", strip=True)
 sweets = []
@@ -141,7 +141,7 @@ for v in ssoup.select("div.v.sweet"):
     sweets.append(dict(id="x-" + slug(title), title=title, kind=v["data-kind"], emo=v["data-emo"],
                        kcal=v["data-kcal"], prot=v["data-prot"], price=v["data-price"], time=v["data-time"],
                        yld=v["data-yield"], per=per, fit=v["data-fit"], rows=rows_of(v.table),
-                       unit="kcal/Stück" if per else "kcal", body=body_of_details(v.details)))
+                       unit=f"kcal/{per.split()[-1]}" if per else "kcal", body=body_of_details(v.details)))
 sweet_html = ""
 for x in sweets:
     per = f" {x['per']}" if x["per"] else ""
@@ -350,11 +350,11 @@ shop_note = (f'<p class="note"><strong>Beim ersten Einkauf rund {de(first_buy)} 
              '<p class="note"><strong>Zwei echte Sparhebel:</strong> Hähnchen und Hack nur im Angebot kaufen und einfrieren. '
              'Und Skyr und Quark gibt es oft im Angebot, ungeöffnet halten sie mehrere Wochen.</p>')
 
-# ======================= Oberfläche im Apple-Stil (Wochenplan 6.8) =======================
+# ======================= Oberfläche im Apple-Stil (Wochenplan 6.9) =======================
 # Wird an den Datenteil (build6_data.py) angehängt. Rezepte, Mengen und Texte kommen aus den Quellen.
 from collections import defaultdict
 
-VERSION = "Wochenplan 6.8"
+VERSION = "Wochenplan 6.9"
 ICON_B64 = open("icon180.b64").read().strip()
 kueche = (kueche[0].replace("jede Anleitung weiter unten", "jede Anleitung in den Rezepten"), kueche[1], kueche[2])
 
@@ -424,7 +424,7 @@ CATS = [
       intro='Jeden Abend 500 g Magerquark aus dem Shaker, das sind rund 70 g Protein. Vier Shakes mit je vier Sorten, jeder in 5 Minuten fertig. Du brauchst einen Shaker mit 1 Liter, in einen kleineren passt die halbe Menge zweimal hintereinander.',
       filters=[]),
  dict(id="suesses", name="Süßes", seg="Süßes", color="pink", items=sweets, avg=None, intro=sweet_sub,
-      filters=[("pan", "Pfanne"), ("air", "Airfryer"), ("cold", "Kalt")]),
+      filters=[("pan", "Herd"), ("air", "Airfryer"), ("cold", "Kalt")]),
 ]
 
 for c in CATS:

@@ -37,6 +37,13 @@ function ok(cond, msg){ if(!cond) fails.push(msg); else console.log('  ✓ ' + m
   await page.click('#pg-rezepte .cat[data-cat="mittagessen"] .chip[data-f="rice"]');
   ok((await page.$$eval('#pg-rezepte .cat[data-cat="mittagessen"] .rrow:not(.hide)', r => r.length)) === 2, 'Filter Reis zeigt 2');
   await page.click('#pg-rezepte .cat[data-cat="mittagessen"] .chip[data-f="all"]');
+  await page.click('#seg [data-cat="suesses"]');
+  ok((await page.$$eval('#pg-rezepte .cat[data-cat="suesses"] .rrow', r => r.length)) === 11, 'Süßes hat 11 Rezepte');
+  await page.click('#pg-rezepte .cat[data-cat="suesses"] .chip[data-f="pan"]');
+  ok((await page.$$eval('#pg-rezepte .cat[data-cat="suesses"] .rrow:not(.hide)', r => r.length)) === 5, 'Filter Herd zeigt 5');
+  await page.click('#pg-rezepte .cat[data-cat="suesses"] .chip[data-f="all"]');
+  ok((await page.textContent('#pg-rezepte a[href="#r/x-erdbeer-skyr-rinde-mit-schokolade"]')).includes('kcal/Portion'), 'Skyr-Rinde zeigt kcal pro Portion');
+  ok((await page.$$eval('[data-route="r/x-erdbeer-kaesekuchen-quesadilla-mit-warmer-erdbeersosse"] .sub', s => s.length)) >= 10, 'Quesadilla hat einzelne Handgriffe');
   // Suche
   await page.fill('#q', 'reis');
   await page.waitForTimeout(50);
