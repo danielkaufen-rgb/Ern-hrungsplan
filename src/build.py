@@ -1,4 +1,4 @@
-"""Ernährungsplan, Wochenplan 6.7 (Datenteil).
+"""Ernährungsplan, Wochenplan 6.8 (Datenteil).
 Quellen: plan_src (Küchen-Grundlagen, Airfryer-Technik), mahlzeiten6.html (Rezepte, Woche, Einkauf), suesses4.html."""
 import re, sys, html, json
 from bs4 import BeautifulSoup
@@ -319,7 +319,7 @@ SCHNELL = ('<ul class="tricks">'
   '<li><b>Einmal kochen, zweimal essen.</b> Die Bolognese am Montag doppelt kochen. Am Dienstag nur Nudeln kochen und die Soße 5 Minuten aufwärmen.</li>'
   '<li><b>Frühstück am Vorabend.</b> Overnight Oats für zwei Tage auf einmal ansetzen, das dauert 5 Minuten.</li>'
   '<li><b>Tiefkühlgemüse ohne Schneiden.</b> Brokkoli kocht einfach mit den Nudeln mit, Mais kommt gefroren in die Pfanne.</li>'
-  '<li><b>Ein Topf, eine Pfanne.</b> Spiegelei, Rührei und der Hähnchen-Burrito brauchen nur eine Pfanne, das Porridge nur einen Topf, Mac &amp; Cheese Topf und Pfanne.</li>'
+  '<li><b>Ein Topf, eine Pfanne.</b> Spiegelei und Rührei brauchen nur eine Pfanne, der Hähnchen-Burrito nur den Airfryer, das Porridge nur einen Topf, Mac &amp; Cheese Topf und Pfanne.</li>'
   '<li><b>Der Airfryer arbeitet nebenher.</b> Während die Pommes laufen, machst du Patty, Zwiebeln und Sauce. Dann ist alles gleichzeitig fertig.</li>'
   '<li><b>Fleisch portionsweise einfrieren.</b> Hähnchen und Hack gleich nach dem Einkauf in Portionen von 80 bis 125 g einfrieren und am Vorabend in den Kühlschrank legen. Dann musst du nur noch schneiden.</li>'
   '</ul>')
@@ -350,11 +350,11 @@ shop_note = (f'<p class="note"><strong>Beim ersten Einkauf rund {de(first_buy)} 
              '<p class="note"><strong>Zwei echte Sparhebel:</strong> Hähnchen und Hack nur im Angebot kaufen und einfrieren. '
              'Und Skyr und Quark gibt es oft im Angebot, ungeöffnet halten sie mehrere Wochen.</p>')
 
-# ======================= Oberfläche im Apple-Stil (Wochenplan 6.7) =======================
+# ======================= Oberfläche im Apple-Stil (Wochenplan 6.8) =======================
 # Wird an den Datenteil (build6_data.py) angehängt. Rezepte, Mengen und Texte kommen aus den Quellen.
 from collections import defaultdict
 
-VERSION = "Wochenplan 6.7"
+VERSION = "Wochenplan 6.8"
 ICON_B64 = open("icon180.b64").read().strip()
 kueche = (kueche[0].replace("jede Anleitung weiter unten", "jede Anleitung in den Rezepten"), kueche[1], kueche[2])
 
