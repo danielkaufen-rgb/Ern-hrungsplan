@@ -336,6 +336,7 @@
   })();
 
   // ---------- Schritte abhaken (laufen nach 2 Stunden ab) ----------
+  // "rezept:3" = ganzer Schritt erledigt, "rezept:3:1" = einzelner Handgriff in einem noch offenen Schritt
   var STEP_TTL = 2 * 60 * 60 * 1000;
   var steps = store.get('ep-steps') || {};
   function pruneSteps(){
@@ -344,19 +345,42 @@
     if(changed) store.set('ep-steps', steps);
     return changed;
   }
+  function subKey(s){ return s.getAttribute('data-sub'); }
   var stepLists = $$('ol.steps').map(function(ol){
     var items = $$(':scope > li', ol);
     var bar = ol.previousElementSibling && ol.previousElementSibling.classList.contains('stepbar') ? ol.previousElementSibling : null;
     items.forEach(function(li){
-      var key = li.getAttribute('data-step');
+      var key = li.getAttribute('data-step'), subs = $$('input[data-sub]', li);
+      li._subs = subs;
       $('.stepck', li).addEventListener('click', function(){
         if(steps[key]) delete steps[key]; else steps[key] = Date.now();
+        subs.forEach(function(s){ delete steps[subKey(s)]; });
         store.set('ep-steps', steps);
         paintSteps();
       });
+      subs.forEach(function(inp){
+        inp.addEventListener('change', function(){
+          var now = Date.now();
+          if(steps[key]){
+            // Schritt war erledigt: nur dieser Handgriff wird wieder offen
+            delete steps[key];
+            subs.forEach(function(s){ if(s !== inp) steps[subKey(s)] = now; });
+          } else if(inp.checked) steps[subKey(inp)] = now;
+          else delete steps[subKey(inp)];
+          if(subs.every(function(s){ return steps[subKey(s)]; })){
+            steps[key] = now;
+            subs.forEach(function(s){ delete steps[subKey(s)]; });
+          }
+          store.set('ep-steps', steps);
+          paintSteps();
+        });
+      });
     });
     if(bar) $('.sreset', bar).addEventListener('click', function(){
-      items.forEach(function(li){ delete steps[li.getAttribute('data-step')]; });
+      items.forEach(function(li){
+        delete steps[li.getAttribute('data-step')];
+        li._subs.forEach(function(s){ delete steps[subKey(s)]; });
+      });
       store.set('ep-steps', steps);
       paintSteps();
     });
@@ -369,6 +393,11 @@
         var on = !!steps[li.getAttribute('data-step')];
         li.classList.toggle('done', on);
         $('.stepck', li).setAttribute('aria-pressed', on ? 'true' : 'false');
+        li._subs.forEach(function(s){
+          var d = on || !!steps[subKey(s)];
+          s.checked = d;
+          s.parentNode.classList.toggle('done', d);
+        });
         if(on) n++;
       });
       if(l.bar){

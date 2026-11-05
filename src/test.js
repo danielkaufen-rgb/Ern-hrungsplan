@@ -59,7 +59,7 @@ function ok(cond, msg){ if(!cond) fails.push(msg); else console.log('  ✓ ' + m
   await page.click('[data-route="r/m-maccheese"] li[data-step="m-maccheese:0"] .stepck');
   await page.click('[data-route="r/m-maccheese"] li[data-step="m-maccheese:2"] .stepck');
   ok((await page.textContent('[data-route="r/m-maccheese"] .sc')) === '2 von 5', 'Zähler 2 von 5');
-  ok(await page.$eval('[data-route="r/m-maccheese"] li[data-step="m-maccheese:0"]', li => li.classList.contains('done') && getComputedStyle(li.querySelector('.st')).textDecorationLine.includes('line-through')), 'Schritt durchgestrichen');
+  ok(await page.$eval('[data-route="r/m-maccheese"] li[data-step="m-maccheese:0"]', li => li.classList.contains('done') && getComputedStyle(li.querySelector('.stt')).textDecorationLine.includes('line-through') && !getComputedStyle(li.querySelector('.st')).textDecorationLine.includes('line-through')), 'Schritt durchgestrichen, Hinweis nur grau');
   await page.goBack();
   await page.waitForTimeout(150);
   ok(await vis() === 'rezepte', 'Browser-Zurück führt zur Liste');
@@ -93,6 +93,24 @@ function ok(cond, msg){ if(!cond) fails.push(msg); else console.log('  ✓ ' + m
   await page.reload();
   await page.waitForTimeout(100);
   ok((await page.textContent('[data-route="r/m-maccheese"] .sc')) === '1 von 5', 'Abgelaufener Schritt nach 2 Std weg');
+  // Handgriffe einzeln abhaken
+  await page.evaluate(() => { location.hash = 'r/f-spiegelei'; });
+  await page.waitForTimeout(100);
+  const S0 = '[data-route="r/f-spiegelei"] li[data-step="f-spiegelei:0"]';
+  const nSub = await page.$$eval(S0 + ' .sub', s => s.length);
+  ok(nSub >= 3, 'Schritt 1 ist in einzelne Handgriffe geteilt (' + nSub + ')');
+  ok((await page.$$eval('[data-route="r/f-spiegelei"] .kv', k => k.map(x => x.textContent))).includes('Stufe 6 von 9'), 'Herdstufe hervorgehoben');
+  await page.locator(S0 + ' .sub').nth(0).click();
+  ok(await page.$eval(S0, li => !li.classList.contains('done') && li.querySelector('.sub').classList.contains('done')), 'Ein Handgriff abgehakt, Schritt noch offen');
+  for (let j = 1; j < nSub; j++) await page.locator(S0 + ' .sub').nth(j).click();
+  ok(await page.$eval(S0, li => li.classList.contains('done')) && (await page.textContent('[data-route="r/f-spiegelei"] .sc')) === '1 von 4', 'Alle Handgriffe abgehakt: Schritt erledigt');
+  await page.locator(S0 + ' .sub').nth(1).click();
+  ok(await page.$eval(S0, li => !li.classList.contains('done') && [...li.querySelectorAll('.sub')].filter(x => x.classList.contains('done')).length === li.querySelectorAll('.sub').length - 1), 'Handgriff wieder offen: Schritt offen, die anderen bleiben');
+  await page.reload();
+  await page.waitForTimeout(100);
+  ok(await page.$eval(S0, li => li.querySelectorAll('.sub.done').length === li.querySelectorAll('.sub').length - 1), 'Handgriffe nach Reload gespeichert');
+  await page.click('[data-route="r/f-spiegelei"] .sreset');
+  ok(await page.$eval(S0, li => li.querySelectorAll('.sub.done').length === 0), 'Zurücksetzen leert auch die Handgriffe');
   // Alte Links
   for (const [h, want] of [['#m-cheeseburger', 'r/m-cheeseburger'], ['#lecker-ohne-salz', 'w/lecker-ohne-salz'], ['#einkauf', 'einkauf'], ['#mittagessen', 'rezepte'], ['#shakes', 'rezepte'], ['#r/a-tuna-melt', 'heute'], ['#r/s-feta-dip', 'heute'], ['#r/a-schoko-shake', 'r/a-schoko-shake'], ['#woche', 'woche'], ['#x-schoko-quark-mousse-mit-beeren', 'r/x-schoko-quark-mousse-mit-beeren']]) {
     await page.evaluate(h => { location.hash = h; }, h);
@@ -130,6 +148,8 @@ function ok(cond, msg){ if(!cond) fails.push(msg); else console.log('  ✓ ' + m
   ok((await np.$$eval('#pg-rezepte .cat', cs => cs.filter(c => getComputedStyle(c).display !== 'none').length)) === 4, 'Ohne JS: alle 4 Kategorien sichtbar');
   await np.click('#pg-rezepte a[href="#r/m-burrito"]');
   ok((await shown()).join() === 'pg-r-m-burrito', 'Ohne JS: Rezept öffnet als eigene Seite');
+  await np.locator('#pg-r-m-burrito .sub').first().click();
+  ok(await np.$eval('#pg-r-m-burrito .sub .stx', e => getComputedStyle(e).textDecorationLine.includes('line-through')), 'Ohne JS: Handgriff abhaken streicht durch');
   await np.click('#pg-r-m-burrito .back');
   ok((await shown()).join() === 'pg-rezepte', 'Ohne JS: Zurück führt zu Rezepte');
   await np.click('.tabbar [data-tab="heute"]');

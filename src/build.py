@@ -1,4 +1,4 @@
-"""Ernährungsplan, Wochenplan 6.6 (Datenteil).
+"""Ernährungsplan, Wochenplan 6.7 (Datenteil).
 Quellen: plan_src (Küchen-Grundlagen, Airfryer-Technik), mahlzeiten6.html (Rezepte, Woche, Einkauf), suesses4.html."""
 import re, sys, html, json
 from bs4 import BeautifulSoup
@@ -350,11 +350,11 @@ shop_note = (f'<p class="note"><strong>Beim ersten Einkauf rund {de(first_buy)} 
              '<p class="note"><strong>Zwei echte Sparhebel:</strong> Hähnchen und Hack nur im Angebot kaufen und einfrieren. '
              'Und Skyr und Quark gibt es oft im Angebot, ungeöffnet halten sie mehrere Wochen.</p>')
 
-# ======================= Oberfläche im Apple-Stil (Wochenplan 6.6) =======================
+# ======================= Oberfläche im Apple-Stil (Wochenplan 6.7) =======================
 # Wird an den Datenteil (build6_data.py) angehängt. Rezepte, Mengen und Texte kommen aus den Quellen.
 from collections import defaultdict
 
-VERSION = "Wochenplan 6.6"
+VERSION = "Wochenplan 6.7"
 ICON_B64 = open("icon180.b64").read().strip()
 kueche = (kueche[0].replace("jede Anleitung weiter unten", "jede Anleitung in den Rezepten"), kueche[1], kueche[2])
 
@@ -464,13 +464,42 @@ def ing_blocks(rows):
             cur.append((x[0], x[1]))
     return out_ + flush(head, cur)
 
+# Ein Schritt im Quelltext ist „<b>Titel.</b> Fließtext <span class="cue">…</span>“. Auf der Seite wird daraus
+# der Titel als eigene Zeile und je Satz ein Handgriff zum Abhaken, damit beim Kochen nichts untergeht.
+ABBR = ("ca.", "z.", "z. B.", "bzw.", "mind.", "evtl.", "ggf.", "inkl.", "max.", "Min.", "Std.")
+KV = re.compile(r"(Stufe \d+(?: bis \d+)?(?: von 9)?|\d+ ?°C|(?:ca\. )?\d+½?(?:,\d+)?(?: bis \d+½?(?:,\d+)?)? (?:Minuten|Minute|Sekunden|Stunden|Stunde))")
+
+def split_actions(text):
+    """Fließtext in Handgriffe teilen: ein Satz ist ein Handgriff, Abkürzungen beenden keinen Satz."""
+    parts, cur = [], ""
+    for piece in re.split(r"(?<=[.!?])\s+(?=[A-ZÄÖÜ0-9½„])", text.strip()):
+        cur = f"{cur} {piece}" if cur else piece
+        if not cur.endswith(ABBR):
+            parts.append(cur)
+            cur = ""
+    return parts + ([cur] if cur else [])
+
+def step_inner(li, key):
+    title = li.find("b", recursive=False)
+    cue = li.find("span", class_="cue", recursive=False)
+    text = "".join(str(c) for c in li.contents if c is not title and c is not cue).strip()
+    acts = [KV.sub(r'<span class="kv">\1</span>', a) for a in split_actions(text)] if text else []
+    if len(acts) > 1:
+        body = "".join(f'<li><label class="sub"><input type="checkbox" data-sub="{key}:{j}"><span class="sbox" aria-hidden="true">{SVGS["check"]}</span>'
+                       f'<span class="stx">{a}</span></label></li>' for j, a in enumerate(acts))
+        body = f'<ul class="subs">{body}</ul>'
+    else:
+        body = f'<p class="st1">{acts[0]}</p>' if acts else ""
+    head = f'<b class="stt">{E(title.get_text(strip=True).rstrip(" ."))}</b>' if title else ""
+    return head + body + (str(cue) if cue else "")
+
 def steps_html(body, rid):
     b = BeautifulSoup(body, "html.parser")
     for ol in b.find_all("ol", class_="steps"):
         lis = ol.find_all("li", recursive=False)
         ol["data-rid"] = rid
         for i, li in enumerate(lis):
-            inner_ = "".join(str(c) for c in li.contents).strip()
+            inner_ = step_inner(li, f"{rid}:{i}")
             li.clear()
             li["data-step"] = f"{rid}:{i}"
             frag = BeautifulSoup(
@@ -482,7 +511,7 @@ def steps_html(body, rid):
             f'<div class="stepbar"><span class="sc-t"><b class="sc num">0 von {len(lis)}</b> erledigt</span>'
             f'<span class="sp"><i></i></span><button type="button" class="sreset">Zurücksetzen</button></div>', "html.parser")
         ol.insert_before(bar)
-        hint = BeautifulSoup('<p class="shint">Tippe auf die Nummer, um einen Schritt abzuhaken. Die Häkchen verschwinden nach 2 Stunden von selbst.</p>', "html.parser")
+        hint = BeautifulSoup('<p class="shint">Hake jeden Handgriff einzeln ab oder tippe auf die Nummer für den ganzen Schritt. Die Häkchen verschwinden nach 2 Stunden von selbst.</p>', "html.parser")
         ol.insert_after(hint)
     for a in b.find_all("a", attrs={"data-open": True}):
         a["href"] = "#" + a["data-open"]

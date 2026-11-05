@@ -305,10 +305,27 @@ li.done .stepck .n{background:var(--green);box-shadow:inset 0 0 0 2px var(--gree
 li.done .stepck .ico-check{opacity:1;transform:none}
 .st{font-size:17px;line-height:1.5;min-width:0}
 .st > b:first-child{font-weight:650}
-li.done .st{color:var(--label3);text-decoration:line-through;text-decoration-thickness:1.5px;text-decoration-color:var(--label3)}
+li.done .st{color:var(--label3)}
+li.done .stt,li.done .st1,li.done .stx{text-decoration:line-through;text-decoration-thickness:1.5px;text-decoration-color:var(--label3)}
 .cue{display:block;margin-top:9px;padding:10px 13px;border-radius:14px;background:var(--fill4);font-size:15px;line-height:1.45;color:var(--label2)}
 .cue b{color:var(--label);font-weight:600}
 li.done .cue,li.done .cue b{color:var(--label3)}
+/* Handgriffe: ein Satz pro Zeile, jeder einzeln abhakbar */
+.stt{display:block}
+.st1{margin:1px 0 0}
+.subs{list-style:none;margin:3px 0 0;padding:0}
+.sub{position:relative;display:flex;align-items:flex-start;gap:11px;padding:5px 0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.sub input{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.sbox{flex:none;width:22px;height:22px;margin-top:2px;border-radius:50%;box-shadow:inset 0 0 0 1.5px var(--chev);display:grid;place-items:center;transition:background .2s,box-shadow .2s}
+.sbox .ico-check{width:13px;height:13px;color:#fff;opacity:0;transform:scale(.4);transition:opacity .15s,transform .25s cubic-bezier(.3,1.6,.5,1)}
+.sub:active .sbox{transform:scale(.9)}
+.sub.done .sbox{background:var(--green);box-shadow:inset 0 0 0 1.5px var(--green)}
+.sub.done .sbox .ico-check{opacity:1;transform:none}
+.sub input:focus-visible + .sbox{outline:3px solid color-mix(in srgb, var(--tint) 55%, transparent);outline-offset:2px}
+.stx{flex:1;min-width:0;transition:color .2s}
+.sub.done .stx{color:var(--label3);text-decoration:line-through;text-decoration-thickness:1.5px;text-decoration-color:var(--label3)}
+.kv{font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums;background:var(--fill4);border-radius:6px;padding:0 3px;margin:0 -2px}
+.sub.done .kv,li.done .kv{background:transparent;padding:0;margin:0;font-weight:inherit}
 .shint{font-size:13px;line-height:1.4;color:var(--label2);margin:8px 16px 0}
 .tip{position:relative;background:var(--bg2);border-radius:var(--r-s);padding:13px 16px 14px 46px;font-size:15px;line-height:1.47;color:var(--label2);margin:12px 0 0}
 .tip::before{content:"";position:absolute;left:16px;top:14px;width:19px;height:19px;background:var(--yellow);border-radius:50%;
@@ -516,6 +533,9 @@ html:not(.js) .cat[hidden]{display:block !important}
 html:not(.js) .page{min-height:0}
 html:not(.js):has(.page :target) .page:not(:has(:target)){display:none !important}
 html:not(.js) .stepck{pointer-events:none}
+html:not(.js) .sub:has(input:checked) .sbox{background:var(--green);box-shadow:inset 0 0 0 1.5px var(--green)}
+html:not(.js) .sub:has(input:checked) .sbox .ico-check{opacity:1;transform:none}
+html:not(.js) .sub:has(input:checked) .stx{color:var(--label3);text-decoration:line-through;text-decoration-color:var(--label3)}
 html:not(.js) .ck:has(input:checked) .cbox{background:var(--green);box-shadow:inset 0 0 0 1.6px var(--green)}
 html:not(.js) .ck:has(input:checked) .cbox .ico-check{opacity:1;transform:none}
 html:not(.js) .ck:has(input:checked) .cname{color:var(--label3);text-decoration:line-through;text-decoration-color:var(--label3)}
