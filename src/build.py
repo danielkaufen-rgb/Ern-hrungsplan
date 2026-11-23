@@ -1,4 +1,4 @@
-"""Ernährungsplan, Wochenplan 6.9 (Datenteil).
+"""Ernährungsplan, Wochenplan 6.10 (Datenteil).
 Quellen: plan_src (Küchen-Grundlagen, Airfryer-Technik), mahlzeiten6.html (Rezepte, Woche, Einkauf), suesses4.html."""
 import re, sys, html, json
 from bs4 import BeautifulSoup
@@ -237,7 +237,7 @@ def info_section(title_start):
 
 ehrlich = ("Was an den alten Rezepten schiefging und was diese Fassung anders macht.",
  '<p><strong>Die alten Rezepte waren auf Nährwerte gebaut, nicht auf Geschmack.</strong> Quark mit Wasser, viele Haferflocken, Nudeln aus ungesalzenem Wasser. Das ist gesund, aber man isst es nicht gern, und dann hält man keinen Plan durch.</p>'
- '<p><strong>Ohne Salz wird es nur mit Käse und Röstaromen richtig lecker.</strong> Darum gibt es jetzt Bolognese mit Parmesan, Mac &amp; Cheese, Cheeseburger, zwei Burritos und Gyros mit Feta. Das sind Gerichte, die von sich aus herzhaft sind.</p>'
+ '<p><strong>Ohne Salz wird es nur mit Käse und Röstaromen richtig lecker.</strong> Darum gibt es jetzt Bolognese mit Parmesan, Mac &amp; Cheese, cremige Paprika-Hack-Nudeln, zwei Burritos und Gyros mit Feta. Das sind Gerichte, die von sich aus herzhaft sind.</p>'
  '<p><strong>Gerichte, die Salz brauchen, sind raus.</strong> Erdnuss-Nudeln leben von Sojasauce, Curry und Dal von viel Salz. Ohne das schmecken sie flach, egal wie viel Zitrone dran ist.</p>'
  '<p><strong>Das Frühstück war zu trocken.</strong> 75 g Haferflocken mit Quark und Wasser sind ein Klumpen. Jetzt sind es 50 g mit Skyr und Milch, über Nacht eingeweicht oder warm als Porridge, am Wochenende gibt es Eier.</p>'
  '<p><strong>Käse und Fleisch kosten etwas.</strong> Käse, Rinderhack, Hähnchen und Skyr sind die teuersten Posten im Einkauf. Das ist der Preis für Essen, das man gerne isst.</p>'
@@ -253,7 +253,7 @@ _rows = "".join(f'<tr><td><strong>{n}</strong>, {v}</td><td>{w}</td><td class="n
 tag_sub = "Drei Slots, jeder mit Auswahl. Die Varianten in einem Slot haben ähnlich viele Kalorien, deshalb kannst du tauschen, ohne nachzurechnen."
 tag_html = (f'<div class="tblwrap"><table class="tbl"><thead><tr><th>Slot</th><th>Wann</th><th class="n">kcal</th><th class="n">Protein</th></tr></thead>'
             f'<tbody>{_rows}<tr class="total"><td>Tag im Wochenvorschlag</td><td></td><td class="n">{rng(wk_k)}</td><td class="n">{rng(wk_p, 0, " g")}</td></tr></tbody></table></div>'
-            '<p class="note">Die beiden Reisgerichte liegen wegen der 125 g Reis höher als die anderen Mittagessen. Wer sich an den Wochenvorschlag hält, muss nichts rechnen. '
+            '<p class="note">Die Burrito-Reispfanne und die Paprika-Hack-Nudeln liegen etwas höher als die anderen Mittagessen. Wer sich an den Wochenvorschlag hält, muss nichts rechnen. '
             f'<strong>Der Abend-Shake</strong> bringt mit 500 g Magerquark allein rund {de(slot_avg[2][1])} g Protein. Damit kommst du im Schnitt auf {de(avg_p)} g am Tag. '
             'Das ist mehr als nötig, für gesunde Nieren aber kein Problem, wenn du über den Tag genug trinkst.</p>')
 
@@ -270,10 +270,10 @@ LECKER = (
  '<ol class="rules">'
  '<li><b>Käse ist dein Salz.</b> Parmesan, Feta und Gouda bringen ihre Würze von Natur aus mit, Feta am meisten. Ein Esslöffel frisch geriebener Parmesan macht mehr aus einem Gericht als jedes Gewürz. Am stärksten wirkt Käse obendrauf, weil er dort zuerst auf die Zunge trifft.</li>'
  '<li><b>Braun braten.</b> Hack und Hähnchen in die heiße Pfanne und 2 bis 3 Minuten nicht anfassen. Die braune Kruste ist der Geschmack. Pilze genauso: erst braun braten, dann weiterkochen.</li>'
- '<li><b>Nudeln und Reis in der Soße fertig machen.</b> Nudeln 2 Minuten früher abgießen und in der Soße fertig garen. Den Reisbeutel 2 Minuten früher herausnehmen und den Reis in der Soße fertig garen oder in der Pfanne mit den Bratresten schwenken, nie pur auf den Teller.</li>'
+ '<li><b>Nudeln und Reis in der Soße fertig machen.</b> Nudeln 2 Minuten früher abgießen und in der Soße fertig garen, bei den Paprika-Hack-Nudeln garen sie sogar ganz darin. Den Reisbeutel 2 Minuten früher herausnehmen und den Reis in der Soße fertig garen oder in der Pfanne mit den Bratresten schwenken, nie pur auf den Teller.</li>'
  '<li><b>Tomatenmark und Gewürze rösten.</b> 1 Minute in heißem Öl, bevor Flüssigkeit dazukommt. Kreuzkümmel, Rauchpaprika und Oregano schmecken dann voll statt staubig.</li>'
- '<li><b>Säure zum Schluss.</b> Zitrone, Balsamico, Senf oder schnelle Essiggurken. Säure macht Essen frisch und würzig, ohne dass es sauer schmeckt.</li>'
- '<li><b>Cremig und knusprig.</b> Geschmolzener Käse, Skyr-Dips, knusprige Pommes, gerösteter Hafer: Jedes Gericht hat etwas Cremiges und etwas mit Biss.</li>'
+ '<li><b>Säure zum Schluss.</b> Zitrone, Balsamico, Senf oder ein Löffel Skyr. Säure macht Essen frisch und würzig, ohne dass es sauer schmeckt.</li>'
+ '<li><b>Cremig und knusprig.</b> Geschmolzener Käse, Skyr-Dips, ein knuspriger Burrito, gerösteter Hafer: Jedes Gericht hat etwas Cremiges und etwas mit Biss.</li>'
  '<li><b>Tomaten mit Geschmack.</b> Cherry- oder Cocktailtomaten statt großer Tomaten, und nie in den Kühlschrank. Große Tomaten schmecken im Herbst und Winter wässrig, und Kälte nimmt jeder Tomate Aroma. Ohne Salz merkst du das sofort.</li>'
  '</ol>'
  '<h3 class="subhead">Abschmeck-Check vor dem Servieren</h3>'
@@ -281,7 +281,7 @@ LECKER = (
  '<tr><td><strong>fad, nach wenig</strong></td><td>Parmesan frisch drüberreiben, ein Spritzer Zitrone, frisch gemahlener Pfeffer</td></tr>'
  '<tr><td><strong>flach, irgendwie leer</strong></td><td>mehr braune Kruste, Tomatenmark anrösten, ein paar Tropfen Balsamico</td></tr>'
  '<tr><td><strong>zu sauer</strong></td><td>½ Teelöffel Honig oder etwas Käse</td></tr>'
- '<tr><td><strong>eintönig</strong></td><td>Chili, Kräuter, schnelle Essiggurken, etwas Knuspriges</td></tr>'
+ '<tr><td><strong>eintönig</strong></td><td>Chili, Kräuter, ein paar Feta-Krümel, etwas Knuspriges</td></tr>'
  '<tr><td><strong>trocken</strong></td><td>3 Esslöffel Nudelwasser, ein Skyr-Dip oder bei den Oats ein Schuss Milch</td></tr>'
  '</tbody></table></div>'
  '<h3 class="subhead">Dein Geschmack gewöhnt sich um</h3>'
@@ -294,7 +294,7 @@ kueche = info_section("Küchen")
 airfryer = info_section("Airfryer")
 vitamine = ("Ehrliche Bilanz für Frühstück, Mittagessen und Abend-Shake. Calcium, B12, Folat und Zink sind gut gedeckt. Knapp sind Vitamin A, Ballaststoffe, Eisen, Kalium, Vitamin E und Omega-3, bei Jod und Vitamin D musst du nachhelfen.",
  '<div class="tblwrap"><table class="tbl"><thead><tr><th>Nährstoff</th><th>Stand</th><th>Woher im Plan</th></tr></thead><tbody>'
- '<tr><td>Vitamin C</td><td><span class="pill ok">gedeckt</span></td><td>Paprika, Tomaten, Brokkoli, Beeren, Zitronen und Kartoffeln</td></tr>'
+ '<tr><td>Vitamin C</td><td><span class="pill ok">gedeckt</span></td><td>Paprika, Tomaten, Brokkoli, Beeren und Zitronen</td></tr>'
  '<tr><td>Calcium</td><td><span class="pill ok">gedeckt</span></td><td>Quark, Skyr, Käse und Milch bringen rund 1.500 mg am Tag. Das ist viel, liegt aber deutlich unter der Obergrenze von 2.500 mg</td></tr>'
  '<tr><td>Vitamin B12</td><td><span class="pill ok">gedeckt</span></td><td>Quark, Skyr, Milch, Rindfleisch, Eier und Käse, mehr als das Doppelte des Bedarfs</td></tr>'
  '<tr><td>B-Vitamine gesamt</td><td><span class="pill ok">gedeckt</span></td><td>Haferflocken, Vollkornbrot, Quark, Milch, Hähnchen und Rindfleisch</td></tr>'
@@ -302,7 +302,7 @@ vitamine = ("Ehrliche Bilanz für Frühstück, Mittagessen und Abend-Shake. Calc
  '<tr><td><strong>Vitamin A</strong></td><td><span class="pill warn">knapp</span></td><td>Karotten, rote Paprika und Brokkoli, dazu Käse, Eier und Butter bringen knapp zwei Drittel. Fix: eine Karotte am Tag, roh oder gerieben ins Mittagessen</td></tr>'
  '<tr><td><strong>Ballaststoffe</strong></td><td><span class="pill warn">knapp</span></td><td>rund 22 g am Tag aus Haferflocken, Vollkornbrot, Bohnen, Linsen, Beeren, Gemüse und Obst, empfohlen sind 30 g. Fix: 1 Esslöffel geschroteter Leinsamen in den Shake, dazu die Karotte</td></tr>'
  '<tr><td><strong>Eisen und Zink</strong></td><td><span class="pill warn">knapp</span></td><td>Zink ist gedeckt, Eisen kommt auf knapp neun Zehntel: Rindfleisch, Haferflocken, Kakao, Vollkornbrot, Eier, Bohnen und Linsen. Fix: 1 Esslöffel Kürbiskerne über die Oats</td></tr>'
- '<tr><td><strong>Kalium und Magnesium</strong></td><td><span class="pill warn">knapp</span></td><td>Magnesium ist gedeckt, Kalium kommt auf gut neun Zehntel: Quark, Bananen, Kartoffeln, Haferflocken, Kakao und Bohnen. Fix: der Bananen-Shake öfter, eine Banane bringt gut 400 mg</td></tr>'
+ '<tr><td><strong>Kalium und Magnesium</strong></td><td><span class="pill warn">knapp</span></td><td>Magnesium ist gedeckt, Kalium kommt auf gut neun Zehntel: Quark, Bananen, passierte Tomaten, Haferflocken, Kakao und Bohnen. Fix: der Bananen-Shake öfter, eine Banane bringt gut 400 mg</td></tr>'
  '<tr><td><strong>Vitamin E</strong></td><td><span class="pill warn">knapp</span></td><td>Rapsöl, Paprika, Tomaten und Eier bringen knapp die Hälfte. Fix: 1 Esslöffel Sonnenblumenkerne oder gehackte Mandeln über die Oats</td></tr>'
  '<tr><td><strong>Jod</strong></td><td><span class="pill warn">Lücke</span></td><td>Ohne Jodsalz und ohne Seefisch die größte Lücke im Plan. Quark, Milch, Skyr, Käse und Eier bringen gut ein Drittel des Bedarfs. Fix: ein Jodpräparat, vorher mit Ärztin oder Arzt absprechen, oder ab und zu eine Portion Seelachs</td></tr>'
  '<tr><td><strong>Omega-3</strong></td><td><span class="pill warn">knapp</span></td><td>Walnüsse und Rapsöl liefern genug pflanzliches Omega-3, es fehlen die Fischfette EPA und DHA. Fix: ab und zu eine Portion Lachs, zum Beispiel 12 Minuten bei 200 °C im Airfryer</td></tr>'
@@ -310,7 +310,7 @@ vitamine = ("Ehrliche Bilanz für Frühstück, Mittagessen und Abend-Shake. Calc
  '</tbody></table></div>'
  '<p class="note">Unterm Strich: Seit die Snacks raus sind, fehlen vor allem Karotten und Vollkorn. Eine Karotte am Tag und ein Löffel Leinsamen im Shake schließen die größten Lücken, Jod und Vitamin D behältst du im Blick.</p>')
 footer = ("Nährwerte gerundet, berechnet auf Basis von Standardwerten für rohe Zutaten. Abweichungen von drei bis fünf Prozent sind normal und für deine Zielwerte ohne Bedeutung. "
-          "Kartoffeln wiegst du mit Schale, sie kommen nur als Pommes in den Airfryer. Herdstufen beziehen sich auf eine 9er-Skala bei Ceran oder Gas, bei Induktion jeweils eine Stufe weniger. "
+          "Herdstufen beziehen sich auf eine 9er-Skala bei Ceran oder Gas, bei Induktion jeweils eine Stufe weniger. "
           "Der Plan ist auf einen gesunden Erwachsenen mit normalem Aktivitätsniveau ausgelegt. Wenn du länger als ein paar Monate so isst oder Vorerkrankungen hast, lohnt sich einmal der Blick "
           "einer Ärztin oder eines Ernährungsberaters, vor allem wegen Jod und Vitamin D.")
 
@@ -319,8 +319,8 @@ SCHNELL = ('<ul class="tricks">'
   '<li><b>Einmal kochen, zweimal essen.</b> Die Bolognese am Montag doppelt kochen. Am Dienstag nur Nudeln kochen und die Soße 5 Minuten aufwärmen.</li>'
   '<li><b>Frühstück am Vorabend.</b> Overnight Oats für zwei Tage auf einmal ansetzen, das dauert 5 Minuten.</li>'
   '<li><b>Tiefkühlgemüse ohne Schneiden.</b> Brokkoli kocht einfach mit den Nudeln mit, Mais kommt gefroren in die Pfanne.</li>'
-  '<li><b>Ein Topf, eine Pfanne.</b> Spiegelei und Rührei brauchen nur eine Pfanne, der Hähnchen-Burrito nur den Airfryer, das Porridge nur einen Topf, Mac &amp; Cheese Topf und Pfanne.</li>'
-  '<li><b>Der Airfryer arbeitet nebenher.</b> Während die Pommes laufen, machst du Patty, Zwiebeln und Sauce. Dann ist alles gleichzeitig fertig.</li>'
+  '<li><b>Ein Topf, eine Pfanne.</b> Spiegelei, Rührei und die Paprika-Hack-Nudeln brauchen nur eine Pfanne, der Hähnchen-Burrito nur den Airfryer, das Porridge nur einen Topf, Mac &amp; Cheese Topf und Pfanne.</li>'
+  '<li><b>Der Airfryer arbeitet nebenher.</b> Während Hähnchen und Gemüse für den Burrito im Korb rösten, rührst du Dip und Salsa an. Dann ist alles gleichzeitig fertig.</li>'
   '<li><b>Fleisch portionsweise einfrieren.</b> Hähnchen und Hack gleich nach dem Einkauf in Portionen von 80 bis 125 g einfrieren und am Vorabend in den Kühlschrank legen. Dann musst du nur noch schneiden.</li>'
   '</ul>')
 
@@ -337,7 +337,7 @@ def slot_row(dot, name, kcal, prot, target):
             f'<span class="hv num">{kcal} <small>kcal</small></span><span class="hp num">{prot} Protein</span></a>')
 
 fk = [num(r["kcal"]) for r in meals["frueh"]]
-VORRAT_PRO_WOCHE = 14.65  # geschätzter Verbrauch aus Vorrat und Gewürzen pro Woche
+VORRAT_PRO_WOCHE = 14.70  # geschätzter Verbrauch aus Vorrat und Gewürzen pro Woche
 cost_week = weekly + VORRAT_PRO_WOCHE
 cost_day = round(cost_week / 7, 1)
 COST_WEEK_S, COST_DAY_S = de(cost_week), de(cost_day, 2)
@@ -346,15 +346,15 @@ shop_note = (f'<p class="note"><strong>Beim ersten Einkauf rund {de(first_buy)} 
              f'<strong>Echte Kosten: etwa {COST_WEEK_S} € pro Woche, also rund {COST_DAY_S} € am Tag.</strong> '
              'Das meiste Geld steckt in Quark, Skyr, Käse und Fleisch, also genau in dem, was den Geschmack und das Protein bringt.</p>'
              '<p class="note"><strong>Frisch halten:</strong> Hähnchen und Hack gleich nach dem Einkauf in Portionen einfrieren, was du nicht in den nächsten 1 bis 2 Tagen brauchst. '
-             'Was du nicht in 4 Tagen aufbrauchst, frierst du ein: Bohnen, passierte Tomaten, Champignons, Feta, Gouda, Brot, Wraps und Brötchen. Bei jedem Eintrag steht, wie lange er reicht.</p>'
+             'Was du nicht in 4 Tagen aufbrauchst, frierst du ein: Bohnen, passierte Tomaten, Champignons, Feta, Gouda, Brot und Wraps. Bei jedem Eintrag steht, wie lange er reicht.</p>'
              '<p class="note"><strong>Zwei echte Sparhebel:</strong> Hähnchen und Hack nur im Angebot kaufen und einfrieren. '
              'Und Skyr und Quark gibt es oft im Angebot, ungeöffnet halten sie mehrere Wochen.</p>')
 
-# ======================= Oberfläche im Apple-Stil (Wochenplan 6.9) =======================
+# ======================= Oberfläche im Apple-Stil (Wochenplan 6.10) =======================
 # Wird an den Datenteil (build6_data.py) angehängt. Rezepte, Mengen und Texte kommen aus den Quellen.
 from collections import defaultdict
 
-VERSION = "Wochenplan 6.9"
+VERSION = "Wochenplan 6.10"
 ICON_B64 = open("icon180.b64").read().strip()
 kueche = (kueche[0].replace("jede Anleitung weiter unten", "jede Anleitung in den Rezepten"), kueche[1], kueche[2])
 
@@ -418,8 +418,8 @@ CATS = [
       intro=f'Warmes Porridge und Overnight Oats für die Wochentage, Spiegelei und Rührei fürs Wochenende, die Skyr-Bowl für Morgen ohne Vorbereitung. Alle liegen bei {de(min(fk))} bis {de(max(fk))} kcal, du kannst also jederzeit tauschen.',
       filters=[]),
  dict(id="mittagessen", name="Mittagessen", seg="Mittag", color="green", items=meals["mittag"], avg=SA[1],
-      intro="Nudeln, Reis, Burger und Burrito: Jedes Gericht hat Käse oder kräftige Röstaromen, damit es ohne Salz schmeckt. Die Tomaten-Feta-Pasta ist der Joker, wenn du ein Mittagessen tauschen willst. Kartoffeln gibt es nur als Pommes aus dem Airfryer, gewogen mit Schale.",
-      filters=[("pasta", "Nudeln"), ("rice", "Reis"), ("hand", "Burger & Wrap")]),
+      intro="Nudeln, Reis und Burrito: Jedes Gericht hat Käse oder kräftige Röstaromen, damit es ohne Salz schmeckt. Die Tomaten-Feta-Pasta ist der Joker, wenn du ein Mittagessen tauschen willst.",
+      filters=[("pasta", "Nudeln"), ("rice", "Reis"), ("hand", "Wrap")]),
  dict(id="shakes", name="Abend-Shakes", seg="Shakes", color="indigo", items=meals["abend"], avg=SA[2],
       intro='Jeden Abend 500 g Magerquark aus dem Shaker, das sind rund 70 g Protein. Vier Shakes mit je vier Sorten, jeder in 5 Minuten fertig. Du brauchst einen Shaker mit 1 Liter, in einen kleineren passt die halbe Menge zweimal hintereinander.',
       filters=[]),

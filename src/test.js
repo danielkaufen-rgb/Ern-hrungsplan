@@ -11,7 +11,7 @@ function ok(cond, msg){ if(!cond) fails.push(msg); else console.log('  ✓ ' + m
   page.on('pageerror', e => errs.push(e.message));
   await page.addInitScript(() => { if (!sessionStorage.getItem('seeded')) { localStorage.setItem('ep3-shop', JSON.stringify({'0': true, '5': true, '12': true})); sessionStorage.setItem('seeded', '1'); } });
   await page.goto(FILE);
-  ok((await page.textContent('#shopCount')) === '0 von 64', 'Alte Index-Häkchen werden ignoriert');
+  ok((await page.textContent('#shopCount')) === '0 von 61', 'Alte Index-Häkchen werden ignoriert');
   ok(await page.evaluate(() => Object.keys(JSON.parse(localStorage.getItem('ep3-shop'))).length) === 0, 'Alte Index-Häkchen werden aufgeräumt');
   const vis = async () => page.evaluate(() => { const p = [...document.querySelectorAll('.page')].filter(x => !x.hidden); return p.map(x => x.getAttribute('data-route')).join(','); });
   const cur = async () => page.evaluate(() => { const a = document.querySelector('.tabbar [aria-current="page"]'); return a && a.getAttribute('data-tab'); });
@@ -36,6 +36,10 @@ function ok(cond, msg){ if(!cond) fails.push(msg); else console.log('  ✓ ' + m
   await page.click('#seg [data-cat="mittagessen"]');
   await page.click('#pg-rezepte .cat[data-cat="mittagessen"] .chip[data-f="rice"]');
   ok((await page.$$eval('#pg-rezepte .cat[data-cat="mittagessen"] .rrow:not(.hide)', r => r.length)) === 2, 'Filter Reis zeigt 2');
+  await page.click('#pg-rezepte .cat[data-cat="mittagessen"] .chip[data-f="pasta"]');
+  ok((await page.$$eval('#pg-rezepte .cat[data-cat="mittagessen"] .rrow:not(.hide)', r => r.length)) === 4, 'Filter Nudeln zeigt 4');
+  await page.click('#pg-rezepte .cat[data-cat="mittagessen"] .chip[data-f="hand"]');
+  ok((await page.$$eval('#pg-rezepte .cat[data-cat="mittagessen"] .rrow:not(.hide)', r => r.length)) === 1, 'Filter Wrap zeigt 1');
   await page.click('#pg-rezepte .cat[data-cat="mittagessen"] .chip[data-f="all"]');
   await page.click('#seg [data-cat="suesses"]');
   ok((await page.$$eval('#pg-rezepte .cat[data-cat="suesses"] .rrow', r => r.length)) === 11, 'Süßes hat 11 Rezepte');
@@ -75,7 +79,7 @@ function ok(cond, msg){ if(!cond) fails.push(msg); else console.log('  ✓ ' + m
   // Einkauf
   await page.click('.tabbar [data-tab="einkauf"]');
   for (const i of [0, 3, 7, 20]) await page.locator('label.ck').nth(i).click();
-  ok((await page.textContent('#shopCount')) === '4 von 64', 'Einkauf 4 von 64');
+  ok((await page.textContent('#shopCount')) === '4 von 61', 'Einkauf 4 von 61');
   ok((await page.$$eval('.ck.done', x => x.length)) === 4, '4 Einträge durchgestrichen');
   await page.click('#hideDone');
   ok((await page.$$eval('.ck.done', x => x.filter(e => e.offsetParent !== null).length)) === 0, 'Erledigte ausgeblendet');
@@ -86,12 +90,12 @@ function ok(cond, msg){ if(!cond) fails.push(msg); else console.log('  ✓ ' + m
   await page.reload();
   await page.waitForTimeout(150);
   ok(await vis() === 'einkauf', 'Reload bleibt auf Einkauf');
-  ok((await page.textContent('#shopCount')) === '4 von 64', 'Einkauf nach Reload gespeichert');
+  ok((await page.textContent('#shopCount')) === '4 von 61', 'Einkauf nach Reload gespeichert');
   ok(await page.evaluate(() => document.getElementById('shopLists').classList.contains('hide-done')), 'Ausblenden gespeichert');
   ok(await page.evaluate(() => document.documentElement.getAttribute('data-theme')) === th, 'Theme gespeichert (' + th + ')');
   await page.click('#hideDone');
   await page.click('[data-reset="shop"]');
-  ok((await page.textContent('#shopCount')) === '0 von 64', 'Zurücksetzen');
+  ok((await page.textContent('#shopCount')) === '0 von 61', 'Zurücksetzen');
   // Schritte nach Reload + Ablauf
   await page.evaluate(() => { location.hash = 'r/m-maccheese'; });
   await page.waitForTimeout(100);
@@ -118,8 +122,16 @@ function ok(cond, msg){ if(!cond) fails.push(msg); else console.log('  ✓ ' + m
   ok(await page.$eval(S0, li => li.querySelectorAll('.sub.done').length === li.querySelectorAll('.sub').length - 1), 'Handgriffe nach Reload gespeichert');
   await page.click('[data-route="r/f-spiegelei"] .sreset');
   ok(await page.$eval(S0, li => li.querySelectorAll('.sub.done').length === 0), 'Zurücksetzen leert auch die Handgriffe');
+  // Neues Mittagessen statt Cheeseburger
+  await page.evaluate(() => { location.hash = 'r/m-paprika-hack'; });
+  await page.waitForTimeout(100);
+  ok(await vis() === 'r/m-paprika-hack', 'Paprika-Hack-Nudeln geöffnet');
+  ok((await page.textContent('[data-route="r/m-paprika-hack"] .sc')) === '0 von 7', 'Hack-Nudeln: 7 Schritte');
+  ok((await page.$$eval('[data-route="r/m-paprika-hack"] .sub', s => s.length)) >= 20, 'Hack-Nudeln: einzelne Handgriffe');
+  ok(!(await page.$('[data-route="r/m-cheeseburger"]')), 'Cheeseburger ist raus');
+  ok(!(await page.evaluate(() => /Cheeseburger|Pommes|Brötchen|Branntweinessig/.test(document.body.textContent))), 'Keine Reste vom Cheeseburger');
   // Alte Links
-  for (const [h, want] of [['#m-cheeseburger', 'r/m-cheeseburger'], ['#lecker-ohne-salz', 'w/lecker-ohne-salz'], ['#einkauf', 'einkauf'], ['#mittagessen', 'rezepte'], ['#shakes', 'rezepte'], ['#r/a-tuna-melt', 'heute'], ['#r/s-feta-dip', 'heute'], ['#r/a-schoko-shake', 'r/a-schoko-shake'], ['#woche', 'woche'], ['#x-schoko-quark-mousse-mit-beeren', 'r/x-schoko-quark-mousse-mit-beeren']]) {
+  for (const [h, want] of [['#m-gyros-bowl', 'r/m-gyros-bowl'], ['#r/m-cheeseburger', 'heute'], ['#lecker-ohne-salz', 'w/lecker-ohne-salz'], ['#einkauf', 'einkauf'], ['#mittagessen', 'rezepte'], ['#shakes', 'rezepte'], ['#r/a-tuna-melt', 'heute'], ['#r/s-feta-dip', 'heute'], ['#r/a-schoko-shake', 'r/a-schoko-shake'], ['#woche', 'woche'], ['#x-schoko-quark-mousse-mit-beeren', 'r/x-schoko-quark-mousse-mit-beeren']]) {
     await page.evaluate(h => { location.hash = h; }, h);
     await page.waitForTimeout(80);
     ok(await vis() === want, `Link ${h} -> ${want}`);
@@ -130,6 +142,8 @@ function ok(cond, msg){ if(!cond) fails.push(msg); else console.log('  ✓ ' + m
   await page.click('#days .day[data-day="4"]');
   ok((await page.textContent('#daySum .sum-l')).includes('Freitag'), 'Woche: Freitag gewählt');
   ok((await page.$$eval('#dayList .row', r => r.length)) === 3, 'Woche: 3 Mahlzeiten');
+  await page.click('#days .day[data-day="5"]');
+  ok((await page.textContent('#dayList')).includes('Paprika-Hack-Nudeln'), 'Woche: Samstag mit Paprika-Hack-Nudeln');
   // Alle Rezept-Links in Heute/Woche zeigen auf existierende Seiten
   const bad = await page.evaluate(() => {
     const routes = new Set([...document.querySelectorAll('.page')].map(p => p.dataset.route));
