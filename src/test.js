@@ -130,8 +130,15 @@ function ok(cond, msg){ if(!cond) fails.push(msg); else console.log('  ✓ ' + m
   ok((await page.$$eval('[data-route="r/m-paprika-hack"] .sub', s => s.length)) >= 20, 'Hack-Nudeln: einzelne Handgriffe');
   ok(!(await page.$('[data-route="r/m-cheeseburger"]')), 'Cheeseburger ist raus');
   ok(!(await page.evaluate(() => /Cheeseburger|Pommes|Brötchen|Branntweinessig/.test(document.body.textContent))), 'Keine Reste vom Cheeseburger');
+  // Burrito ohne Hähnchen, nur Airfryer
+  await page.evaluate(() => { location.hash = 'r/m-halloumi-burrito'; });
+  await page.waitForTimeout(100);
+  ok(await vis() === 'r/m-halloumi-burrito', 'Halloumi-Burrito geöffnet');
+  ok((await page.textContent('[data-route="r/m-halloumi-burrito"] .sc')) === '0 von 7', 'Halloumi-Burrito: 7 Schritte');
+  ok(!(await page.$eval('[data-route="r/m-halloumi-burrito"] ol.steps', ol => /Wasserkocher|Topf|Pfanne|Herd|Hähnchen|Linsen/.test(ol.textContent))), 'Halloumi-Burrito: nur Airfryer, ohne Hähnchen');
+  ok(!(await page.evaluate(() => /Hähnchen-Burrito|Hähnchen-Linsen|Rote Linsen/.test(document.body.textContent))), 'Keine Reste vom Hähnchen-Burrito');
   // Alte Links
-  for (const [h, want] of [['#m-gyros-bowl', 'r/m-gyros-bowl'], ['#r/m-cheeseburger', 'heute'], ['#lecker-ohne-salz', 'w/lecker-ohne-salz'], ['#einkauf', 'einkauf'], ['#mittagessen', 'rezepte'], ['#shakes', 'rezepte'], ['#r/a-tuna-melt', 'heute'], ['#r/s-feta-dip', 'heute'], ['#r/a-schoko-shake', 'r/a-schoko-shake'], ['#woche', 'woche'], ['#x-schoko-quark-mousse-mit-beeren', 'r/x-schoko-quark-mousse-mit-beeren']]) {
+  for (const [h, want] of [['#m-gyros-bowl', 'r/m-gyros-bowl'], ['#r/m-cheeseburger', 'heute'], ['#r/m-haehnchen-burrito', 'heute'], ['#lecker-ohne-salz', 'w/lecker-ohne-salz'], ['#einkauf', 'einkauf'], ['#mittagessen', 'rezepte'], ['#shakes', 'rezepte'], ['#r/a-tuna-melt', 'heute'], ['#r/s-feta-dip', 'heute'], ['#r/a-schoko-shake', 'r/a-schoko-shake'], ['#woche', 'woche'], ['#x-schoko-quark-mousse-mit-beeren', 'r/x-schoko-quark-mousse-mit-beeren']]) {
     await page.evaluate(h => { location.hash = h; }, h);
     await page.waitForTimeout(80);
     ok(await vis() === want, `Link ${h} -> ${want}`);
@@ -141,6 +148,7 @@ function ok(cond, msg){ if(!cond) fails.push(msg); else console.log('  ✓ ' + m
   await page.evaluate(() => { location.hash = 'woche'; });
   await page.click('#days .day[data-day="4"]');
   ok((await page.textContent('#daySum .sum-l')).includes('Freitag'), 'Woche: Freitag gewählt');
+  ok((await page.textContent('#dayList')).includes('Halloumi-Burrito'), 'Woche: Freitag mit Halloumi-Burrito');
   ok((await page.$$eval('#dayList .row', r => r.length)) === 3, 'Woche: 3 Mahlzeiten');
   await page.click('#days .day[data-day="5"]');
   ok((await page.textContent('#dayList')).includes('Paprika-Hack-Nudeln'), 'Woche: Samstag mit Paprika-Hack-Nudeln');

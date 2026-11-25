@@ -1,4 +1,4 @@
-"""Ernährungsplan, Wochenplan 6.10 (Datenteil).
+"""Ernährungsplan, Wochenplan 6.11 (Datenteil).
 Quellen: plan_src (Küchen-Grundlagen, Airfryer-Technik), mahlzeiten6.html (Rezepte, Woche, Einkauf), suesses4.html."""
 import re, sys, html, json
 from bs4 import BeautifulSoup
@@ -40,7 +40,7 @@ NUT = {  # kcal, Protein je 100 g
  'HON':(305,0.4),'SENF':(100,6),'ZIT':(30,0.5),'KOK':(90,0.9),'EMUS':(600,25),'BEER':(40,1.0),'KAK':(350,20),'KICH':(340,19),
  'RH':(210,20),'SKY':(63,11),'MIL':(47,3.4),'PAR':(398,33),'MOZ':(160,19.5),'KAE':(360,25),'FETA':(265,16),'HUE':(100,12.5),
  'TOR':(310,8.5),'SEE':(75,17),'KID':(105,7.5),'MAIS':(85,2.8),'BRK':(34,3),'CHA':(22,3),'WAL':(690,15),'BUT':(740,0.7),
- 'BAL':(90,0.5),'SPI':(20,2.5),'VZ':(395,0)}
+ 'BAL':(90,0.5),'SPI':(20,2.5),'VZ':(395,0),'HAL':(320,21)}
 NUT_ST = {'EI':(78,7),'BAN':(106,1.3),'APF':(72,0.6),'BRO':(138,5.4)}  # je Stück
 
 def nutrition(spec):
@@ -183,7 +183,7 @@ week_note = (f'Jeder Tag liegt zwischen {de(min(wk_k))} und {de(max(wk_k))} kcal
              '<strong>Zeitspar-Kombis:</strong> Die Bolognese am Montag doppelt kochen, dann ist der Dienstag in 10 Minuten erledigt. '
              'Montag und Dienstag gibt es warmes Porridge, die Overnight Oats für Donnerstag und Freitag setzt du am Mittwochabend an. '
              'Für den Beeren-Shake am Montag und Samstag stellst du die Beeren morgens zum Auftauen in den Kühlschrank. '
-             'Was von Champignons, Feta, Gouda, Brot und Bohnen übrig bleibt, frierst du ein. Bei jedem Eintrag der Einkaufsliste steht, wie lange er reicht. '
+             'Was von Champignons, Feta, Halloumi, Gouda, Brot und Bohnen übrig bleibt, frierst du ein. Bei jedem Eintrag der Einkaufsliste steht, wie lange er reicht. '
              '<strong>Wichtig:</strong> Hähnchen und Hack gleich nach dem Einkauf in Portionen einfrieren, was du nicht in den nächsten 1 bis 2 Tagen brauchst, '
              'und am Vorabend zum Auftauen in den Kühlschrank legen.')
 
@@ -298,10 +298,10 @@ vitamine = ("Ehrliche Bilanz für Frühstück, Mittagessen und Abend-Shake. Calc
  '<tr><td>Calcium</td><td><span class="pill ok">gedeckt</span></td><td>Quark, Skyr, Käse und Milch bringen rund 1.500 mg am Tag. Das ist viel, liegt aber deutlich unter der Obergrenze von 2.500 mg</td></tr>'
  '<tr><td>Vitamin B12</td><td><span class="pill ok">gedeckt</span></td><td>Quark, Skyr, Milch, Rindfleisch, Eier und Käse, mehr als das Doppelte des Bedarfs</td></tr>'
  '<tr><td>B-Vitamine gesamt</td><td><span class="pill ok">gedeckt</span></td><td>Haferflocken, Vollkornbrot, Quark, Milch, Hähnchen und Rindfleisch</td></tr>'
- '<tr><td>Folat</td><td><span class="pill ok">gedeckt</span></td><td>Quark, Tomaten, Paprika, Vollkornbrot, Eier, Brokkoli, Beeren, Bohnen und Linsen</td></tr>'
+ '<tr><td>Folat</td><td><span class="pill ok">gedeckt</span></td><td>Quark, Tomaten, Paprika, Vollkornbrot, Eier, Brokkoli, Beeren und Bohnen</td></tr>'
  '<tr><td><strong>Vitamin A</strong></td><td><span class="pill warn">knapp</span></td><td>Karotten, rote Paprika und Brokkoli, dazu Käse, Eier und Butter bringen knapp zwei Drittel. Fix: eine Karotte am Tag, roh oder gerieben ins Mittagessen</td></tr>'
- '<tr><td><strong>Ballaststoffe</strong></td><td><span class="pill warn">knapp</span></td><td>rund 22 g am Tag aus Haferflocken, Vollkornbrot, Bohnen, Linsen, Beeren, Gemüse und Obst, empfohlen sind 30 g. Fix: 1 Esslöffel geschroteter Leinsamen in den Shake, dazu die Karotte</td></tr>'
- '<tr><td><strong>Eisen und Zink</strong></td><td><span class="pill warn">knapp</span></td><td>Zink ist gedeckt, Eisen kommt auf knapp neun Zehntel: Rindfleisch, Haferflocken, Kakao, Vollkornbrot, Eier, Bohnen und Linsen. Fix: 1 Esslöffel Kürbiskerne über die Oats</td></tr>'
+ '<tr><td><strong>Ballaststoffe</strong></td><td><span class="pill warn">knapp</span></td><td>rund 22 g am Tag aus Haferflocken, Vollkornbrot, Bohnen, Beeren, Gemüse und Obst, empfohlen sind 30 g. Fix: 1 Esslöffel geschroteter Leinsamen in den Shake, dazu die Karotte</td></tr>'
+ '<tr><td><strong>Eisen und Zink</strong></td><td><span class="pill warn">knapp</span></td><td>Zink ist gedeckt, Eisen kommt auf knapp neun Zehntel: Rindfleisch, Haferflocken, Kakao, Vollkornbrot, Eier und Bohnen. Fix: 1 Esslöffel Kürbiskerne über die Oats</td></tr>'
  '<tr><td><strong>Kalium und Magnesium</strong></td><td><span class="pill warn">knapp</span></td><td>Magnesium ist gedeckt, Kalium kommt auf gut neun Zehntel: Quark, Bananen, passierte Tomaten, Haferflocken, Kakao und Bohnen. Fix: der Bananen-Shake öfter, eine Banane bringt gut 400 mg</td></tr>'
  '<tr><td><strong>Vitamin E</strong></td><td><span class="pill warn">knapp</span></td><td>Rapsöl, Paprika, Tomaten und Eier bringen knapp die Hälfte. Fix: 1 Esslöffel Sonnenblumenkerne oder gehackte Mandeln über die Oats</td></tr>'
  '<tr><td><strong>Jod</strong></td><td><span class="pill warn">Lücke</span></td><td>Ohne Jodsalz und ohne Seefisch die größte Lücke im Plan. Quark, Milch, Skyr, Käse und Eier bringen gut ein Drittel des Bedarfs. Fix: ein Jodpräparat, vorher mit Ärztin oder Arzt absprechen, oder ab und zu eine Portion Seelachs</td></tr>'
@@ -319,9 +319,9 @@ SCHNELL = ('<ul class="tricks">'
   '<li><b>Einmal kochen, zweimal essen.</b> Die Bolognese am Montag doppelt kochen. Am Dienstag nur Nudeln kochen und die Soße 5 Minuten aufwärmen.</li>'
   '<li><b>Frühstück am Vorabend.</b> Overnight Oats für zwei Tage auf einmal ansetzen, das dauert 5 Minuten.</li>'
   '<li><b>Tiefkühlgemüse ohne Schneiden.</b> Brokkoli kocht einfach mit den Nudeln mit, Mais kommt gefroren in die Pfanne.</li>'
-  '<li><b>Ein Topf, eine Pfanne.</b> Spiegelei, Rührei und die Paprika-Hack-Nudeln brauchen nur eine Pfanne, der Hähnchen-Burrito nur den Airfryer, das Porridge nur einen Topf, Mac &amp; Cheese Topf und Pfanne.</li>'
-  '<li><b>Der Airfryer arbeitet nebenher.</b> Während Hähnchen und Gemüse für den Burrito im Korb rösten, rührst du Dip und Salsa an. Dann ist alles gleichzeitig fertig.</li>'
-  '<li><b>Fleisch portionsweise einfrieren.</b> Hähnchen und Hack gleich nach dem Einkauf in Portionen von 80 bis 125 g einfrieren und am Vorabend in den Kühlschrank legen. Dann musst du nur noch schneiden.</li>'
+  '<li><b>Ein Topf, eine Pfanne.</b> Spiegelei, Rührei und die Paprika-Hack-Nudeln brauchen nur eine Pfanne, der Halloumi-Burrito nur den Airfryer, das Porridge nur einen Topf, Mac &amp; Cheese Topf und Pfanne.</li>'
+  '<li><b>Der Airfryer arbeitet nebenher.</b> Während Halloumi und Gemüse für den Burrito im Korb rösten, rührst du Bohnencreme, Dip und Salsa an. Dann ist alles gleichzeitig fertig.</li>'
+  '<li><b>Fleisch portionsweise einfrieren.</b> Hähnchen und Hack gleich nach dem Einkauf in Portionen von 100 bis 125 g einfrieren und am Vorabend in den Kühlschrank legen. Dann musst du nur noch schneiden.</li>'
   '</ul>')
 
 def info_card(icon, title, sub_, content, is_callout=False):
@@ -337,7 +337,7 @@ def slot_row(dot, name, kcal, prot, target):
             f'<span class="hv num">{kcal} <small>kcal</small></span><span class="hp num">{prot} Protein</span></a>')
 
 fk = [num(r["kcal"]) for r in meals["frueh"]]
-VORRAT_PRO_WOCHE = 14.70  # geschätzter Verbrauch aus Vorrat und Gewürzen pro Woche
+VORRAT_PRO_WOCHE = 15.35  # geschätzter Verbrauch aus Vorrat und Gewürzen pro Woche
 cost_week = weekly + VORRAT_PRO_WOCHE
 cost_day = round(cost_week / 7, 1)
 COST_WEEK_S, COST_DAY_S = de(cost_week), de(cost_day, 2)
@@ -346,15 +346,15 @@ shop_note = (f'<p class="note"><strong>Beim ersten Einkauf rund {de(first_buy)} 
              f'<strong>Echte Kosten: etwa {COST_WEEK_S} € pro Woche, also rund {COST_DAY_S} € am Tag.</strong> '
              'Das meiste Geld steckt in Quark, Skyr, Käse und Fleisch, also genau in dem, was den Geschmack und das Protein bringt.</p>'
              '<p class="note"><strong>Frisch halten:</strong> Hähnchen und Hack gleich nach dem Einkauf in Portionen einfrieren, was du nicht in den nächsten 1 bis 2 Tagen brauchst. '
-             'Was du nicht in 4 Tagen aufbrauchst, frierst du ein: Bohnen, passierte Tomaten, Champignons, Feta, Gouda, Brot und Wraps. Bei jedem Eintrag steht, wie lange er reicht.</p>'
+             'Was du nicht in 4 Tagen aufbrauchst, frierst du ein: Bohnen, passierte Tomaten, Champignons, Feta, Halloumi, Gouda, Brot und Wraps. Bei jedem Eintrag steht, wie lange er reicht.</p>'
              '<p class="note"><strong>Zwei echte Sparhebel:</strong> Hähnchen und Hack nur im Angebot kaufen und einfrieren. '
              'Und Skyr und Quark gibt es oft im Angebot, ungeöffnet halten sie mehrere Wochen.</p>')
 
-# ======================= Oberfläche im Apple-Stil (Wochenplan 6.10) =======================
+# ======================= Oberfläche im Apple-Stil (Wochenplan 6.11) =======================
 # Wird an den Datenteil (build6_data.py) angehängt. Rezepte, Mengen und Texte kommen aus den Quellen.
 from collections import defaultdict
 
-VERSION = "Wochenplan 6.10"
+VERSION = "Wochenplan 6.11"
 ICON_B64 = open("icon180.b64").read().strip()
 kueche = (kueche[0].replace("jede Anleitung weiter unten", "jede Anleitung in den Rezepten"), kueche[1], kueche[2])
 
